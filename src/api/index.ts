@@ -1,4 +1,4 @@
-import './loadEnv'
+import '../utils/config/loadEnv'
 
 const port = process.env.PORT ?? 8000
 
