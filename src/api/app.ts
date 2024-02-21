@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import cors from 'cors'
 import metamorphicTesting from './routes/MetamorphicTestingRoutes'
-import '../utils/config/loadEnv'
+import './utils/config/loadEnv'
 
 const app: Express = express()
 const API_VERSION = '/api/v1'

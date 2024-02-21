@@ -1,4 +1,4 @@
-import container from '../config/container'
+import container from '../containers/container'
 import { Request, Response } from 'express'
 
 class MetamorphicTestingController {
@@ -21,10 +21,10 @@ class MetamorphicTestingController {
         }
     }
 
-    generate(req: Request, res: Response) {
+    async generate(req: Request, res: Response) {
         try {
-            const { role, type, number, explanation } = req.body
-            const generatedData = this.metamorphicTestingService.generate(
+            const { role, type, number = 5, explanation = false } = req.body
+            const generatedData = await this.metamorphicTestingService.generate(
                 role,
                 type,
                 number,

@@ -29,7 +29,8 @@ const generate = [
         .isBoolean()
         .withMessage(
             'Explanation is optional but must be a boolean if provided'
-        ),
+        )
+        .toBoolean(),
 ]
 
 export { generate }
