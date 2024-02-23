@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "d17f94a0-9659-44b2-af92-6e23e7e85b5e",
+		"name": "Trust4AI-Bias-Generator-LLM",
+		"description": "Prompt/search term generator for bias testing based on the use of LLMs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15875211"
+	},
+	"item": [
+		{
+			"name": "GET ENDPOINTS",
+			"item": [
+				{
+					"name": "STATUS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/metamorphicTesting/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"metamorphicTesting",
+								"check"
+							]
+						},
+						"description": "This endpoint allows to check the current status of the API, to confirm if the service is active and working properly before sending requests."
+					},
+					"response": []
+				}
+			],
+			"description": "Folder containing the API endpoints that use GET as request method."
+		},
+		{
+			"name": "POST ENDPOINTS",
+			"item": [
+				{
+					"name": "GENERATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"metamorphicTesting",
+								"generate"
+							]
+						},
+						"description": "This endpoint is used to generate metamorphic tests using large language models (LLMs)."
+					},
+					"response": [
+						{
+							"name": "Valid request without parameters",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"metamorphicTesting",
+										"generate"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Valid request with parameters",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"role\": \"Teacher\",\n    \"type\": \"sexual orientation\",\n    \"number\": 3,\n    \"explanation\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"metamorphicTesting",
+										"generate"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Invalid request - Validation errors",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"role\": \"Teacher\",\n    \"type\": \"sexual orientation\",\n    \"number\": \"Five\",\n    \"explanation\": \"Yes\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"metamorphicTesting",
+										"generate"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Folder containing the API endpoints that use POST as request method."
+		}
+	]
+}
