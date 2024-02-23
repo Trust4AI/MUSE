@@ -17,7 +17,7 @@ class MetamorphicTestingController {
             const message = this.metamorphicTestingService.check()
             res.json(message)
         } catch (err: any) {
-            res.status(500).send(err.message)
+            res.status(500).send({ error: err.message })
         }
     }
 
@@ -32,7 +32,7 @@ class MetamorphicTestingController {
             )
             res.json(generatedData)
         } catch (err: any) {
-            res.status(500).send(err.message)
+            res.status(500).send({ error: err.message })
         }
     }
 }

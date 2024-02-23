@@ -27,7 +27,7 @@ class ChatGPTService extends LanguageModelService {
                     role: 'user',
                     content:
                         `Generate a total of ${number} ` +
-                        `${number == 1 ? 'test case' : 'test cases'}` +
+                        `${number === 1 ? 'test case' : 'test cases'}` +
                         '.',
                 },
             ],

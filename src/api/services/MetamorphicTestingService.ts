@@ -7,7 +7,7 @@ class MetamorphicTestingService {
     }
 
     check() {
-        return { message: 'Metamorphic Testing generator is working!' }
+        return { message: 'Metamorphic Testing generator is working properly!' }
     }
 
     async generate(
