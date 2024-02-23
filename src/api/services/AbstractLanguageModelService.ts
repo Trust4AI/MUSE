@@ -1,6 +1,4 @@
-import LanguageModelInterface from '../interfaces/LanguageModelInterface'
-
-abstract class LanguageModelService implements LanguageModelInterface {
+abstract class LanguageModelService {
     abstract request(
         role: string,
         type: string,

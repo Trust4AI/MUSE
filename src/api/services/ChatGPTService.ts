@@ -1,5 +1,5 @@
 import { systemMTGenerationPrompt } from '../utils/prompts/mtGenerationPrompt'
-import LanguageModelService from './LanguageModelService'
+import LanguageModelService from './AbstractLanguageModelService'
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
