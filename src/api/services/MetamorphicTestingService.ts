@@ -1,4 +1,5 @@
 import container from '../containers/container'
+import fs from 'fs'
 
 class MetamorphicTestingService {
     chatGPTService: any
@@ -16,11 +17,17 @@ class MetamorphicTestingService {
         number: number,
         explanation: boolean
     ) {
-        const response = await this.chatGPTService.request(
+        const response: JSON = await this.chatGPTService.request(
             role,
             type,
             number,
             explanation
+        )
+
+        const date = new Date().toISOString().replace(/:/g, '-')
+        fs.writeFileSync(
+            './output/' + date + '.json',
+            JSON.stringify(response, null, 4)
         )
         return response
     }

@@ -30,7 +30,7 @@ class MetamorphicTestingController {
                 number,
                 explanation
             )
-            res.json(generatedData)
+            res.send(generatedData)
         } catch (err: any) {
             res.status(500).send({ error: err.message })
         }

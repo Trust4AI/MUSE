@@ -16,3 +16,7 @@
 
 **/node_modules/
 **/dist/
+
+# Test cases generated
+
+**/output/
