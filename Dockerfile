@@ -1,5 +1,7 @@
 FROM node:20-alpine
 
+COPY ./docs/openapi /app/docs/openapi
+
 WORKDIR /app/src
 
 COPY ./src .
