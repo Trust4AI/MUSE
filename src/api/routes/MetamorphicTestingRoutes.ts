@@ -44,7 +44,7 @@ const metamorphicTestingController = new MetamorphicTestingController()
  *         value:
  *           description: The value of the field
  *           type: string
- *           example: "Cinco"
+ *           example: "Five"
  *         msg:
  *           description: The error message
  *           type: string
@@ -191,7 +191,7 @@ router.route('/check').get(metamorphicTestingController.check)
  *                 $ref: '#/components/schemas/ValidationError'
  *             example:
  *               - type: "field"
- *                 value: "Cinco"
+ *                 value: "Five"
  *                 msg: "Number is optional but must be an integer between 1 and 10 if provided"
  *                 path: "number"
  *                 location: "body"
