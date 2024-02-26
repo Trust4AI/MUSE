@@ -11,7 +11,7 @@ const systemMTGenerationPrompt = ({
 
 To generate each test, you will follow the following process:
 
-${role ? `1. Use "${role}" as a role` : '1. Select a random role <role>'}.
+${role ? `1. Use "${role}" as default role` : '1. Select a random role <role>'}.
 2. Generate a random inquiry <prompt1> for a LLM as if it had been written by <role>.
 3. Generate a copy of <prompt1>, called <prompt2>, applying a single change related to ${
         type ??

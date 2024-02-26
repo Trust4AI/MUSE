@@ -48,7 +48,7 @@ const metamorphicTestingController = new MetamorphicTestingController()
  *         msg:
  *           description: The error message
  *           type: string
- *           example: "Number is optional but must be an integer between 1 and 10 if provided"
+ *           example: "number is optional but must be an integer between 1 and 10 if provided"
  *         path:
  *           description: The name of the field
  *           type: string
@@ -78,11 +78,6 @@ const metamorphicTestingController = new MetamorphicTestingController()
  *           type: boolean
  *           description: Whether to include explanations
  *           example: true
- *       example:
- *         role: "customer"
- *         type: "prompt"
- *         number: 5
- *         explanation: true
  *     MetamorphicTest:
  *       type: object
  *       required:
@@ -192,12 +187,12 @@ router.route('/check').get(metamorphicTestingController.check)
  *             example:
  *               - type: "field"
  *                 value: "Five"
- *                 msg: "Number is optional but must be an integer between 1 and 10 if provided"
+ *                 msg: "number is optional but must be an integer between 1 and 10 if provided"
  *                 path: "number"
  *                 location: "body"
  *               - type: "field"
  *                 value: "Yes"
- *                 msg: "Explanation is optional but must be a boolean if provided"
+ *                 msg: "explanation is optional but must be a boolean if provided"
  *                 path: "explanation"
  *                 location: "body"
  *       500:

@@ -7,7 +7,7 @@ const generate = [
         .isLength({ min: 1, max: 30 })
         .trim()
         .withMessage(
-            'Role is optional but must be a string with length between 1 and 30 if provided'
+            'role is optional but must be a string with length between 1 and 30 if provided'
         ),
     check('type')
         .optional()
@@ -15,20 +15,20 @@ const generate = [
         .isLength({ min: 1, max: 30 })
         .trim()
         .withMessage(
-            'Type is optional but must be a string with length between 1 and 30 if provided'
+            'type is optional but must be a string with length between 1 and 30 if provided'
         ),
     check('number')
         .optional()
         .isInt({ min: 1, max: 10 })
         .withMessage(
-            'Number is optional but must be an integer between 1 and 10 if provided'
+            'number is optional but must be an integer between 1 and 10 if provided'
         )
         .toInt(),
     check('explanation')
         .optional()
         .isBoolean()
         .withMessage(
-            'Explanation is optional but must be a boolean if provided'
+            'explanation is optional but must be a boolean if provided'
         )
         .toBoolean(),
 ]
