@@ -7,7 +7,7 @@ const openai = new OpenAI({
 })
 
 class ChatGPTService extends LanguageModelService {
-    async request(
+    async generateTestCases(
         role: string,
         type: string,
         number: number,

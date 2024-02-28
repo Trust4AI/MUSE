@@ -1,5 +1,5 @@
 abstract class LanguageModelService {
-    abstract request(
+    abstract generateTestCases(
         role: string,
         type: string,
         number: number,

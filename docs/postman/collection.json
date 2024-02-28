@@ -16,7 +16,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/v1/metamorphicTesting/check",
+							"raw": "http://localhost:8000/api/v1/metamorphic-tests/check",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -25,7 +25,7 @@
 							"path": [
 								"api",
 								"v1",
-								"metamorphicTesting",
+								"metamorphic-tests",
 								"check"
 							]
 						},
@@ -38,7 +38,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphicTesting/check",
+									"raw": "http://localhost:8000/api/v1/metamorphic-tests/check",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -47,7 +47,7 @@
 									"path": [
 										"api",
 										"v1",
-										"metamorphicTesting",
+										"metamorphic-tests",
 										"check"
 									]
 								}
@@ -106,7 +106,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+							"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -115,7 +115,7 @@
 							"path": [
 								"api",
 								"v1",
-								"metamorphicTesting",
+								"metamorphic-tests",
 								"generate"
 							]
 						},
@@ -128,7 +128,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -137,7 +137,7 @@
 									"path": [
 										"api",
 										"v1",
-										"metamorphicTesting",
+										"metamorphic-tests",
 										"generate"
 									]
 								}
@@ -197,7 +197,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -206,7 +206,7 @@
 									"path": [
 										"api",
 										"v1",
-										"metamorphicTesting",
+										"metamorphic-tests",
 										"generate"
 									]
 								}
@@ -266,7 +266,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphicTesting/generate",
+									"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -275,7 +275,7 @@
 									"path": [
 										"api",
 										"v1",
-										"metamorphicTesting",
+										"metamorphic-tests",
 										"generate"
 									]
 								}
