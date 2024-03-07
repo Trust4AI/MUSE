@@ -4,13 +4,20 @@ import MetamorphicTestingRepository from '../repositories/MetamorphicTestingRepo
 
 import ChatGPTService from '../services/ChatGPTService'
 import MetamorphicTestingService from '../services/MetamorphicTestingService'
+import GeneratorService from '../services/GeneratorService'
 
-function initContainer() {
+function initContainer(generatorModel: string) {
     const container = createContainer()
+
+    const selectedGeneratorService =
+        generatorModel.toLowerCase() === 'chatgpt'
+            ? ChatGPTService
+            : GeneratorService
 
     container.register({
         metamorphicTestingRepository: asValue(MetamorphicTestingRepository),
         chatGPTService: asClass(ChatGPTService).singleton(),
+        generatorService: asClass(selectedGeneratorService).singleton(),
         metamorphicTestingService: asClass(
             MetamorphicTestingService
         ).singleton(),
@@ -18,6 +25,9 @@ function initContainer() {
     return container
 }
 
-const container = initContainer()
+let container: any = null
+if (!container) {
+    container = initContainer(process.env.GENERATOR_MODEL || 'ChatGPT')
+}
 
 export default container
