@@ -33,7 +33,7 @@ To deploy the Bias Generator Component locally, please follow these steps carefu
             OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
             NODE_ENV=local
             ```
-        2. For the use of **GEMMA**, fill in the `.env` file the `GENERATOR_MODEL` environment variable with `gemma` value. In case you want to use a deployed GEMMA instance, fill in the `.env` file the `GEMMA_HOST` environment variable with the host of the GEMMA instance, otherwise, leave it empty.
+        2. For the use of **GEMMA**, fill in the `.env` file the `GENERATOR_MODEL` environment variable with `gemma` value. In case you want to use a deployed GEMMA instance, add the `GEMMA_HOST` environment variable with the host of the GEMMA instance, otherwise, leave it empty.
 
             ```.env
             PORT=8000
