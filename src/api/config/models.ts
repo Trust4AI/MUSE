@@ -4,9 +4,9 @@ const models: { [name: string]: OllamaModel } = {
     gemma: {
         name: 'gemma:2b',
         host:
-            process.env.GEMMA_HOST || process.env.NODE_ENV === 'development'
-                ? 'http://localhost:11434'
-                : 'http://gemma:11434',
+            process.env.GEMMA_HOST || process.env.NODE_ENV === 'docker'
+                ? 'http://gemma:11434'
+                : 'http://localhost:11434',
     },
 }
 
