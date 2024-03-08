@@ -82,7 +82,7 @@ To deploy the Bias Generator Component locally, please follow these steps carefu
 To deploy the Bias Generator Component using Docker, please follow these steps carefully:
 
 1. Prepare the necessary environment variables:
-    1. Rename the `.env.local` file to `.env`.
+    1. Rename the `.env.docker` file to `.env`.
     2. Depending on the model you want to use for generation, you will have to follow specific steps:
         1. For the use of **ChatGPT**, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
 
