@@ -2,9 +2,9 @@ import container from '../containers/container'
 import { writeResponseToFile } from '../utils/files'
 
 class MetamorphicTestingService {
-    generatorService: any
+    chatGPTService: any
     constructor() {
-        this.generatorService = container.resolve('generatorService')
+        this.chatGPTService = container.resolve('chatGPTService')
     }
 
     check() {
@@ -17,7 +17,7 @@ class MetamorphicTestingService {
         number: number,
         explanation: boolean
     ) {
-        const response: JSON = await this.generatorService.generateTestCases(
+        const response: JSON = await this.chatGPTService.generateTestCases(
             role,
             type,
             number,

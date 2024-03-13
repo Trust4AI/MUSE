@@ -13,23 +13,6 @@ services:
       - .env
     networks:
       - trust4ai-bias-generator-llm-network
-  gemma:
-    container_name: gemma
-    image: gemma:latest
-    build: 
-      context: ./Ollama
-      dockerfile: Dockerfile.predefined-model
-      args:
-        MODEL_NAME: "gemma:2b"
-    ports:
-      - "11434:11434"
-    volumes:
-      - gemma_data:/root/.ollama
-    networks:
-      - trust4ai-bias-generator-llm-network
-
-volumes:
-  gemma_data:
 
 networks:
   trust4ai-bias-generator-llm-network:
