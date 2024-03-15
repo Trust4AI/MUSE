@@ -26,11 +26,13 @@ To deploy the Bias Generator Component locally, please follow these steps carefu
     1. Rename the `.env.local` file to `.env`.
     2. For the use of **ChatGPT** as generator model, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
 
-        ```.env
-        PORT=8000
-        OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
-        NODE_ENV=local
-        ```
+    The `.env` file should look like this:
+
+    ```.env
+    PORT=8000
+    OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+    NODE_ENV=local
+    ```
 
 2. Install the component dependencies:
     1. Ensure you have [Node.js](https://nodejs.org/en/download) installed on your system (version 16.x or newer is recommended). You can check your Node.js version by running `node -v` in your terminal.
@@ -68,11 +70,13 @@ To deploy the Bias Generator Component using Docker, please follow these steps c
     1. Rename the `.env.docker` file to `.env`.
     2. For the use of **ChatGPT** as generator model, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
 
-        ```.env
-        PORT=8000
-        OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
-        NODE_ENV=docker
-        ```
+    The `.env` file should look like this:
+
+    ```.env
+    PORT=8000
+    OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+    NODE_ENV=docker
+    ```
 
 2. Execute the following Docker Compose instruction to build and start the server:
 
