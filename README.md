@@ -81,7 +81,7 @@ To deploy the Bias Generator Component using Docker, please follow these steps c
 2. Execute the following Docker Compose instruction to build and start the server:
 
     ```bash
-    docker-compose up server -d
+    docker-compose up -d
     ```
 
 3. To verify that the Bias Generator Component is running, you can check the status of the server by running the following command:
