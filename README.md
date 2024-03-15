@@ -24,32 +24,15 @@ To deploy the Bias Generator Component locally, please follow these steps carefu
 
 1. Prepare the necessary environment variables:
     1. Rename the `.env.local` file to `.env`.
-    2. Depending on the model you want to use for generation, you will have to follow specific steps:
-        1. For the use of **ChatGPT**, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
+    2. For the use of **ChatGPT** as generator model, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
 
-            ```.env
-            PORT=8000
-            GENERATOR_MODEL=ChatGPT
-            OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
-            NODE_ENV=local
-            ```
-        2. For the use of **GEMMA**, fill in the `.env` file the `GENERATOR_MODEL` environment variable with `gemma` value. In case you want to use a deployed GEMMA instance, add the `GEMMA_HOST` environment variable with the host of the GEMMA instance, otherwise, leave it empty.
+        ```.env
+        PORT=8000
+        OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+        NODE_ENV=local
+        ```
 
-            ```.env
-            PORT=8000
-            GENERATOR_MODEL=gemma
-            GEMMA_HOST=<GEMMA_HOST>
-            OPENAI_API_KEY=
-            NODE_ENV=local
-            ```
-
-2. (If applicable) To use **GEMMA** as local generator model, you need to execute the following Docker Compose instruction to deploy a instance:
-
-    ```bash
-    docker-compose up gemma -d
-    ```
-
-3. Install the component dependencies:
+2. Install the component dependencies:
     1. Ensure you have [Node.js](https://nodejs.org/en/download) installed on your system (version 16.x or newer is recommended). You can check your Node.js version by running `node -v` in your terminal.
     2. Navigate to the `src` directory and install the required dependencies:
 
@@ -58,20 +41,20 @@ To deploy the Bias Generator Component locally, please follow these steps carefu
         npm install
         ```
 
-4. Compile the source code and start the server:
+3. Compile the source code and start the server:
 
     ```bash
     npm run build
     npm start
     ```
 
-5. To verify that the Bias Generator Component is running, you can check the status of the server by running the following command:
+4. To verify that the Bias Generator Component is running, you can check the status of the server by running the following command:
 
     ```bash
     curl -X GET "http://localhost:8000/api/v1/metamorphic-tests/check" -H  "accept: application/json"
     ```
 
-6. Finally, you can access the API documentation by visiting the following URL in your web browser:
+5. Finally, you can access the API documentation by visiting the following URL in your web browser:
 
     ```
     http://localhost:8000/api/v1/metamorphic-tests/docs
@@ -83,34 +66,15 @@ To deploy the Bias Generator Component using Docker, please follow these steps c
 
 1. Prepare the necessary environment variables:
     1. Rename the `.env.docker` file to `.env`.
-    2. Depending on the model you want to use for generation, you will have to follow specific steps:
-        1. For the use of **ChatGPT**, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
+    2. For the use of **ChatGPT** as generator model, fill in the `.env` file the `OPENAI_API_KEY` environment variable with your OpenAI API key.
 
-            ```.env
-            PORT=8000
-            GENERATOR_MODEL=ChatGPT
-            OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
-            NODE_ENV=docker
-            ```
-        2. For the use of **GEMMA**, fill in the `.env` file the `GENERATOR_MODEL` environment variable with `gemma` value. In case you want to use a deployed GEMMA instance, fill in the `.env` file the `GEMMA_HOST` environment variable with the host of the GEMMA instance, otherwise, leave it empty.
+        ```.env
+        PORT=8000
+        OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+        NODE_ENV=docker
+        ```
 
-            ```.env
-            PORT=8000
-            GENERATOR_MODEL=gemma
-            GEMMA_HOST=<GEMMA_HOST>
-            OPENAI_API_KEY=
-            NODE_ENV=docker
-            ```
-
-2. Depending on the model you want to use for generation, the command to execute to launch the component may vary.
-
-    1. If you want to use **GEMMA** as local generator model, you need to execute the following Docker Compose instruction:
-
-    ```bash
-    docker-compose up server gemma -d
-    ```
-
-    2. Otherwise, if you want to use **ChatGPT** as generator model, you need to execute the following Docker Compose instruction:
+2. Execute the following Docker Compose instruction to build and start the server:
 
     ```bash
     docker-compose up server -d
