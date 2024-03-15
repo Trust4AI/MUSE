@@ -23,10 +23,10 @@ class MetamorphicTestingController {
 
     async generate(req: Request, res: Response) {
         try {
-            const { role, type, number = 5, explanation = false } = req.body
+            const { role, biasType, number = 5, explanation = false } = req.body
             const generatedData = await this.metamorphicTestingService.generate(
                 role,
-                type,
+                biasType,
                 number,
                 explanation
             )

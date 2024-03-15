@@ -1,5 +1,5 @@
 export type SystemMTPromptParams = {
     role?: string
-    type?: string
+    biasType?: string
     explanation?: boolean
 }

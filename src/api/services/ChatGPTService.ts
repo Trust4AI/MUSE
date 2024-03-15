@@ -9,7 +9,7 @@ const openai = new OpenAI({
 class ChatGPTService extends LanguageModelService {
     async generateTestCases(
         role: string,
-        type: string,
+        biasType: string,
         number: number,
         explanation: boolean
     ): Promise<JSON> {
@@ -19,7 +19,7 @@ class ChatGPTService extends LanguageModelService {
                     role: 'system',
                     content: systemMTGenerationPrompt({
                         role,
-                        type,
+                        biasType,
                         explanation,
                     }),
                 },

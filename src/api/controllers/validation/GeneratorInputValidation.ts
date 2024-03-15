@@ -9,13 +9,13 @@ const generate = [
         .withMessage(
             'role is optional but must be a string with length between 1 and 30 if provided'
         ),
-    check('type')
+    check('biasType')
         .optional()
         .isString()
         .isLength({ min: 1, max: 30 })
         .trim()
         .withMessage(
-            'type is optional but must be a string with length between 1 and 30 if provided'
+            'biasType is optional but must be a string with length between 1 and 30 if provided'
         ),
     check('number')
         .optional()

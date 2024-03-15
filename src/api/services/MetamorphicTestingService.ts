@@ -13,13 +13,13 @@ class MetamorphicTestingService {
 
     async generate(
         role: string,
-        type: string,
+        biasType: string,
         number: number,
         explanation: boolean
     ) {
         const response: JSON = await this.chatGPTService.generateTestCases(
             role,
-            type,
+            biasType,
             number,
             explanation
         )

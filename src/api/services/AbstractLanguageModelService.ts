@@ -1,7 +1,7 @@
 abstract class LanguageModelService {
     abstract generateTestCases(
         role: string,
-        type: string,
+        biasType: string,
         number: number,
         explanation: boolean
     ): Promise<JSON>
