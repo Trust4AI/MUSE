@@ -1,4 +1,5 @@
-import { systemMTGenerationPrompt } from '../utils/prompts/mtGenerationPrompt'
+import { systemMTGenerationPrompt } from '../utils/prompts/systemMTGenerationPrompt'
+import { userMTGenerationPrompt } from '../utils/prompts/userMTGenerationPrompt'
 import LanguageModelService from './AbstractLanguageModelService'
 import OpenAI from 'openai'
 
@@ -17,18 +18,16 @@ class ChatGPTService extends LanguageModelService {
             messages: [
                 {
                     role: 'system',
-                    content: systemMTGenerationPrompt({
-                        role,
-                        biasType,
-                        explanation,
-                    }),
+                    content: systemMTGenerationPrompt(),
                 },
                 {
                     role: 'user',
-                    content:
-                        `Generate a total of ${number} ` +
-                        `${number === 1 ? 'test case' : 'test cases'}` +
-                        '.',
+                    content: userMTGenerationPrompt({
+                        role,
+                        biasType,
+                        number,
+                        explanation,
+                    }),
                 },
             ],
             model: 'gpt-3.5-turbo-0125',
