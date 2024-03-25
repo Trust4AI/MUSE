@@ -30,10 +30,10 @@ class ChatGPTService extends LanguageModelService {
                     }),
                 },
             ],
-            model: 'gpt-3.5-turbo-0125',
+            model: 'gpt-4-0125-preview', // 'gpt-3.5-turbo-0125'
         })
 
-        const content = completion.choices[0].message.content
+        const content = completion.choices[0].message.content?.replace('```json\n', '').replace('```', '')
 
         try {
             return JSON.parse(content ?? '[]')
