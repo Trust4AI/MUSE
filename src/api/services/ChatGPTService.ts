@@ -33,7 +33,9 @@ class ChatGPTService extends LanguageModelService {
             model: 'gpt-4-0125-preview', // 'gpt-3.5-turbo-0125'
         })
 
-        const content = completion.choices[0].message.content?.replace('```json\n', '').replace('```', '')
+        const content = completion.choices[0].message.content
+            ?.replace('```json\n', '')
+            .replace('```', '')
 
         try {
             return JSON.parse(content ?? '[]')
