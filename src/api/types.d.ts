@@ -1,4 +1,4 @@
-export type UserMTGenerationPromptParams = {
+export type UserGenerationPromptParams = {
     role?: string
     biasType?: string
     number?: number

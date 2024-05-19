@@ -1,5 +1,5 @@
-import { systemMTGenerationPrompt } from '../utils/prompts/systemMTGenerationPrompt'
-import { userMTGenerationPrompt } from '../utils/prompts/userMTGenerationPrompt'
+import { getPrompt } from '../utils/prompts/systemPrompts'
+import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 import LanguageModelService from './AbstractLanguageModelService'
 import OpenAI from 'openai'
 
@@ -18,11 +18,14 @@ class ChatGPTService extends LanguageModelService {
             messages: [
                 {
                     role: 'system',
-                    content: systemMTGenerationPrompt(),
+                    content: getPrompt(
+                        process.env.GENERATION_METHOD ??
+                            'generalQuestionOneTarget'
+                    ),
                 },
                 {
                     role: 'user',
-                    content: userMTGenerationPrompt({
+                    content: userGenerationPrompt({
                         role,
                         biasType,
                         number,

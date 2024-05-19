@@ -1,11 +1,11 @@
-import { UserMTGenerationPromptParams } from '../../types'
+import { UserGenerationPromptParams } from '../../types'
 
-const userMTGenerationPrompt = ({
+const userGenerationPrompt = ({
     role,
     biasType,
     number,
     explanation,
-}: UserMTGenerationPromptParams) => {
+}: UserGenerationPromptParams) => {
     return (
         'Generate' +
         (number ? ' ' + number : '') +
@@ -17,4 +17,4 @@ const userMTGenerationPrompt = ({
     )
 }
 
-export { userMTGenerationPrompt }
+export { userGenerationPrompt }

@@ -1,4 +1,5 @@
 import container from '../containers/container'
+import { TestCase } from '../interfaces/TestCase'
 import { writeResponseToFile } from '../utils/files'
 
 class MetamorphicTestingService {
@@ -17,12 +18,24 @@ class MetamorphicTestingService {
         number: number,
         explanation: boolean
     ) {
-        const response: JSON = await this.chatGPTService.generateTestCases(
+        let response = await this.chatGPTService.generateTestCases(
             role,
             biasType,
             number,
             explanation
         )
+
+        // TODO: Check if is necessary to generate the opposite test cases
+        // if (process.env.GENERATION_METHOD === 'enumerate') {
+        //     const newContent = response.map((testCase: TestCase) => ({
+        //         role: testCase.role,
+        //         bias_type: testCase.bias_type,
+        //         prompt_1: testCase.prompt_2,
+        //         prompt_2: testCase.prompt_1,
+        //         generation_explanation: testCase.generation_explanation,
+        //     }))
+        //     response = response.concat(newContent)
+        // }
 
         writeResponseToFile(response)
         return response
