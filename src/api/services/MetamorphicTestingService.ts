@@ -1,5 +1,4 @@
 import container from '../containers/container'
-import { TestCase } from '../interfaces/TestCase'
 import { writeResponseToFile } from '../utils/files'
 
 class MetamorphicTestingService {
@@ -16,13 +15,17 @@ class MetamorphicTestingService {
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean
+        explanation: boolean,
+        generationMethod: string,
+        generatorModel: string
     ) {
         let response = await this.chatGPTService.generateTestCases(
             role,
             biasType,
             number,
-            explanation
+            explanation,
+            generationMethod,
+            generatorModel
         )
 
         // TODO: Check if is necessary to generate the opposite test cases

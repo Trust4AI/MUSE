@@ -9,7 +9,7 @@ const generate = [
         .withMessage(
             'role is optional but must be a string with length between 1 and 30 if provided'
         ),
-    check('biasType')
+    check('bias_type')
         .optional()
         .isString()
         .isLength({ min: 1, max: 30 })
@@ -31,6 +31,27 @@ const generate = [
             'explanation is optional but must be a boolean if provided'
         )
         .toBoolean(),
+    check('generation_method')
+        .optional()
+        .isString()
+        .isIn([
+            'generalQuestionOneTarget',
+            'generalQuestionTwoTargets',
+            'topNQuestion',
+            'hypotheticalScenario',
+            'properNames',
+            'metal',
+        ])
+        .withMessage(
+            'generationMethod is optional but must be a string with one of the following values if provided: generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal'
+        ),
+    check('generator_model')
+        .optional()
+        .isString()
+        .isIn(['gpt-4-0125-preview', 'gpt-3.5-turbo-0125'])
+        .withMessage(
+            'generatorModel is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125'
+        ),
 ]
 
 export { generate }

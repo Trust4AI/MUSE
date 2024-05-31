@@ -12,16 +12,15 @@ class ChatGPTService extends LanguageModelService {
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean
+        explanation: boolean,
+        generationMethod: string,
+        generatorModel: string
     ): Promise<JSON> {
         const completion = await openai.chat.completions.create({
             messages: [
                 {
                     role: 'system',
-                    content: getPrompt(
-                        process.env.GENERATION_METHOD ??
-                            'generalQuestionOneTarget'
-                    ),
+                    content: getPrompt(generationMethod),
                 },
                 {
                     role: 'user',
@@ -33,7 +32,7 @@ class ChatGPTService extends LanguageModelService {
                     }),
                 },
             ],
-            model: 'gpt-4-0125-preview', // 'gpt-3.5-turbo-0125'
+            model: generatorModel,
         })
 
         const content = completion.choices[0].message.content

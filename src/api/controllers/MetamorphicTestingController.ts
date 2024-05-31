@@ -28,13 +28,19 @@ class MetamorphicTestingController {
                 bias_type,
                 number = 5,
                 explanation = false,
+                generation_method = 'generalQuestionOneTarget',
+                generator_model = 'gpt-4-0125-preview',
             } = req.body
             const biasType = bias_type
+            const generationMethod = generation_method
+            const generatorModel = generator_model
             const generatedData = await this.metamorphicTestingService.generate(
                 role,
                 biasType,
                 number,
-                explanation
+                explanation,
+                generationMethod,
+                generatorModel
             )
             res.send(generatedData)
         } catch (err: any) {
