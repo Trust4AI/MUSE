@@ -40,7 +40,8 @@ class MetamorphicTestingService {
         //     response = response.concat(newContent)
         // }
 
-        writeResponseToFile(response)
+        //TODO: Review if it is necessary to write the response to a file
+        //writeResponseToFile(response)
         return response
     }
 }
