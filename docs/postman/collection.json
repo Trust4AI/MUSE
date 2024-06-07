@@ -781,15 +781,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "797"
+									"value": "799"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"31d-p/G6F3/h4b7eJHsWoBXPKffsT4w\""
+									"value": "W/\"31f-Ld54+mxDYGGd6tz2HnOH6a/05A0\""
 								},
 								{
 									"key": "Date",
-									"value": "Fri, 07 Jun 2024 08:26:50 GMT"
+									"value": "Fri, 07 Jun 2024 10:09:09 GMT"
 								},
 								{
 									"key": "Connection",
@@ -801,7 +801,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"type\": \"field\",\n        \"value\": \"Five\",\n        \"msg\": \"number is optional but must be an integer between 1 and 10 if provided\",\n        \"path\": \"number\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"Yes\",\n        \"msg\": \"explanation is optional but must be a boolean if provided\",\n        \"path\": \"explanation\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"Strategy 1\",\n        \"msg\": \"generationMethod is optional but must be a string with one of the following values if provided: generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal\",\n        \"path\": \"generation_method\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"My model\",\n        \"msg\": \"generatorModel is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125\",\n        \"path\": \"generator_model\",\n        \"location\": \"body\"\n    }\n]"
+							"body": "[\n    {\n        \"type\": \"field\",\n        \"value\": \"Five\",\n        \"msg\": \"number is optional but must be an integer between 1 and 10 if provided\",\n        \"path\": \"number\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"Yes\",\n        \"msg\": \"explanation is optional but must be a boolean if provided\",\n        \"path\": \"explanation\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"Strategy 1\",\n        \"msg\": \"generation_method is optional but must be a string with one of the following values if provided: generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal\",\n        \"path\": \"generation_method\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"My model\",\n        \"msg\": \"generator_model is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125\",\n        \"path\": \"generator_model\",\n        \"location\": \"body\"\n    }\n]"
 						}
 					]
 				}
