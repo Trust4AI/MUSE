@@ -1,10 +1,11 @@
 import container from '../containers/container'
-import { writeResponseToFile } from '../utils/files'
 
 class MetamorphicTestingService {
-    chatGPTService: any
+    generationModelService: any
     constructor() {
-        this.chatGPTService = container.resolve('chatGPTService')
+        this.generationModelService = container.resolve(
+            'generationModelService'
+        )
     }
 
     check() {
@@ -19,7 +20,7 @@ class MetamorphicTestingService {
         generationMethod: string,
         generatorModel: string
     ) {
-        let response = await this.chatGPTService.generateTestCases(
+        let response = await this.generationModelService.generateTestCases(
             role,
             biasType,
             number,
@@ -27,18 +28,6 @@ class MetamorphicTestingService {
             generationMethod,
             generatorModel
         )
-
-        // TODO: Check if is necessary to generate the opposite test cases
-        // if (process.env.GENERATION_METHOD === 'enumerate') {
-        //     const newContent = response.map((testCase: TestCase) => ({
-        //         role: testCase.role,
-        //         bias_type: testCase.bias_type,
-        //         prompt_1: testCase.prompt_2,
-        //         prompt_2: testCase.prompt_1,
-        //         generation_explanation: testCase.generation_explanation,
-        //     }))
-        //     response = response.concat(newContent)
-        // }
 
         //TODO: Review if it is necessary to write the response to a file
         //writeResponseToFile(response)

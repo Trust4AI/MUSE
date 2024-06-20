@@ -48,9 +48,14 @@ const generate = [
     check('generator_model')
         .optional()
         .isString()
-        .isIn(['gpt-4-0125-preview', 'gpt-3.5-turbo-0125'])
+        .isIn([
+            'gpt-4-0125-preview',
+            'gpt-3.5-turbo-0125',
+            'llama3-8b',
+            'gemma-7b',
+        ])
         .withMessage(
-            'generator_model is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125'
+            'generator_model is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125, llama3-8b, gemma-7b'
         ),
 ]
 

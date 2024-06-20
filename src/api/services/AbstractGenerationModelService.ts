@@ -1,4 +1,4 @@
-abstract class LanguageModelService {
+abstract class AbstractGenerationModelService {
     abstract generateTestCases(
         role: string,
         biasType: string,
@@ -9,4 +9,4 @@ abstract class LanguageModelService {
     ): Promise<JSON>
 }
 
-export default LanguageModelService
+export default AbstractGenerationModelService
