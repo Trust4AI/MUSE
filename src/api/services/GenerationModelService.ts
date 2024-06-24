@@ -1,5 +1,9 @@
+import { Ajv } from 'ajv'
 import container from '../containers/container'
+import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
 import AbstractGenerationModelService from './AbstractGenerationModelService'
+
+const ajv = new Ajv()
 
 const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '5', 10)
 
@@ -56,7 +60,19 @@ class GenerationModelService extends AbstractGenerationModelService {
                     content = content.slice(startIndex, endIndex + 1)
                 }
                 const jsonContent = JSON.parse(content ?? '[]')
+
+                const validate = ajv.compile(generatorResponseValidation)
+
                 if (jsonContent.length > 0) {
+                    for (const testCase of jsonContent) {
+                        if (!validate(testCase)) {
+                            throw new Error(
+                                `Invalid response from model: ${JSON.stringify(
+                                    validate.errors
+                                )}`
+                            )
+                        }
+                    }
                     return jsonContent
                 }
             } catch (error) {
