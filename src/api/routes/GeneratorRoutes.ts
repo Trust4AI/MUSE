@@ -1,10 +1,10 @@
 import express from 'express'
-import MetamorphicTestingController from '../controllers/MetamorphicTestingController'
+import GeneratorController from '../controllers/GeneratorController'
 import * as GeneratorInputValidation from '../controllers/validation/GeneratorInputValidation'
 import { handleValidation } from '../middlewares/ValidationMiddleware'
 
 const router = express.Router()
-const metamorphicTestingController = new MetamorphicTestingController()
+const generatorController = new GeneratorController()
 
 /**
  * @swagger
@@ -162,7 +162,7 @@ const metamorphicTestingController = new MetamorphicTestingController()
  *             example:
  *               error: Internal Server Error
  */
-router.route('/check').get(metamorphicTestingController.check)
+router.route('/check').get(generatorController.check)
 
 /**
  * @swagger
@@ -233,7 +233,7 @@ router
     .post(
         GeneratorInputValidation.generate,
         handleValidation,
-        metamorphicTestingController.generate
+        generatorController.generate
     )
 
 export default router

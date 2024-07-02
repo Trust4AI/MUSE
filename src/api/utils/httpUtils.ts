@@ -1,0 +1,28 @@
+const sendRequestToExecutor = async (
+    host: string,
+    requestBody: object
+): Promise<string> => {
+    let response: Response
+
+    try {
+        response = await fetch(`${host}/models/execute`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        })
+    } catch (error: any) {
+        throw new Error(`[GENERATOR] Executor fetch error: ${error.message}`)
+    }
+
+    if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(
+            `[GENERATOR] Failed to send request to executor: ${errorData.error}`
+        )
+    }
+    return response.json().then((res) => res.response)
+}
+
+export { sendRequestToExecutor }

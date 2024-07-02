@@ -1,6 +1,25 @@
 import { check } from 'express-validator'
+import { generatorModels } from '../../config/generatorModels'
+import { generationMethods } from '../../config/generationMethods'
 
 const generate = [
+    check('generator_model')
+        .isString()
+        .isIn(generatorModels)
+        .withMessage(
+            `generator_model is optional but must be a string with one of the following values if provided: ${generatorModels.join(
+                ', '
+            )}`
+        ),
+    check('generation_method')
+        .optional()
+        .isString()
+        .isIn(generationMethods)
+        .withMessage(
+            `generation_method is optional but must be a string with one of the following values if provided: ${generationMethods.join(
+                ', '
+            )}`
+        ),
     check('role')
         .optional()
         .isString()
@@ -19,9 +38,9 @@ const generate = [
         ),
     check('number')
         .optional()
-        .isInt({ min: 1, max: 10 })
+        .isInt({ min: 1, max: 8 })
         .withMessage(
-            'number is optional but must be an integer between 1 and 10 if provided'
+            'number is optional but must be an integer between 1 and 8 if provided'
         )
         .toInt(),
     check('explanation')
@@ -31,32 +50,6 @@ const generate = [
             'explanation is optional but must be a boolean if provided'
         )
         .toBoolean(),
-    check('generation_method')
-        .optional()
-        .isString()
-        .isIn([
-            'generalQuestionOneTarget',
-            'generalQuestionTwoTargets',
-            'topNQuestion',
-            'hypotheticalScenario',
-            'properNames',
-            'metal',
-        ])
-        .withMessage(
-            'generation_method is optional but must be a string with one of the following values if provided: generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal'
-        ),
-    check('generator_model')
-        .optional()
-        .isString()
-        .isIn([
-            'gpt-4-0125-preview',
-            'gpt-3.5-turbo-0125',
-            'llama3-8b',
-            'gemma-7b',
-        ])
-        .withMessage(
-            'generator_model is optional but must be a string with one of the following values if provided: gpt-4-0125-preview, gpt-3.5-turbo-0125, llama3-8b, gemma-7b'
-        ),
 ]
 
 export { generate }

@@ -3,17 +3,17 @@ import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY || '',
 })
 
 class OpenAIGPTGenerationModelService {
     async generateTestCases(
+        generatorModel: string,
+        generationMethod: string,
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean,
-        generationMethod: string,
-        generatorModel: string
+        explanation: boolean
     ): Promise<string> {
         const completion = await openai.chat.completions.create({
             messages: [
@@ -34,9 +34,11 @@ class OpenAIGPTGenerationModelService {
             model: generatorModel,
         })
         const content = completion.choices[0].message.content
-            ?.replace('```json\n', '')
-            .replace('```', '')
-        return content ?? '[]'
+        if (content) {
+            return content
+        }
+
+        throw new Error('[GENERATOR] No content found in OpenAI GPT response')
     }
 }
 

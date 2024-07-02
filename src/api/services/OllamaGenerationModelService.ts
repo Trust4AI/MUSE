@@ -1,20 +1,20 @@
-import container from '../containers/container'
-import { CustomModelResponse } from '../interfaces/CustomModelResponse'
+import { sendRequestToExecutor } from '../utils/httpUtils'
+import { debugLog } from '../utils/logUtils'
 import { getPrompt } from '../utils/prompts/systemPrompts'
 import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 
 class OllamaGenerationModelService {
     async generateTestCases(
+        generatorModel: string,
+        generationMethod: string,
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean,
-        generationMethod: string,
-        generatorModel: string
+        explanation: boolean
     ): Promise<string> {
-        const endpoint =
-            process.env.EXECUTOR_COMPONENT_HOST + '/v1/models/execute'
-        const httpClient = container.resolve('httpClient')
+        const host =
+            process.env.EXECUTOR_COMPONENT_HOST ||
+            'http://localhost:8081/api/v1'
 
         const requestBody = {
             user_prompt: userGenerationPrompt({
@@ -30,15 +30,19 @@ class OllamaGenerationModelService {
             response_max_length: -1,
         }
 
-        const response: string = await httpClient
-            .post(endpoint, requestBody)
-            .then((res: CustomModelResponse) => res.response)
-            .catch((error: any) => {
-                console.error('Error posting to executor component:', error)
-                return 'Error posting to executor component'
-            })
-
-        return response
+        try {
+            const response: string = await sendRequestToExecutor(
+                host,
+                requestBody
+            )
+            debugLog('Request sent to executor successfully!', 'info')
+            debugLog('Response from executor: ' + response, 'info')
+            return response
+        } catch (error: any) {
+            debugLog('Error sending request!', 'error')
+            debugLog(error, 'error')
+            throw new Error(error.message)
+        }
     }
 }
 

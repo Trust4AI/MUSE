@@ -2,7 +2,7 @@ import swaggerjsdoc from 'swagger-jsdoc'
 import yaml from 'yaml'
 import fs from 'fs'
 
-const port = process.env.PORT || 8000
+const port: string = process.env.PORT || '8000'
 const swaggerJsDoc = swaggerjsdoc
 
 const swaggerOptions = {
@@ -29,7 +29,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ['./api/routes/MetamorphicTestingRoutes.ts'],
+    apis: ['./api/routes/GeneratorRoutes.ts'],
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
