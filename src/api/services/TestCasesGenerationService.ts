@@ -1,4 +1,4 @@
-import { Ajv } from 'ajv'
+import { Ajv, ValidateFunction } from 'ajv'
 import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
 import { openAIModels } from '../config/generatorModels'
@@ -11,7 +11,7 @@ const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '5', 10)
 class TestCasesGenerationService {
     openAIGPTGenerationModelService: any
     ollamaGenerationModelService: any
-    validate: any
+    validate: ValidateFunction
     constructor() {
         this.openAIGPTGenerationModelService = container.resolve(
             'openAIGPTGenerationModelService'

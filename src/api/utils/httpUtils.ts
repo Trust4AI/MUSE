@@ -13,7 +13,9 @@ const sendRequestToExecutor = async (
             body: JSON.stringify(requestBody),
         })
     } catch (error: any) {
-        throw new Error(`[GENERATOR] Executor fetch error: ${error.message}`)
+        throw new Error(
+            `[GENERATOR] Executor fetch error when sending request to executor: ${error.message}`
+        )
     }
 
     if (!response.ok) {

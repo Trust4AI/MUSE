@@ -7,7 +7,7 @@ const generate = [
         .isString()
         .isIn(generatorModels)
         .withMessage(
-            `generator_model is optional but must be a string with one of the following values if provided: ${generatorModels.join(
+            `generator_model must be a string with one of the following values: ${generatorModels.join(
                 ', '
             )}`
         ),
