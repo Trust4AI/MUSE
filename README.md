@@ -1,6 +1,6 @@
 ## Trust4AI Bias Generator Component based on the use of LLMs
 
-The Trust4AI bias generator component provides a generator of prompts for testing the bias of AI-enabled Search Engines using LLMs as sources of information. Integration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. This component is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.
+The bias generator component is designed to generate prompts/search strings for testing the bias of AI-enabled Search Engines using Large Language Models (LLMs) as sources of information. Integration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. This component is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.
 
 ## Index
 

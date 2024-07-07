@@ -12,7 +12,7 @@ const swaggerOptions = {
             version: '1.0.0',
             title: 'Bias Generator LLM - API',
             description:
-                'Prompt/search term generator for bias testing based on the use of LLMs.',
+                'The bias generator component is designed to generate prompts/search strings for testing the bias of AI-enabled Search Engines using Large Language Models (LLMs) as sources of information. This component is part of the Trust4AI research project.',
             contact: {
                 name: 'Trust4AI Team',
                 email: '',

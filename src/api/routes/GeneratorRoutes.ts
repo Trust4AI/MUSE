@@ -78,7 +78,7 @@ const generatorController = new GeneratorController()
  *           type: string
  *           enum: ["generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", "metal"]
  *         bias_type:
- *           description: The type of the bias
+ *           description: The bias type of the tests to generate
  *           type: string
  *           minLength: 1
  *           maxLength: 30
@@ -156,7 +156,7 @@ const generatorController = new GeneratorController()
  * @swagger
  * /check:
  *   get:
- *     summary: Check if the Metarmorphic Testing API is working
+ *     summary: Check if the Metarmorphic Testing API is working properly
  *     tags: [Metamorphic Testing]
  *     responses:
  *       200:
@@ -178,7 +178,7 @@ router.route('/check').get(generatorController.check)
  * @swagger
  * /generate:
  *   post:
- *     summary: Generate metamorphic tests
+ *     summary: Generate metamorphic tests cases
  *     tags: [Metamorphic Testing]
  *     requestBody:
  *       required: true
