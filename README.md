@@ -117,7 +117,7 @@ Once the component is deployed, requests can be sent to it via the `POST /metamo
 
 - `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/trust4ai-bias-generator-llm/blob/main/src/api/config/generatorModels.ts).
 - `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", and "metal". The default value is "generalQuestionOneTarget".
-- `bias_type`: Option string indicating the bias type the tests to generate.
+- `bias_type`: Optional string indicating the bias type of the tests to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test.
 
