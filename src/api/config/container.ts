@@ -1,24 +1,22 @@
 import { createContainer, asClass } from 'awilix'
 
-import MetamorphicTestingService from '../services/MetamorphicTestingService'
-import GenerationModelService from '../services/GenerationModelService'
-import HttpClient from '../services/HttpClient'
+import GeneratorBaseService from '../services/GeneratorBaseService'
 import OllamaGenerationModelService from '../services/OllamaGenerationModelService'
 import OpenAIGPTGenerationModelService from '../services/OpenAIGPTGenerationModelService'
+import TestCasesGenerationService from '../services/TestCasesGenerationService'
 
 function initContainer() {
     const container = createContainer()
 
     container.register({
-        metamorphicTestingService: asClass(
-            MetamorphicTestingService
+        generatorBaseService: asClass(GeneratorBaseService).singleton(),
+        testCasesGenerationService: asClass(
+            TestCasesGenerationService
         ).singleton(),
-        generationModelService: asClass(GenerationModelService).singleton(),
-        httpClient: asClass(HttpClient).singleton(),
-        openAIGPTGenerationModel: asClass(
+        openAIGPTGenerationModelService: asClass(
             OpenAIGPTGenerationModelService
         ).singleton(),
-        ollamaGenerationModel: asClass(
+        ollamaGenerationModelService: asClass(
             OllamaGenerationModelService
         ).singleton(),
     })
