@@ -1,7 +1,7 @@
 import { Ajv, ValidateFunction } from 'ajv'
 import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
-import { openAIModels } from '../config/generatorModels'
+import { geminiModels, openAIModels } from '../config/generatorModels'
 import { debugLog } from '../utils/logUtils'
 
 const ajv = new Ajv()
@@ -10,11 +10,15 @@ const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '5', 10)
 
 class TestCasesGenerationService {
     openAIGPTGenerationModelService: any
+    geminiGenerationModelService: any
     ollamaGenerationModelService: any
     validate: ValidateFunction
     constructor() {
         this.openAIGPTGenerationModelService = container.resolve(
             'openAIGPTGenerationModelService'
+        )
+        this.geminiGenerationModelService = container.resolve(
+            'geminiGenerationModelService'
         )
         this.ollamaGenerationModelService = container.resolve(
             'ollamaGenerationModelService'
@@ -76,9 +80,13 @@ class TestCasesGenerationService {
     }
 
     private getModelService(generatorModel: string) {
-        return openAIModels.includes(generatorModel)
-            ? this.openAIGPTGenerationModelService
-            : this.ollamaGenerationModelService
+        if (openAIModels.includes(generatorModel)) {
+            return this.openAIGPTGenerationModelService
+        } else if (geminiModels.includes(generatorModel)) {
+            return this.geminiGenerationModelService
+        } else {
+            return this.ollamaGenerationModelService
+        }
     }
 
     private async validateTestCase(jsonContent: any): Promise<void> {
