@@ -1,7 +1,7 @@
 {
-  "name": "trust4ai-bias-generator-llm",
+  "name": "muse",
   "version": "1.0.0",
-  "description": "Prompt/search term generator for bias testing based on the use of LLMs.",
+  "description": "MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases.",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Trust4AI/trust4ai-bias-generator-llm.git"
+    "url": "git+https://github.com/Trust4AI/MUSE.git"
   },
   "author": "Trust4AI",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/Trust4AI/trust4ai-bias-generator-llm/issues"
+    "url": "https://github.com/Trust4AI/MUSE/issues"
   },
-  "homepage": "https://github.com/Trust4AI/trust4ai-bias-generator-llm#readme",
+  "homepage": "https://github.com/Trust4AI/MUSE#readme",
   "dependencies": {
     "@google/generative-ai": "0.14.1",
     "ajv": "8.16.0",

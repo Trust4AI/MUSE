@@ -10,9 +10,9 @@ const swaggerOptions = {
         openapi: '3.1.0',
         info: {
             version: '1.0.0',
-            title: 'Bias Generator LLM - API',
+            title: 'MUSE: AI-driven Metamorphic Testing Inputs Generator',
             description:
-                'The bias generator component is designed to generate prompts/search strings for testing the bias of AI-enabled Search Engines using Large Language Models (LLMs) as sources of information. This component is part of the Trust4AI research project.',
+                'MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases.',
             contact: {
                 name: 'Trust4AI Team',
                 email: '',
@@ -20,7 +20,7 @@ const swaggerOptions = {
             },
             license: {
                 name: 'GNU General Public License v3.0',
-                url: 'https://github.com/Trust4AI/trust4ai-bias-generator-llm/blob/main/LICENSE',
+                url: 'https://github.com/Trust4AI/MUSE/blob/main/LICENSE',
             },
         },
         servers: [

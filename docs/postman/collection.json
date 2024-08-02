@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "8071f011-d997-47f8-9994-53ac31433960",
-		"name": "Trust4AI-Bias-Generator-LLM",
-		"description": "Prompt/search term generator for bias testing based on the use of LLMs.",
+		"name": "MUSE: AI-driven Metamorphic Testing Inputs Generator",
+		"description": "MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15875211"
 	},

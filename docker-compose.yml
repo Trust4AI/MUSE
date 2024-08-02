@@ -2,8 +2,8 @@ version: '3'
 
 services:
   server:
-    container_name: trust4ai-bias-generator-llm
-    image: trust4ai-bias-generator-llm:latest
+    container_name: muse
+    image: muse:latest
     build: 
       context: .
       dockerfile: Dockerfile
@@ -12,8 +12,8 @@ services:
     env_file:
       - .env
     networks:
-      - trust4ai-bias-generator-llm-network
+      - muse-network
 
 networks:
-  trust4ai-bias-generator-llm-network:
+  muse-network:
     driver: bridge
