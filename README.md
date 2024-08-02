@@ -37,7 +37,7 @@ MUSE can be deployed in two main ways: locally and using Docker. Each method has
 
 ### i. Local deployment
 
-Local deployment is ideal for development and testing purposes. It allows you to run the component on your local machine, making debugging and modifying the code easier.
+Local deployment is ideal for development and testing purposes. It allows you to run the tool on your local machine, making debugging and modifying the code easier.
 
 #### Pre-requirements
 
@@ -65,7 +65,7 @@ To deploy MUSE locally, please follow these steps carefully:
     npm start
     ```
 
-4. To verify that the component is running, you can check the status of the server by running the following command.
+4. To verify that the tool is running, you can check the status of the server by running the following command.
 
     ```bash
     curl -X GET "http://localhost:8000/api/v1/metamorphic-tests/check" -H  "accept: application/json"
@@ -79,7 +79,7 @@ To deploy MUSE locally, please follow these steps carefully:
 
 ### ii. Docker deployment
 
-Docker deployment is recommended for production environments as it provides a consistent and scalable way to run the component. Docker containers encapsulate all dependencies, ensuring the component runs reliably across different environments.
+Docker deployment is recommended for production environments as it provides a consistent and scalable way to run the tool. Docker containers encapsulate all dependencies, ensuring that it runs reliably across different environments.
 
 #### Pre-requirements
 
@@ -99,7 +99,7 @@ To deploy MUSE using Docker, please follow these steps carefully.
     docker-compose up -d
     ```
 
-3. To verify that the component is running, you can check the status of the server by running the following command.
+3. To verify that the tool is running, you can check the status of the server by running the following command.
 
     ```bash
     curl -X GET "http://localhost:8000/api/v1/metamorphic-tests/check" -H  "accept: application/json"
@@ -205,7 +205,7 @@ The expected response could be:
 This JSON response includes a list of generated test cases. Each test case contains the following: `role`, which refers to the role related to the generated questions (e.g., Teacher, Engineer); `bias_type`, which indicates the type of bias being tested (e.g., Gender, Sexual Orientation); `prompt_1` and `prompt_2`, which are the two versions of the question, one generic and one with a specific attribute (e.g., genderqueer, pansexual); `attribute`, which specifies the specific attribute added in the second prompt; and `generation_explanation`, which provides context on why the prompts are designed this way and what biases are being tested.
 
 > [!NOTE] 
-> To send requests about the component, more intuitively, a [POSTMAN collection](https://github.com/Trust4AI/MUSE/blob/main/docs/postman/collection.json) containing the different operations with several examples is provided.
+> To send requests to MUSE, more intuitively, a [POSTMAN collection](https://github.com/Trust4AI/MUSE/blob/main/docs/postman/collection.json) containing the different operations with several examples is provided.
 
 <p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
 
