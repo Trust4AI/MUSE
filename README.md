@@ -1,6 +1,8 @@
-## Trust4AI Bias Generator Component based on the use of LLMs
+## MUSE: AI-driven Metamorphic Testing Inputs Generator
 
-The bias generator component is designed to generate prompts/search strings for testing the bias of AI-enabled Search Engines using Large Language Models (LLMs) as sources of information. Integration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. This component is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.
+MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases. This tool complements [GENIE](https://github.com/Trust4AI/GENIE), which manages communication with LLMs, and [GUARD-ME](https://github.com/Trust4AI/GUARD-ME), which checks for bias in responses from the systems under test.
+
+Integration options include a Docker image that launches a REST API with interactive documentation, simplifying its use and integration into various systems. MUSE is part of the [Trust4AI](https://trust4ai.github.io/trust4ai/) research project.
 
 ## Index
 
@@ -9,7 +11,7 @@ The bias generator component is designed to generate prompts/search strings for 
    1. [Local deployment](#i-local-deployment)
    2. [Docker deployment](#ii-docker-deployment)
 3. [Usage](#3-usage)
-   1. [Valid request using _generalQuestionOneTarget_ as generation method](#i-valid-request-using-generalquestiononetarget-as-generation-method)
+   1. [Request using _generalQuestionOneTarget_ as generation method](#i-request-using-generalquestiononetarget-as-generation-method)
 4. [License and funding](#4-license-and-funding)
 
 ## 1. Repository structure
@@ -24,14 +26,14 @@ This repository is structured as follows:
 -  `Dockerfile`: This file is a script containing a series of instructions and commands used to build a Docker image.
 -  `docker-compose.yml`: This YAML file allows you to configure application services, networks, and volumes in a single file, facilitating the orchestration of containers.
 
-<p align="right">[⬆️ <a href="#trust4ai-bias-generator-component-based-on-the-use-of-llms">Back to top</a>]</p>
+<p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
 
 ## 2. Deployment
 
-The component can be deployed in two main ways: locally and using Docker. Each method has specific requirements and steps to ensure a smooth and successful deployment. This section provides detailed instructions for both deployment methods, ensuring you can choose the one that best fits your environment and use case.
+MUSE can be deployed in two main ways: locally and using Docker. Each method has specific requirements and steps to ensure a smooth and successful deployment. This section provides detailed instructions for both deployment methods, ensuring you can choose the one that best fits your environment and use case.
 
 > [!IMPORTANT]  
-> If you want to make use of an open-source model for test case generation, you will need to deploy the [execution component](https://github.com/Trust4AI/executor-component) first.
+> If you want to make use of an open-source model for test case generation, you will need to deploy [GENIE](https://github.com/Trust4AI/GENIE) first.
 
 ### i. Local deployment
 
@@ -45,10 +47,10 @@ Before you begin, ensure you have the following software installed on your machi
 
 #### Steps
 
-To deploy the component using Docker, please follow these steps carefully:
+To deploy MUSE locally, please follow these steps carefully:
 
 1. Rename the `.env.template` file to `.env`.
-   - In case you want to use an OpenAI model as a generator, fill the `OPENAI_API_KEY` environment variable in this file  with your OpenAI API key.
+   - In case you want to use an OpenAI or Gemini model as a generator, fill the `OPENAI_API_KEY` or `GEMINI_API_KEY` environment variables in this file with your respective API keys.
 2. Navigate to the `src` directory and install the required dependencies.
 
      ```bash
@@ -87,10 +89,10 @@ Ensure you have the following software installed on your machine:
 
 #### Steps
 
-To deploy the component using Docker, please follow these steps carefully.
+To deploy MUSE using Docker, please follow these steps carefully.
 
 1. Rename the `.env.template` file to `.env`.
-   - In case you want to use an OpenAI model as a generator, fill the `OPENAI_API_KEY` environment variable in this file  with your OpenAI API key.
+   - In case you want to use an OpenAI or Gemini model as a generator, fill the `OPENAI_API_KEY` or `GEMINI_API_KEY` environment variables in this file with your respective API keys.
 2. Execute the following Docker Compose instruction:
 
     ```bash
@@ -109,13 +111,13 @@ To deploy the component using Docker, please follow these steps carefully.
     http://localhost:8000/api/v1/metamorphic-tests/docs
     ```
 
-<p align="right">[⬆️ <a href="#trust4ai-bias-generator-component-based-on-the-use-of-llms">Back to top</a>]</p>
+<p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
 
 ## 3. Usage
 
-Once the component is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
+Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
-- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/trust4ai-bias-generator-llm/blob/main/src/api/config/generatorModels.ts).
+- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/generatorModels.ts).
 - `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", and "metal". The default value is "generalQuestionOneTarget".
 - `bias_type`: Optional string indicating the bias type of the tests to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
@@ -123,7 +125,7 @@ Once the component is deployed, requests can be sent to it via the `POST /metamo
 
 In case everything works correctly, a JSON array will be returned, where each JSON object will represent a test case.
 
-### i. Valid request using _generalQuestionOneTarget_ as generation method
+### i. Request using _generalQuestionOneTarget_ as generation method
 
 Here is an example of a valid request using the _generalQuestionOneTarget_ generation method. In this request, the `generator_model` is set to "llama3-8b," which specifies the model to be used. The `generation_method` is set to _generalQuestionOneTarget_, the number of tests to generate is set to 5, and the `explanation` is set to true to include an explanation for each test case.
 
@@ -203,9 +205,9 @@ The expected response could be:
 This JSON response includes a list of generated test cases. Each test case contains the following: `role`, which refers to the role related to the generated questions (e.g., Teacher, Engineer); `bias_type`, which indicates the type of bias being tested (e.g., Gender, Sexual Orientation); `prompt_1` and `prompt_2`, which are the two versions of the question, one generic and one with a specific attribute (e.g., genderqueer, pansexual); `attribute`, which specifies the specific attribute added in the second prompt; and `generation_explanation`, which provides context on why the prompts are designed this way and what biases are being tested.
 
 > [!NOTE] 
-> To send requests about the component, more intuitively, a [POSTMAN collection](https://github.com/Trust4AI/trust4ai-bias-generator-llm/blob/main/docs/postman/collection.json) containing the different operations with several examples is provided.
+> To send requests about the component, more intuitively, a [POSTMAN collection](https://github.com/Trust4AI/MUSE/blob/main/docs/postman/collection.json) containing the different operations with several examples is provided.
 
-<p align="right">[⬆️ <a href="#trust4ai-bias-generator-component-based-on-the-use-of-llms">Back to top</a>]</p>
+<p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
 
 ## 4. License and funding
 
@@ -218,4 +220,4 @@ Funded by the European Union. Views and opinions expressed are however those of 
 <img src="https://github.com/Trust4AI/trust4ai/blob/main/funding_logos/EU_funding_logo.png" width="200">
 </p>
 
-<p align="right">[⬆️ <a href="#trust4ai-bias-generator-component-based-on-the-use-of-llms">Back to top</a>]</p>
+<p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
