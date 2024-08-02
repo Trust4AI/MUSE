@@ -79,7 +79,7 @@ To deploy MUSE locally, please follow these steps carefully:
 
 ### ii. Docker deployment
 
-Docker deployment is recommended for production environments as it provides a consistent and scalable way to run the tool. Docker containers encapsulate all dependencies, ensuring that it runs reliably across different environments.
+Docker deployment is recommended for production environments as it provides a consistent and scalable way of running applications. Docker containers encapsulate all dependencies, ensuring the tool runs reliably across different environments.
 
 #### Pre-requirements
 
