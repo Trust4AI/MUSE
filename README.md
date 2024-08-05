@@ -1,3 +1,7 @@
+<div align = center>
+   <img src="https://github.com/Trust4AI/MUSE/blob/assets/MUSE_logo.png?raw=true" width="150" />
+</div>
+
 ## MUSE: AI-driven Metamorphic Testing Inputs Generator
 
 MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases. This tool complements [GENIE](https://github.com/Trust4AI/GENIE), which manages communication with LLMs, and [GUARD-ME](https://github.com/Trust4AI/GUARD-ME), which checks for bias in responses from the systems under test.
@@ -13,6 +17,7 @@ Integration options include a Docker image that launches a REST API with interac
 3. [Usage](#3-usage)
    1. [Request using _generalQuestionOneTarget_ as generation method](#i-request-using-generalquestiononetarget-as-generation-method)
 4. [License and funding](#4-license-and-funding)
+   1. [Logo credits](#logo-credits)
 
 ## 1. Repository structure
 
@@ -219,5 +224,9 @@ Funded by the European Union. Views and opinions expressed are however those of 
 <img src="https://github.com/Trust4AI/trust4ai/blob/main/funding_logos/NGI_Search-rgb_Plan-de-travail-1-2048x410.png" width="400">
 <img src="https://github.com/Trust4AI/trust4ai/blob/main/funding_logos/EU_funding_logo.png" width="200">
 </p>
+
+### Logo credits
+
+The logo image was created with the assistance of [DALL·E 3](https://openai.com/index/dall-e-3/).
 
 <p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
