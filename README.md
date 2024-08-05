@@ -227,6 +227,6 @@ Funded by the European Union. Views and opinions expressed are however those of 
 
 ### Logo credits
 
-The logo image was created with the assistance of [DALL·E 3](https://openai.com/index/dall-e-3/).
+The MUSE logo image was created with the assistance of [DALL·E 3](https://openai.com/index/dall-e-3/).
 
 <p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
