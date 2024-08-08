@@ -5,12 +5,14 @@ import OllamaGenerationModelService from '../services/OllamaGenerationModelServi
 import OpenAIGPTGenerationModelService from '../services/OpenAIGPTGenerationModelService'
 import TestCasesGenerationService from '../services/TestCasesGenerationService'
 import GeminiGenerationModelService from '../services/GeminiGenerationModelService'
+import ModelBaseService from '../services/ModelBaseService'
 
 function initContainer() {
     const container = createContainer()
 
     container.register({
         generatorBaseService: asClass(GeneratorBaseService).singleton(),
+        modelBaseService: asClass(ModelBaseService).singleton(),
         testCasesGenerationService: asClass(
             TestCasesGenerationService
         ).singleton(),

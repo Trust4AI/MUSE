@@ -18,7 +18,7 @@ const generatorController = new GeneratorController()
  *         message:
  *           type: string
  *       example:
- *         message: Metamorphic Testing generator is working properly!
+ *         message: The generator routes are working properly!
  *     Error:
  *       type: object
  *       required:
@@ -154,9 +154,9 @@ const generatorController = new GeneratorController()
 
 /**
  * @swagger
- * /check:
+ * /metamorphic-tests/check:
  *   get:
- *     summary: Check if the Metarmorphic Testing API is working properly
+ *     summary: Check if the generator routes are working properly
  *     tags: [Metamorphic Testing]
  *     responses:
  *       200:
@@ -176,7 +176,7 @@ router.route('/check').get(generatorController.check)
 
 /**
  * @swagger
- * /generate:
+ * /metamorphic-tests/generate:
  *   post:
  *     summary: Generate metamorphic tests cases
  *     tags: [Metamorphic Testing]

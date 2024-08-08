@@ -1,24 +1,32 @@
 import { check } from 'express-validator'
-import { generatorModels } from '../../config/generatorModels'
 import { generationMethods } from '../../config/generationMethods'
+import { getGeneratorModelsList } from '../../utils/modelUtils'
 
 const generate = [
     check('generator_model')
         .isString()
-        .isIn(generatorModels)
-        .withMessage(
-            `generator_model must be a string with one of the following values: ${generatorModels.join(
-                ', '
-            )}`
-        ),
+        .trim()
+        .custom(async (value) => {
+            const generatorModels = await getGeneratorModelsList()
+            if (value) {
+                if (!generatorModels.includes(value)) {
+                    throw new Error(
+                        `generator_model must be a string, if provided, with one of the following values: [${generatorModels.join(
+                            ', '
+                        )}].`
+                    )
+                }
+            }
+            return true
+        }),
     check('generation_method')
         .optional()
         .isString()
         .isIn(generationMethods)
         .withMessage(
-            `generation_method is optional but must be a string with one of the following values if provided: ${generationMethods.join(
+            `generation_method is optional but must be a string with one of the following values if provided: [${generationMethods.join(
                 ', '
-            )}`
+            )}]`
         ),
     check('role')
         .optional()

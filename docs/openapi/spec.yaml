@@ -13,11 +13,110 @@ info:
     name: GNU General Public License v3.0
     url: https://github.com/Trust4AI/MUSE/blob/main/LICENSE
 servers:
-  - url: http://localhost:8000/api/v1/metamorphic-tests/
+  - url: http://localhost:8000/api/v1/
 paths:
-  /check:
+  /models/check:
     get:
-      summary: Check if the Metarmorphic Testing API is working properly
+      summary: Check if the model routes are working properly
+      tags:
+        - Models
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+        "500":
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /models:
+    get:
+      summary: Get the list of the generator models configured in MUSE
+      tags:
+        - Models
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneratorModelListFormat"
+        "500":
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Add a new generator model to MUSE configuration
+      tags:
+        - Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeneratorModel"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneratorModel"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ValidationError"
+        "500":
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/models/judge/{id}":
+    delete:
+      summary: Remove a generator model from MUSE configuration
+      tags:
+        - Models
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The unique identifier of the model
+          schema:
+            type: string
+            example: mistral-7b
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+        "404":
+          description: Model not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /metamorphic-tests/check:
+    get:
+      summary: Check if the generator routes are working properly
       tags:
         - Metamorphic Testing
       responses:
@@ -33,7 +132,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /generate:
+  /metamorphic-tests/generate:
     post:
       summary: Generate metamorphic tests cases
       tags:
@@ -77,7 +176,7 @@ components:
         message:
           type: string
       example:
-        message: Metamorphic Testing generator is working properly!
+        message: The generator routes are working properly!
     Error:
       type: object
       required:
@@ -122,6 +221,55 @@ components:
         msg: number is optional but must be an integer between 1 and 8 if provided
         path: number
         location: body
+    GeneratorModel:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the model
+          example: gpt-4-0125-preview
+        category:
+          type: string
+          description: The category of the model
+          enum:
+            - openai
+            - gemini
+            - ollama
+          example: openai
+      example:
+        id: gpt-4-0125-preview
+        category: openai
+    GeneratorModelListFormat:
+      type: object
+      properties:
+        openai:
+          type: array
+          description: The list of OpenAI models
+          items:
+            type: string
+        gemini:
+          type: array
+          description: The list of Gemini models
+          items:
+            type: string
+        ollama:
+          type: array
+          description: The list of Ollama models
+          items:
+            type: string
+      example:
+        openai:
+          - gpt-4-0125-preview
+          - gpt-3.5-turbo-0125
+        gemini:
+          - gemini-1.0-pro
+          - gemini-1.5-flash
+          - gemini-1.5-pro
+        ollama:
+          - gemma-7b
+          - lamma3-8b
     GenerationInput:
       type: object
       required:
@@ -225,4 +373,5 @@ components:
           the response. Staying up-to-date with industry trends is essential for
           any software engineer, regardless of their gender identity.
 tags:
+  - name: Models
   - name: Metamorphic Testing

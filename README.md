@@ -79,7 +79,7 @@ To deploy MUSE locally, please follow these steps carefully:
 5. Finally, you can access the API documentation by visiting the following URL in your web browser.
 
     ```
-    http://localhost:8000/api/v1/metamorphic-tests/docs
+    http://localhost:8000/api/v1/docs
     ```
 
 ### ii. Docker deployment
@@ -113,7 +113,7 @@ To deploy MUSE using Docker, please follow these steps carefully.
 4. Finally, you can access the API documentation by visiting the following URL in your web browser.
 
     ```
-    http://localhost:8000/api/v1/metamorphic-tests/docs
+    http://localhost:8000/api/v1/docs
     ```
 
 <p align="right">[⬆️ <a href="#muse-ai-driven-metamorphic-testing-inputs-generator">Back to top</a>]</p>
@@ -122,11 +122,14 @@ To deploy MUSE using Docker, please follow these steps carefully.
 
 Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
-- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/generatorModels.ts).
+- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
 - `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", and "metal". The default value is "generalQuestionOneTarget".
 - `bias_type`: Optional string indicating the bias type of the tests to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test.
+
+> [!NOTE] 
+> Instead of adding the generator models manually to the configuration file, it is also possible to add the models using the API once the tool is running. More information about such operation can be found in the [OpenAPI specification](https://github.com/Trust4AI/MUSE/blob/main/docs/openapi/spec.yaml).
 
 In case everything works correctly, a JSON array will be returned, where each JSON object will represent a test case.
 

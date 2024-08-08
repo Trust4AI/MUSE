@@ -10,7 +10,7 @@ class GeneratorBaseService {
     }
 
     check() {
-        return { message: 'Metamorphic Testing generator is working properly!' }
+        return { message: 'The generator routes are working properly!' }
     }
 
     async generate(

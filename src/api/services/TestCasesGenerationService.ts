@@ -1,7 +1,7 @@
 import { Ajv, ValidateFunction } from 'ajv'
 import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
-import { geminiModels, openAIModels } from '../config/generatorModels'
+import { getGeneratorModels } from '../utils/modelUtils'
 import { debugLog } from '../utils/logUtils'
 
 const ajv = new Ajv()
@@ -40,7 +40,8 @@ class TestCasesGenerationService {
         while (attempts < MAX_RETRIES) {
             try {
                 const modelService = this.getModelService(generatorModel)
-                content = await modelService.generateTestCases(
+                const resolvedModelService = await modelService
+                content = await resolvedModelService.generateTestCases(
                     generatorModel,
                     generationMethod,
                     role,
@@ -79,7 +80,10 @@ class TestCasesGenerationService {
         throw new Error(generationError.message)
     }
 
-    private getModelService(generatorModel: string) {
+    private async getModelService(generatorModel: string) {
+        const geminiModels = await getGeneratorModels('gemini')
+        const openAIModels = await getGeneratorModels('openai')
+
         if (openAIModels.includes(generatorModel)) {
             return this.openAIGPTGenerationModelService
         } else if (geminiModels.includes(generatorModel)) {
