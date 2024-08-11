@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "20675097-cef5-43f3-87ea-37a6b482482d",
+		"_postman_id": "ff0e18b9-6e82-4623-910b-8edef7676733",
 		"name": "MUSE: AI-driven Metamorphic Testing Inputs Generator",
 		"description": "MUSE generates test inputs for testing the bias of AI-enabled Search Engines. It leverages the capabilities of Large Language Models (LLMs) to create a wide range of source and follow-up test cases.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -1385,15 +1385,15 @@
 										},
 										{
 											"key": "Content-Length",
-											"value": "948"
+											"value": "1017"
 										},
 										{
 											"key": "ETag",
-											"value": "W/\"3b4-TSX7MBJ+GxbRjAfKtW+WKQTgmOY\""
+											"value": "W/\"3f9-eAkaALVcNC9gmVGkg2W2Fdn9wWc\""
 										},
 										{
 											"key": "Date",
-											"value": "Thu, 04 Jul 2024 09:25:07 GMT"
+											"value": "Sun, 11 Aug 2024 12:19:24 GMT"
 										},
 										{
 											"key": "Connection",
@@ -1405,7 +1405,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "[\n    {\n        \"type\": \"field\",\n        \"value\": \"my_model\",\n        \"msg\": \"generator_model must be a string with one of the following values: gpt-4-0125-preview, gpt-3.5-turbo-0125, llama3-8b, gemma-7b\",\n        \"path\": \"generator_model\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"new_method\",\n        \"msg\": \"generation_method is optional but must be a string with one of the following values if provided: generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal\",\n        \"path\": \"generation_method\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"\",\n        \"msg\": \"bias_type is optional but must be a string with length between 1 and 30 if provided\",\n        \"path\": \"bias_type\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"five\",\n        \"msg\": \"number is optional but must be an integer between 1 and 8 if provided\",\n        \"path\": \"number\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"yes\",\n        \"msg\": \"explanation is optional but must be a boolean if provided\",\n        \"path\": \"explanation\",\n        \"location\": \"body\"\n    }\n]"
+									"body": "[\n    {\n        \"type\": \"field\",\n        \"value\": \"my_model\",\n        \"msg\": \"generator_model must be a string, if provided, with one of the following values: [gpt-4-0125-preview, gpt-3.5-turbo-0125, gemini-1.0-pro, gemini-1.5-flash, gemini-1.5-pro, gemma-7b, llama3-8b].\",\n        \"path\": \"generator_model\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"new_method\",\n        \"msg\": \"generation_method is optional but must be a string with one of the following values if provided: [generalQuestionOneTarget, generalQuestionTwoTargets, topNQuestion, hypotheticalScenario, properNames, metal]\",\n        \"path\": \"generation_method\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"\",\n        \"msg\": \"bias_type is optional but must be a string with length between 1 and 30 if provided\",\n        \"path\": \"bias_type\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"five\",\n        \"msg\": \"number is optional but must be an integer between 1 and 8 if provided\",\n        \"path\": \"number\",\n        \"location\": \"body\"\n    },\n    {\n        \"type\": \"field\",\n        \"value\": \"yes\",\n        \"msg\": \"explanation is optional but must be a boolean if provided\",\n        \"path\": \"explanation\",\n        \"location\": \"body\"\n    }\n]"
 								}
 							]
 						}

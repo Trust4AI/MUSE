@@ -51,7 +51,7 @@ class GeminiGenerationModelService {
             return content
         }
 
-        throw new Error('[GENERATOR] No content found in Gemini response')
+        throw new Error('[MUSE] No content found in Gemini response')
     }
 }
 

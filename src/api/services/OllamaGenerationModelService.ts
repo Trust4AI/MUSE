@@ -1,4 +1,4 @@
-import { sendRequestToExecutor } from '../utils/httpUtils'
+import { sendRequestToGenie } from '../utils/httpUtils'
 import { debugLog } from '../utils/logUtils'
 import { getPrompt } from '../utils/prompts/systemPrompts'
 import { userGenerationPrompt } from '../utils/prompts/userPrompts'
@@ -12,9 +12,8 @@ class OllamaGenerationModelService {
         number: number,
         explanation: boolean
     ): Promise<string> {
-        const host =
-            process.env.EXECUTOR_COMPONENT_HOST ||
-            'http://localhost:8081/api/v1'
+        const genieBaseUrl =
+            process.env.GENIE_BASE_URL || 'http://localhost:8081/api/v1'
 
         const requestBody = {
             user_prompt: userGenerationPrompt({
@@ -27,16 +26,15 @@ class OllamaGenerationModelService {
             model_name: generatorModel,
             list_format_response: false,
             exclude_bias_references: false,
-            response_max_length: -1,
         }
 
         try {
-            const response: string = await sendRequestToExecutor(
-                host,
+            const response: string = await sendRequestToGenie(
+                genieBaseUrl,
                 requestBody
             )
-            debugLog('Request sent to executor successfully!', 'info')
-            debugLog(`Response from executor: ${response}`, 'info')
+            debugLog('Request sent to GENIE successfully!', 'info')
+            debugLog(`Response from GENIE: ${response}`, 'info')
             return response
         } catch (error: any) {
             debugLog('Error sending request!', 'error')

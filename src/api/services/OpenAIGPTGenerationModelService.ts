@@ -38,7 +38,7 @@ class OpenAIGPTGenerationModelService {
             return content
         }
 
-        throw new Error('[GENERATOR] No content found in OpenAI GPT response')
+        throw new Error('[MUSE] No content found in OpenAI GPT response')
     }
 }
 

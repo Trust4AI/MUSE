@@ -1,11 +1,11 @@
-const sendRequestToExecutor = async (
-    host: string,
+const sendRequestToGenie = async (
+    genieBaseUrl: string,
     requestBody: object
 ): Promise<string> => {
     let response: Response
 
     try {
-        response = await fetch(`${host}/models/execute`, {
+        response = await fetch(`${genieBaseUrl}/models/execute`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,17 +14,17 @@ const sendRequestToExecutor = async (
         })
     } catch (error: any) {
         throw new Error(
-            `[GENERATOR] Executor fetch error when sending request to executor: ${error.message}`
+            `[MUSE] Fetch error when sending request to GENIE: ${error.message}`
         )
     }
 
     if (!response.ok) {
         const errorData = await response.json()
         throw new Error(
-            `[GENERATOR] Failed to send request to executor: ${errorData.error}`
+            `[MUSE] Failed to send request to GENIE: ${errorData.error}`
         )
     }
     return response.json().then((res) => res.response)
 }
 
-export { sendRequestToExecutor }
+export { sendRequestToGenie }

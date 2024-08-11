@@ -39,7 +39,7 @@ class TestCasesGenerationService {
         let generationError: any
         while (attempts < MAX_RETRIES) {
             try {
-                const modelService = this.getModelService(generatorModel)
+                const modelService = await this.getModelService(generatorModel)
                 const resolvedModelService = await modelService
                 content = await resolvedModelService.generateTestCases(
                     generatorModel,
@@ -50,22 +50,37 @@ class TestCasesGenerationService {
                     explanation
                 )
 
-                if (content && content.includes('[') && content.includes(']')) {
-                    const startIndex = content.indexOf('[')
-                    const endIndex = content.lastIndexOf(']')
-                    content = content.slice(startIndex, endIndex + 1)
-
-                    const jsonContent = JSON.parse(content)
-                    if (jsonContent.length === number) {
-                        await this.validateTestCase(jsonContent)
-                        return jsonContent
+                if (content) {
+                    if (
+                        number === 1 &&
+                        !content.includes('[') &&
+                        !content.includes(']') &&
+                        content.includes('{') &&
+                        content.includes('}')
+                    ) {
+                        const startIndex = content.indexOf('{')
+                        const endIndex = content.lastIndexOf('}')
+                        content = content.slice(startIndex, endIndex + 1)
+                        content = `[${content}]`
                     }
-                    throw new Error(
-                        `[GENERATOR] Expected ${number} test cases but received ${jsonContent.length}`
-                    )
+
+                    if (content.includes('[') && content.includes(']')) {
+                        const startIndex = content.indexOf('[')
+                        const endIndex = content.lastIndexOf(']')
+                        content = content.slice(startIndex, endIndex + 1)
+
+                        const jsonContent = JSON.parse(content)
+                        if (jsonContent.length === number) {
+                            await this.validateTestCase(jsonContent)
+                            return jsonContent
+                        }
+                        throw new Error(
+                            `[MUSE] Expected ${number} test cases but received ${jsonContent.length}`
+                        )
+                    }
                 }
                 throw new Error(
-                    '[GENERATOR] The model response does not contain a list of test cases'
+                    '[MUSE] The model response does not contain a list of test cases'
                 )
             } catch (error: any) {
                 debugLog(
@@ -97,7 +112,7 @@ class TestCasesGenerationService {
         for (const testCase of jsonContent) {
             if (!this.validate(testCase)) {
                 throw new Error(
-                    `[GENERATOR] Invalid response from model: ${JSON.stringify(
+                    `[MUSE] Invalid response from model: ${JSON.stringify(
                         this.validate.errors
                     )}`
                 )
