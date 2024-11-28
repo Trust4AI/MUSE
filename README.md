@@ -23,7 +23,7 @@ Integration options include a Docker image that launches a REST API with interac
 
 This repository is structured as follows:
 
-- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It's written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).
+- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It is written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).
 - `docs/postman/collection.json`: This file is a collection of API requests saved in JSON format for use with Postman.
 -  `src/`: This directory contains the source code for the project.
 -  `.dockerignore`: This file tells Docker which files and directories to ignore when building an image.
@@ -122,11 +122,12 @@ To deploy MUSE using Docker, please follow these steps carefully.
 
 Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
-- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
+- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
 - `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", and "metal". The default value is "single_attribute".
 - `bias_type`: Optional string indicating the bias type of the tests to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test.
+- `invert_prompts`: Optional boolean indicating whether to invert the prompts (source and follow-up) in the test cases.
 
 > [!NOTE] 
 > Instead of adding the generator models manually to the configuration file, it is also possible to add the models using the API once the tool is running. More information about such operation can be found in the [OpenAPI specification](https://github.com/Trust4AI/MUSE/blob/main/docs/openapi/spec.yaml).

@@ -97,7 +97,7 @@ const generatorController = new GeneratorController()
  *           default: false
  *           example: true
  *         invert_prompts:
- *           description: Whether to invert the prompts in the test cases.
+ *           description: Whether to invert the prompts (source and follow-up) in the test cases.
  *           type: boolean
  *           default: false
  *           example: false
