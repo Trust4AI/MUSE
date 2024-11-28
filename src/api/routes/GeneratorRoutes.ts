@@ -92,12 +92,12 @@ const generatorController = new GeneratorController()
  *           default: 5
  *           example: 5
  *         explanation:
- *           description: Whether to include an explanation detailing how the prompts were constructed.
+ *           description: Determines whether to include an explanation detailing how the prompts were constructed.
  *           type: boolean
  *           default: false
  *           example: true
  *         invert_prompts:
- *           description: Whether to invert the prompts (source and follow-up) in the test cases.
+ *           description: Determines whether to invert the prompts (source and follow-up) in the test cases.
  *           type: boolean
  *           default: false
  *           example: false
