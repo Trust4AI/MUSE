@@ -58,6 +58,12 @@ const generate = [
             'explanation is optional but must be a boolean if provided'
         )
         .toBoolean(),
+    check('invert_prompts')
+        .optional()
+        .isBoolean()
+        .withMessage(
+            'invert_prompts is optional but must be a boolean if provided'
+        ),
 ]
 
 export { generate }

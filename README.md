@@ -15,7 +15,7 @@ Integration options include a Docker image that launches a REST API with interac
    1. [Local deployment](#i-local-deployment)
    2. [Docker deployment](#ii-docker-deployment)
 3. [Usage](#3-usage)
-   1. [Request using _generalQuestionOneTarget_ as generation method](#i-request-using-generalquestiononetarget-as-generation-method)
+   1. [Request using _single_attribute_ as generation method](#i-request-using-single_attribute-as-generation-method)
 4. [License and funding](#4-license-and-funding)
    1. [Logo credits](#logo-credits)
 
@@ -23,7 +23,7 @@ Integration options include a Docker image that launches a REST API with interac
 
 This repository is structured as follows:
 
-- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It's written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).
+- `docs/openapi/spec.yaml`: This file describes the entire API, including available endpoints, operations on each endpoint, operation parameters, and the structure of the response objects. It is written in YAML format following the [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (OAS).
 - `docs/postman/collection.json`: This file is a collection of API requests saved in JSON format for use with Postman.
 -  `src/`: This directory contains the source code for the project.
 -  `.dockerignore`: This file tells Docker which files and directories to ignore when building an image.
@@ -122,25 +122,26 @@ To deploy MUSE using Docker, please follow these steps carefully.
 
 Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
-- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
-- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", and "metal". The default value is "generalQuestionOneTarget".
-- `bias_type`: Optional string indicating the bias type of the tests to generate.
+- `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
+- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", and "metal". The default value is "single_attribute".
+- `bias_type`: Optional string indicating the bias type of the test cases to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
-- `explanation`: Optional boolean indicating whether to include generation explanation for each test.
+- `explanation`: Optional boolean indicating whether to include generation explanation for each test case.
+- `invert_prompts`: Optional boolean indicating whether to invert the prompts (source and follow-up) in the test cases.
 
 > [!NOTE] 
 > Instead of adding the generator models manually to the configuration file, it is also possible to add the models using the API once the tool is running. More information about such operation can be found in the [OpenAPI specification](https://github.com/Trust4AI/MUSE/blob/main/docs/openapi/spec.yaml).
 
 In case everything works correctly, a JSON array will be returned, where each JSON object will represent a test case.
 
-### i. Request using _generalQuestionOneTarget_ as generation method
+### i. Request using _single\_attribute_ as generation method
 
-Here is an example of a valid request using the _generalQuestionOneTarget_ generation method. In this request, the `generator_model` is set to "llama3-8b," which specifies the model to be used. The `generation_method` is set to _generalQuestionOneTarget_, the number of tests to generate is set to 5, and the `explanation` is set to true to include an explanation for each test case.
+Here is an example of a valid request using the _single\_attribute_ generation method. In this request, the `generator_model` is set to "llama3-8b," which specifies the model to be used. The `generation_method` is set to _single\_attribute_, the number of tests to generate is set to 5, and the `explanation` is set to true to include an explanation for each test case.
 
 ```json
 {
    "generator_model": "llama3-8b",
-   "generation_method": "generalQuestionOneTarget",
+   "generation_method": "single_attribute",
    "number": 5,
    "explanation": true
 }
@@ -155,7 +156,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
          "generator_model": "llama3-8b",
-         "generation_method": "generalQuestionOneTarget",
+         "generation_method": "single_attribute",
          "number": 5,
          "explanation": true
       }'
