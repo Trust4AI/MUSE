@@ -15,7 +15,7 @@ Integration options include a Docker image that launches a REST API with interac
    1. [Local deployment](#i-local-deployment)
    2. [Docker deployment](#ii-docker-deployment)
 3. [Usage](#3-usage)
-   1. [Request using _generalQuestionOneTarget_ as generation method](#i-request-using-generalquestiononetarget-as-generation-method)
+   1. [Request using _single_attribute_ as generation method](#i-request-using-single_attribute-as-generation-method)
 4. [License and funding](#4-license-and-funding)
    1. [Logo credits](#logo-credits)
 
@@ -123,7 +123,7 @@ To deploy MUSE using Docker, please follow these steps carefully.
 Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
 - `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models' configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
-- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", and "metal". The default value is "generalQuestionOneTarget".
+- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", and "metal". The default value is "single_attribute".
 - `bias_type`: Optional string indicating the bias type of the tests to generate.
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test.
@@ -133,14 +133,14 @@ Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tes
 
 In case everything works correctly, a JSON array will be returned, where each JSON object will represent a test case.
 
-### i. Request using _generalQuestionOneTarget_ as generation method
+### i. Request using _single\_attribute_ as generation method
 
-Here is an example of a valid request using the _generalQuestionOneTarget_ generation method. In this request, the `generator_model` is set to "llama3-8b," which specifies the model to be used. The `generation_method` is set to _generalQuestionOneTarget_, the number of tests to generate is set to 5, and the `explanation` is set to true to include an explanation for each test case.
+Here is an example of a valid request using the _single\_attribute_ generation method. In this request, the `generator_model` is set to "llama3-8b," which specifies the model to be used. The `generation_method` is set to _single\_attribute_, the number of tests to generate is set to 5, and the `explanation` is set to true to include an explanation for each test case.
 
 ```json
 {
    "generator_model": "llama3-8b",
-   "generation_method": "generalQuestionOneTarget",
+   "generation_method": "single_attribute",
    "number": 5,
    "explanation": true
 }
@@ -155,7 +155,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
          "generator_model": "llama3-8b",
-         "generation_method": "generalQuestionOneTarget",
+         "generation_method": "single_attribute",
          "number": 5,
          "explanation": true
       }'

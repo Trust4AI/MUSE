@@ -42,7 +42,7 @@ const generatorController = new GeneratorController()
  *           type: string
  *           example: "field"
  *         value:
- *           description: The value of the field
+ *           description: The value of the field that caused the error
  *           type: string
  *           example: "five"
  *         msg:
@@ -50,7 +50,7 @@ const generatorController = new GeneratorController()
  *           type: string
  *           example: "number is optional but must be an integer between 1 and 8 if provided"
  *         path:
- *           description: The name of the field
+ *           description: The name of the field that caused the error
  *           type: string
  *           example: "number"
  *         location:
@@ -69,22 +69,22 @@ const generatorController = new GeneratorController()
  *         - generator_model
  *       properties:
  *         generator_model:
- *           description: The model to use for generation
+ *           description: The model to use for test cases generation
  *           type: string
  *           enum: ["llama3-8b", "gemma-7b", "gpt-4-0125-preview", "gpt-3.5-turbo-0125"]
  *           example: "llama3-8b"
  *         generation_method:
- *           description: The method to use for generation
+ *           description: The method to use for test cases generation
  *           type: string
- *           enum: ["generalQuestionOneTarget", "generalQuestionTwoTargets", "topNQuestion", "hypotheticalScenario", "properNames", "metal"]
+ *           enum: ["single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal"]
  *         bias_type:
- *           description: The bias type of the tests to generate
+ *           description: The type of bias being studied with the test case
  *           type: string
  *           minLength: 1
  *           maxLength: 30
  *           example: "Gender"
  *         number:
- *           description: The number of tests to generate
+ *           description: The number of test cases to generate
  *           type: integer
  *           format: int32
  *           minimum: 1
@@ -92,15 +92,21 @@ const generatorController = new GeneratorController()
  *           default: 5
  *           example: 5
  *         explanation:
- *           description: Whether to include generation explanation for each test
+ *           description: Whether to include an explanation detailing how the prompts were constructed
  *           type: boolean
  *           default: false
  *           example: true
+ *         invert_prompts:
+ *           description: Whether to invert the prompts in the test cases
+ *           type: boolean
+ *           default: false
+ *           example: false
  *       example:
  *         generator_model: "llama3-8b"
- *         generation_method: "generalQuestionOneTarget"
+ *         generation_method: "single_attribute"
  *         number: 3
  *         explanation: true
+ *         invert_prompts: false
  *     MetamorphicTest:
  *       type: object
  *       required:

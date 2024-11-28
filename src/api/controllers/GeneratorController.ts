@@ -23,11 +23,12 @@ class GeneratorController {
         try {
             const {
                 generator_model,
-                generation_method = 'generalQuestionOneTarget',
+                generation_method = 'single_attribute',
                 role,
                 bias_type,
                 number = 5,
                 explanation = false,
+                invert_prompts = false,
             } = req.body
             const generatedData = await this.generatorBaseService.generate(
                 generator_model,
@@ -35,7 +36,8 @@ class GeneratorController {
                 role,
                 bias_type,
                 number,
-                explanation
+                explanation,
+                invert_prompts
             )
             res.send(generatedData)
         } catch (error: any) {

@@ -32,7 +32,8 @@ class TestCasesGenerationService {
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean
+        explanation: boolean,
+        invertPrompts: boolean
     ): Promise<JSON> {
         let attempts = 0
         let content: string | undefined
@@ -72,6 +73,9 @@ class TestCasesGenerationService {
                         const jsonContent = JSON.parse(content)
                         if (jsonContent.length === number) {
                             await this.validateTestCase(jsonContent)
+                            if (invertPrompts) {
+                                this.invertPrompts(jsonContent)
+                            }
                             return jsonContent
                         }
                         throw new Error(
@@ -118,6 +122,21 @@ class TestCasesGenerationService {
                 )
             }
         }
+    }
+
+    private invertPrompts(testCases: any[]): void {
+        testCases.forEach((testCase) => {
+            ;[testCase.prompt_1, testCase.prompt_2] = [
+                testCase.prompt_2,
+                testCase.prompt_1,
+            ]
+            if (testCase.attribute_1 && testCase.attribute_2) {
+                ;[testCase.attribute_1, testCase.attribute_2] = [
+                    testCase.attribute_2,
+                    testCase.attribute_1,
+                ]
+            }
+        })
     }
 }
 

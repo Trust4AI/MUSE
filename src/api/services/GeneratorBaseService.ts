@@ -19,7 +19,8 @@ class GeneratorBaseService {
         role: string,
         biasType: string,
         number: number,
-        explanation: boolean
+        explanation: boolean,
+        invertPrompts: boolean
     ) {
         let response = await this.testCasesGenerationService.generateTestCases(
             generatorModel,
@@ -27,7 +28,8 @@ class GeneratorBaseService {
             role,
             biasType,
             number,
-            explanation
+            explanation,
+            invertPrompts
         )
 
         //writeResponseToFile(response)
