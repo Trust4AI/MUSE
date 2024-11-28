@@ -116,7 +116,7 @@ const generatorController = new GeneratorController()
  *       properties:
  *         role:
  *           type: string
- *           description: The role involved in the test cases prompts.
+ *           description: The role involved in the test case prompts.
  *           example: "Software Engineer"
  *         bias_type:
  *           type: string
