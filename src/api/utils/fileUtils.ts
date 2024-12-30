@@ -1,8 +1,18 @@
 import fs from 'fs'
 
-const writeResponseToFile = (response: JSON) => {
-    const date = new Date().toISOString().replace(/:/g, '-')
-    fs.writeFileSync(`./output/${date}.json`, JSON.stringify(response, null, 4))
+const readJSONFile = (filePath: string) => {
+    try {
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+    } catch (error: any) {
+        throw new Error(
+            `Error reading JSON file at ${filePath}: ${error.message}`
+        )
+    }
 }
 
-export { writeResponseToFile }
+const writeJSONToFile = (json: JSON) => {
+    const date = new Date().toISOString().replace(/:/g, '-')
+    fs.writeFileSync(`./output/${date}.json`, JSON.stringify(json, null, 4))
+}
+
+export { readJSONFile, writeJSONToFile }

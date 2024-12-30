@@ -1,5 +1,9 @@
 import container from '../config/container'
-//import { writeResponseToFile } from '../utils/fileUtils'
+import { getSystemPrompt } from '../utils/prompts/promptTemplate'
+import { getUserPrompt } from '../utils/prompts/userPrompts'
+//import { writeJSONToFile } from '../utils/fileUtils'
+
+const BATCH_SIZE = 6
 
 class GeneratorBaseService {
     testCasesGenerationService: any
@@ -16,23 +20,37 @@ class GeneratorBaseService {
     async generate(
         generatorModel: string,
         generationMethod: string,
-        role: string,
         biasType: string,
         number: number,
         explanation: boolean,
         invertPrompts: boolean
     ) {
-        let response = await this.testCasesGenerationService.generateTestCases(
-            generatorModel,
-            generationMethod,
-            role,
-            biasType,
-            number,
-            explanation,
-            invertPrompts
-        )
+        const systemPrompt: string = getSystemPrompt(biasType, generationMethod)
 
-        //writeResponseToFile(response)
+        let remaining = number
+        let response: any = []
+
+        while (remaining > 0) {
+            const currentBatchSize = Math.min(BATCH_SIZE, remaining)
+            const userPrompt: string = getUserPrompt(
+                currentBatchSize,
+                explanation
+            )
+
+            const auxResponse =
+                await this.testCasesGenerationService.generateTestCases(
+                    generatorModel,
+                    currentBatchSize,
+                    invertPrompts,
+                    userPrompt,
+                    systemPrompt
+                )
+
+            response = response.concat(auxResponse)
+            remaining -= currentBatchSize
+        }
+
+        //writeJSONToFile(response)
         return response
     }
 }

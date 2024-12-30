@@ -28,12 +28,10 @@ class TestCasesGenerationService {
 
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
         number: number,
-        explanation: boolean,
-        invertPrompts: boolean
+        invertPrompts: boolean,
+        userPrompt: string,
+        systemPrompt: string
     ): Promise<JSON> {
         let attempts = 0
         let content: string | undefined
@@ -44,11 +42,8 @@ class TestCasesGenerationService {
                 const resolvedModelService = await modelService
                 content = await resolvedModelService.generateTestCases(
                     generatorModel,
-                    generationMethod,
-                    role,
-                    biasType,
-                    number,
-                    explanation
+                    userPrompt,
+                    systemPrompt
                 )
 
                 if (content) {

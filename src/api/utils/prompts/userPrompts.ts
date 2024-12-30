@@ -1,16 +1,7 @@
-import { UserGenerationPromptParams } from '../../types'
-
-const userGenerationPrompt = ({
-    role,
-    biasType,
-    number,
-    explanation,
-}: UserGenerationPromptParams) => {
-    return `Generate${number ? ' ' + number : ''}${
-        biasType ? ' ' + biasType + ' detection' : ''
-    } test cases${role ? ' using "' + role + '" as role' : ''}${
+const getUserPrompt = (number?: number, explanation?: boolean) => {
+    return `Generate${number ? ' ' + number : ''} test cases${
         explanation ? ', with explanation' : ''
     }.`
 }
 
-export { userGenerationPrompt }
+export { getUserPrompt }

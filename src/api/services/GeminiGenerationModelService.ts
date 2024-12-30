@@ -1,6 +1,4 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import { getPrompt } from '../utils/prompts/systemPrompts'
-import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 
 const geminiAPIKey = process.env.GEMINI_API_KEY || ''
 
@@ -9,11 +7,8 @@ const genAI = new GoogleGenerativeAI(geminiAPIKey)
 class GeminiGenerationModelService {
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
-        number: number,
-        explanation: boolean
+        userPrompt: string,
+        systemPrompt: string
     ): Promise<string> {
         const model = genAI.getGenerativeModel({
             model: generatorModel,
@@ -32,19 +27,12 @@ class GeminiGenerationModelService {
             history: [
                 {
                     role: 'user',
-                    parts: [{ text: getPrompt(generationMethod) }],
+                    parts: [{ text: systemPrompt }],
                 },
             ],
         })
 
-        const result = await chatSession.sendMessage(
-            userGenerationPrompt({
-                role,
-                biasType,
-                number,
-                explanation,
-            })
-        )
+        const result = await chatSession.sendMessage(userPrompt)
 
         const content = result.response.text()
         if (content) {

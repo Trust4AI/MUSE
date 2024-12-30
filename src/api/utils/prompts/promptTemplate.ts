@@ -1,19 +1,9 @@
-import fs from 'fs'
+import { readJSONFile } from '../fileUtils'
 
 // Configuration
 
-const readJSONFile = (filePath: string) => {
-    try {
-        return JSON.parse(fs.readFileSync(filePath, 'utf8'))
-    } catch (error: any) {
-        throw new Error(
-            `Error reading JSON file at ${filePath}: ${error.message}`
-        )
-    }
-}
-
 const biasTypes = readJSONFile('api/config/biasTypes.json')
-const relations = readJSONFile('api/config/relations.json')
+const generationMethods = readJSONFile('api/config/generationMethods.json')
 
 // Prompt content
 
@@ -23,7 +13,7 @@ const introductionSection = (introduction: string): string =>
 
 const instructionsSection = (instructions: string[]): string =>
     `${instructions
-        .map((instruction, index) => `${index}. ${instruction}`)
+        .map((instruction, index) => `${index + 1}. ${instruction}`)
         .join('\n')}
 
 Please note the following:
@@ -119,12 +109,14 @@ const replacePlaceholders = (
 
 const getExamples = (
     biasType: string,
-    relation: string,
+    generationMethod: string,
     usesProperNouns: boolean
 ) => {
-    const examples = relations[relation]['examples'].map((example: any) => ({
-        ...example,
-    }))
+    const examples = generationMethods[generationMethod]['examples'].map(
+        (example: any) => ({
+            ...example,
+        })
+    )
 
     const biasCategories = usesProperNouns
         ? biasTypes['proper_nouns'][biasType]
@@ -190,10 +182,14 @@ const getExamples = (
 
 const examplesSection = (
     biasType: string,
-    relation: string,
+    generationMethod: string,
     usesProperNouns: boolean
 ): string => {
-    const examples: any[] = getExamples(biasType, relation, usesProperNouns)
+    const examples: any[] = getExamples(
+        biasType,
+        generationMethod,
+        usesProperNouns
+    )
 
     return `${examples
         .map(
@@ -215,12 +211,17 @@ const formatSection = (title: string, content: string): string => {
     return `${formattedTitle}\n${content.trim()}\n`
 }
 
-const getPrompt = (biasType: string, relation: string): string => {
-    const relationInfo = relations[relation]
+const getSystemPrompt = (
+    biasType: string,
+    generationMethod: string
+): string => {
+    const generationMethodInfo = generationMethods[generationMethod]
 
-    const examples = relationInfo?.examples
+    const examples = generationMethodInfo?.examples
     if (!examples || examples.length === 0) {
-        throw new Error(`No examples available for relation: ${relation}`)
+        throw new Error(
+            `No examples available for generation method: ${generationMethod}`
+        )
     }
 
     const hasOnePlaceholder = !/<[A-Z]+>/.test(examples[0].prompt_1)
@@ -228,11 +229,11 @@ const getPrompt = (biasType: string, relation: string): string => {
         examples[0].prompt_1.includes('<NOUN>') ||
         examples[0].prompt_2.includes('<NOUN>')
 
-    const introduction = relationInfo?.introduction || null
-    const instructions = relationInfo?.instructions || []
-    const biasAttributes = relationInfo?.bias_attributes || null
-    const outputFormat = relationInfo?.output_format || null
-    const notes = relationInfo?.notes || []
+    const introduction = generationMethodInfo?.introduction || null
+    const instructions = generationMethodInfo?.instructions || []
+    const biasAttributes = generationMethodInfo?.bias_attributes || null
+    const outputFormat = generationMethodInfo?.output_format || null
+    const notes = generationMethodInfo?.notes || []
 
     return [
         formatSection('', introductionSection(introduction)),
@@ -252,7 +253,7 @@ const getPrompt = (biasType: string, relation: string): string => {
         ),
         formatSection(
             'Examples',
-            examplesSection(biasType, relation, usesProperNouns)
+            examplesSection(biasType, generationMethod, usesProperNouns)
         ),
         formatSection('Notes', additionalNotesSection(notes)),
     ]
@@ -260,4 +261,22 @@ const getPrompt = (biasType: string, relation: string): string => {
         .trim()
 }
 
-export { getPrompt }
+// Utils
+
+const getGenerationMethods = () => {
+    return Object.keys(generationMethods)
+}
+
+const getBiasTypes = (generationMethod: string) => {
+    const generationMethodInfo = generationMethods[generationMethod]
+    const examples = generationMethodInfo?.examples
+    const usesProperNouns =
+        examples[0].prompt_1.includes('<NOUN>') ||
+        examples[0].prompt_2.includes('<NOUN>')
+
+    return usesProperNouns
+        ? Object.keys(biasTypes['proper_nouns'])
+        : Object.keys(biasTypes['demographic_atributes'])
+}
+
+export { getSystemPrompt, getGenerationMethods, getBiasTypes }

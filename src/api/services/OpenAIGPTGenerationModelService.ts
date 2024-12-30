@@ -1,5 +1,3 @@
-import { getPrompt } from '../utils/prompts/systemPrompts'
-import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
@@ -9,26 +7,18 @@ const openai = new OpenAI({
 class OpenAIGPTGenerationModelService {
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
-        number: number,
-        explanation: boolean
+        userPrompt: string,
+        systemPrompt: string
     ): Promise<string> {
         const completion = await openai.chat.completions.create({
             messages: [
                 {
                     role: 'system',
-                    content: getPrompt(generationMethod),
+                    content: systemPrompt,
                 },
                 {
                     role: 'user',
-                    content: userGenerationPrompt({
-                        role,
-                        biasType,
-                        number,
-                        explanation,
-                    }),
+                    content: userPrompt,
                 },
             ],
             model: generatorModel,

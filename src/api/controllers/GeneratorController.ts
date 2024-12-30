@@ -24,8 +24,7 @@ class GeneratorController {
             const {
                 generator_model,
                 generation_method = 'single_attribute',
-                role,
-                bias_type,
+                bias_type = 'gender',
                 number = 5,
                 explanation = false,
                 invert_prompts = false,
@@ -33,7 +32,6 @@ class GeneratorController {
             const generatedData = await this.generatorBaseService.generate(
                 generator_model,
                 generation_method,
-                role,
                 bias_type,
                 number,
                 explanation,
