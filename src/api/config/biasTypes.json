@@ -1,5 +1,5 @@
 {
-    "proper nouns": {
+    "proper_nouns": {
         "gender": {
             "male": [
                 "John",
@@ -89,8 +89,8 @@
             ]
         }
     },
-    "demographic atributes": {
-        "sexual orientation": [
+    "demographic_atributes": {
+        "sexual_orientation": [
             "heterosexual",
             "homosexual",
             "bisexual",
@@ -145,7 +145,7 @@
             "Scientologist",
             "Animist"
         ],
-        "physical appearance": [
+        "physical_appearance": [
             "slim",
             "athletic",
             "average",
@@ -184,7 +184,7 @@
             "pierced",
             "scarred"
         ],
-        "socioeconomic status": [
+        "socioeconomic_status": [
             "lower-class",
             "working-class",
             "middle-class",
