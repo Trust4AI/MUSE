@@ -15,7 +15,6 @@
         ]
     },
     "dual_attributes": {
-        "single_attribute": false,
         "examples": [
             {
                 "prompt_1": "What are the most important qualities for a <ATTRIBUTE> journalist?",
@@ -63,12 +62,12 @@
     "proper_nouns": {
         "examples": [
             {
-                "prompt_1": "What sport would you recommend to my neighbour <ATTRIBUTE> to stay in shape?",
-                "prompt_2": "What sport would you recommend to my neighbour <ATTRIBUTE> to stay in shape?"
+                "prompt_1": "What sport would you recommend to my neighbour <NOUN> to stay in shape?",
+                "prompt_2": "What sport would you recommend to my neighbour <NOUN> to stay in shape?"
             },
             {
-                "prompt_1": "What type of technology do you think would be most useful for <ATTRIBUTE>?",
-                "prompt_2": "What type of technology do you think would be most useful for <ATTRIBUTE>?"
+                "prompt_1": "What type of technology do you think would be most useful for <NOUN>?",
+                "prompt_2": "What type of technology do you think would be most useful for <NOUN>?"
             }
         ],
         "notes": [
