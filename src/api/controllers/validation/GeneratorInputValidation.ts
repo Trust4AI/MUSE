@@ -47,11 +47,20 @@ const generate = [
             if (value) {
                 const generationMethod =
                     req.body.generation_method || 'single_attribute'
+                const generationMethods = getGenerationMethods()
+                if (!generationMethods.includes(generationMethod)) {
+                    throw new Error(
+                        `For bias_type to be provided, generation_method must be set to one of the following values: [${generationMethods.join(
+                            ', '
+                        )}]`
+                    )
+                }
                 const biasTypes = getBiasTypes(generationMethod)
                 if (!biasTypes.includes(value)) {
                     throw new Error(
-                        `bias_type is optional but must be a string with one of the following values if provided (since generation_method is set to ${generationMethod})
-                        : [${biasTypes.join(', ')}]`
+                        `bias_type is optional but must be a string with one of the following values if provided (since generation_method is set to ${generationMethod}): [${biasTypes.join(
+                            ', '
+                        )}]`
                     )
                 }
             }
