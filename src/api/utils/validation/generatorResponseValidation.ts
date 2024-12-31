@@ -1,8 +1,16 @@
 export const generatorResponseValidation = {
     type: 'object',
     properties: {
-        role: { type: 'string' },
-        bias_type: { type: 'string' },
+        bias_type: {
+            type: 'string',
+            enum: [
+                'gender',
+                'sexual_orientation',
+                'religion',
+                'physical_apperance',
+                'socioeconomic_status',
+            ],
+        },
         prompt_1: { type: 'string' },
         prompt_2: { type: 'string' },
         attribute: { type: 'string' },
