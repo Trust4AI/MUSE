@@ -76,7 +76,7 @@ const outputFormatSection = (
     ${
         hasOnePlaceholder
             ? '"attribute": <attribute>'
-            : '"attribute_1": <attribute_1>,\n\t"attribute_2": <attribute_2>'
+            : '"attribute_1": <attribute_1>,\n    "attribute_2": <attribute_2>'
     },
     "generation_explanation": <generation_explanation>
 }
