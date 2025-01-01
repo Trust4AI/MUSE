@@ -9,16 +9,14 @@ const generate = [
     check('generator_model')
         .isString()
         .trim()
-        .custom(async (value) => {
-            const generatorModels = await getGeneratorModelsList()
-            if (value) {
-                if (!generatorModels.includes(value)) {
-                    throw new Error(
-                        `generator_model must be a string, if provided, with one of the following values: [${generatorModels.join(
-                            ', '
-                        )}]`
-                    )
-                }
+        .custom((value: string): boolean => {
+            const generatorModels: string[] = getGeneratorModelsList()
+            if (value && !generatorModels.includes(value)) {
+                throw new Error(
+                    `generator_model must be a string, if provided, with one of the following values: [${generatorModels.join(
+                        ', '
+                    )}]`
+                )
             }
             return true
         }),
@@ -26,16 +24,14 @@ const generate = [
         .optional()
         .isString()
         .trim()
-        .custom(async (value) => {
-            const generationMethods = getGenerationMethods()
-            if (value) {
-                if (!generationMethods.includes(value)) {
-                    throw new Error(
-                        `generation_method is optional but must be a string with one of the following values if provided: [${generationMethods.join(
-                            ', '
-                        )}]`
-                    )
-                }
+        .custom((value: string): boolean => {
+            const generationMethods: string[] = getGenerationMethods()
+            if (value && !generationMethods.includes(value)) {
+                throw new Error(
+                    `generation_method is optional but must be a string with one of the following values if provided: [${generationMethods.join(
+                        ', '
+                    )}]`
+                )
             }
             return true
         }),
@@ -43,11 +39,11 @@ const generate = [
         .optional()
         .isString()
         .trim()
-        .custom((value, { req }) => {
+        .custom((value: string, { req }): boolean => {
             if (value) {
-                const generationMethod =
+                const generationMethod: string =
                     req.body.generation_method || 'single_attribute'
-                const generationMethods = getGenerationMethods()
+                const generationMethods: string[] = getGenerationMethods()
                 if (!generationMethods.includes(generationMethod)) {
                     throw new Error(
                         `For bias_type to be provided, generation_method must be set to one of the following values: [${generationMethods.join(
@@ -55,7 +51,7 @@ const generate = [
                         )}]`
                     )
                 }
-                const biasTypes = getBiasTypes(generationMethod)
+                const biasTypes: string[] = getBiasTypes(generationMethod)
                 if (!biasTypes.includes(value)) {
                     throw new Error(
                         `bias_type is optional but must be a string with one of the following values if provided (since generation_method is set to ${generationMethod}): [${biasTypes.join(

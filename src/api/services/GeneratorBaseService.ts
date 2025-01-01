@@ -1,12 +1,13 @@
 import container from '../config/container'
 import { getSystemPrompt } from '../utils/prompts/promptTemplate'
 import { getUserPrompt } from '../utils/prompts/userPrompts'
-//import { writeJSONToFile } from '../utils/fileUtils'
+import TestCasesGenerationService from './TestCasesGenerationService'
+//import { writeOutputToFile } from '../utils/fileUtils'
 
-const BATCH_SIZE = 6
+const BATCH_SIZE: number = 6
 
 class GeneratorBaseService {
-    testCasesGenerationService: any
+    testCasesGenerationService: TestCasesGenerationService
     constructor() {
         this.testCasesGenerationService = container.resolve(
             'testCasesGenerationService'
@@ -27,11 +28,11 @@ class GeneratorBaseService {
     ) {
         const systemPrompt: string = getSystemPrompt(biasType, generationMethod)
 
-        let remaining = number
+        let remaining: number = number
         let response: any = []
 
         while (remaining > 0) {
-            const currentBatchSize = Math.min(BATCH_SIZE, remaining)
+            const currentBatchSize: number = Math.min(BATCH_SIZE, remaining)
             const userPrompt: string = getUserPrompt(
                 currentBatchSize,
                 explanation
@@ -50,7 +51,7 @@ class GeneratorBaseService {
             remaining -= currentBatchSize
         }
 
-        //writeJSONToFile(response)
+        //writeOutputToFile(response)
         return response
     }
 }

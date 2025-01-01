@@ -1,4 +1,4 @@
-import { createContainer, asClass } from 'awilix'
+import { createContainer, asClass, AwilixContainer } from 'awilix'
 
 import GeneratorBaseService from '../services/GeneratorBaseService'
 import OllamaGenerationModelService from '../services/OllamaGenerationModelService'
@@ -7,8 +7,8 @@ import TestCasesGenerationService from '../services/TestCasesGenerationService'
 import GeminiGenerationModelService from '../services/GeminiGenerationModelService'
 import ModelBaseService from '../services/ModelBaseService'
 
-function initContainer() {
-    const container = createContainer()
+function initContainer(): AwilixContainer {
+    const container: AwilixContainer = createContainer()
 
     container.register({
         generatorBaseService: asClass(GeneratorBaseService).singleton(),
@@ -29,6 +29,6 @@ function initContainer() {
     return container
 }
 
-const container = initContainer()
+const container: AwilixContainer = initContainer()
 
 export default container

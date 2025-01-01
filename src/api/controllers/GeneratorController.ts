@@ -10,7 +10,7 @@ class GeneratorController {
         this.generate = this.generate.bind(this)
     }
 
-    check(req: Request, res: Response) {
+    check(req: Request, res: Response): void {
         try {
             const message = this.generatorBaseService.check()
             res.json(message)
@@ -19,7 +19,7 @@ class GeneratorController {
         }
     }
 
-    async generate(req: Request, res: Response) {
+    async generate(req: Request, res: Response): Promise<void> {
         try {
             const {
                 generator_model,
@@ -28,7 +28,15 @@ class GeneratorController {
                 number = 5,
                 explanation = false,
                 invert_prompts = false,
+            }: {
+                generator_model: string
+                generation_method: string
+                bias_type: string
+                number: number
+                explanation: boolean
+                invert_prompts: boolean
             } = req.body
+
             const generatedData = await this.generatorBaseService.generate(
                 generator_model,
                 generation_method,

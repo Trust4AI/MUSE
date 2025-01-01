@@ -96,7 +96,7 @@ const replacePlaceholders = (
     const placeholderRegex = /<([A-Z]+)>/g
     if (!placeholderRegex.test(prompt)) return null
 
-    let replacementValue
+    let replacementValue: string
     do {
         replacementValue = getRandomValue(biasValues)
     } while (usedValues.includes(replacementValue) && biasValues.length > 0)
@@ -140,7 +140,8 @@ const getExamples = (
 
             ;['prompt_1', 'prompt_2'].forEach((promptKey, index) => {
                 if (example[promptKey]) {
-                    const category = categories[index % categories.length]
+                    const category: string =
+                        categories[index % categories.length]
                     const result = replacePlaceholders(
                         example[promptKey],
                         biasCategories[category]
@@ -263,11 +264,11 @@ const getSystemPrompt = (
 
 // Utils
 
-const getGenerationMethods = () => {
+const getGenerationMethods = (): string[] => {
     return Object.keys(generationMethods)
 }
 
-const getBiasTypes = (generationMethod: string) => {
+const getBiasTypes = (generationMethod: string): string[] => {
     const generationMethodInfo = generationMethods[generationMethod]
     const examples = generationMethodInfo?.examples
     const usesProperNouns =

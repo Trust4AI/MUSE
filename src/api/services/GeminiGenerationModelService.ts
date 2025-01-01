@@ -1,8 +1,13 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import {
+    ChatSession,
+    GenerativeModel,
+    GoogleGenerativeAI,
+} from '@google/generative-ai'
+import { GenerationConfig } from '../interfaces/Gemini'
 
-const geminiAPIKey = process.env.GEMINI_API_KEY || ''
+const geminiAPIKey: string = process.env.GEMINI_API_KEY || ''
 
-const genAI = new GoogleGenerativeAI(geminiAPIKey)
+const genAI: GoogleGenerativeAI = new GoogleGenerativeAI(geminiAPIKey)
 
 class GeminiGenerationModelService {
     async generateTestCases(
@@ -10,11 +15,11 @@ class GeminiGenerationModelService {
         userPrompt: string,
         systemPrompt: string
     ): Promise<string> {
-        const model = genAI.getGenerativeModel({
+        const model: GenerativeModel = genAI.getGenerativeModel({
             model: generatorModel,
         })
 
-        const generationConfig = {
+        const generationConfig: GenerationConfig = {
             temperature: 1,
             topP: 0.95,
             topK: 64,
@@ -22,7 +27,7 @@ class GeminiGenerationModelService {
             response_mime_type: 'text/plain',
         }
 
-        const chatSession = model.startChat({
+        const chatSession: ChatSession = model.startChat({
             generationConfig,
             history: [
                 {

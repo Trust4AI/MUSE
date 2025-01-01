@@ -7,7 +7,7 @@ class OllamaGenerationModelService {
         userPrompt: string,
         systemPrompt: string
     ): Promise<string> {
-        const genieBaseUrl =
+        const genieBaseUrl: string =
             process.env.GENIE_BASE_URL || 'http://localhost:8081/api/v1'
 
         const requestBody = {

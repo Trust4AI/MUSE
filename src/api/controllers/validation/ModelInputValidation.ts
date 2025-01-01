@@ -8,17 +8,16 @@ const addGeneratorModel = [
     check('id')
         .isString()
         .trim()
-        .custom(async (value) => {
-            const generatorModels = await getGeneratorModelsList()
+        .custom((value: string): boolean => {
+            const generatorModels: string[] = getGeneratorModelsList()
             if (generatorModels.includes(value)) {
-                return Promise.reject(
-                    new Error(
-                        `id must be unique and not one of the following values: [${generatorModels.join(
-                            `, `
-                        )}]. Please use a different id.`
-                    )
+                throw new Error(
+                    `id must be unique and not one of the following values: [${generatorModels.join(
+                        `, `
+                    )}]. Please use a different id.`
                 )
             }
+            return true
         })
         .isLength({ min: 1, max: 30 })
         .withMessage(
@@ -28,17 +27,17 @@ const addGeneratorModel = [
         .optional()
         .isString()
         .trim()
-        .custom(async (value) => {
-            const generatorModelCategories = await getGeneratorModelCategories()
+        .custom((value: string): boolean => {
+            const generatorModelCategories: string[] =
+                getGeneratorModelCategories()
             if (!generatorModelCategories.includes(value)) {
-                return Promise.reject(
-                    new Error(
-                        `category must be a string, if provided, with one of the following values: [${generatorModelCategories.join(
-                            `, `
-                        )}]`
-                    )
+                throw new Error(
+                    `category must be a string, if provided, with one of the following values: [${generatorModelCategories.join(
+                        `, `
+                    )}]`
                 )
             }
+            return true
         }),
 ]
 

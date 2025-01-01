@@ -1,10 +1,10 @@
-import express from 'express'
+import express, { Router } from 'express'
 import GeneratorController from '../controllers/GeneratorController'
 import * as GeneratorInputValidation from '../controllers/validation/GeneratorInputValidation'
 import { handleValidation } from '../middlewares/ValidationMiddleware'
 
-const router = express.Router()
-const generatorController = new GeneratorController()
+const router: Router = express.Router()
+const generatorController: GeneratorController = new GeneratorController()
 
 /**
  * @swagger

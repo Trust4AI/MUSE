@@ -10,9 +10,14 @@ const readJSONFile = (filePath: string) => {
     }
 }
 
-const writeJSONToFile = (json: JSON) => {
+const writeOutputToFile = (json: JSON) => {
     const date = new Date().toISOString().replace(/:/g, '-')
     fs.writeFileSync(`./output/${date}.json`, JSON.stringify(json, null, 4))
 }
 
-export { readJSONFile, writeJSONToFile }
+const writeJSONToFile = async (filePath: string, data: JSON) => {
+    const jsonData: string = JSON.stringify(data, null, 4)
+    fs.writeFileSync(filePath, jsonData, 'utf8')
+}
+
+export { readJSONFile, writeOutputToFile, writeJSONToFile }

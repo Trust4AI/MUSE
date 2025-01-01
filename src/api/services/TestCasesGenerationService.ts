@@ -3,15 +3,18 @@ import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
 import { getGeneratorModels } from '../utils/modelUtils'
 import { debugLog } from '../utils/logUtils'
+import OpenAIGPTGenerationModelService from './OpenAIGPTGenerationModelService'
+import GeminiGenerationModelService from './GeminiGenerationModelService'
+import OllamaGenerationModelService from './OllamaGenerationModelService'
 
 const ajv = new Ajv()
 
-const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '5', 10)
+const MAX_RETRIES: number = parseInt(process.env.MAX_RETRIES || '5', 10)
 
 class TestCasesGenerationService {
-    openAIGPTGenerationModelService: any
-    geminiGenerationModelService: any
-    ollamaGenerationModelService: any
+    openAIGPTGenerationModelService: OpenAIGPTGenerationModelService
+    geminiGenerationModelService: GeminiGenerationModelService
+    ollamaGenerationModelService: OllamaGenerationModelService
     validate: ValidateFunction
     constructor() {
         this.openAIGPTGenerationModelService = container.resolve(
@@ -33,14 +36,13 @@ class TestCasesGenerationService {
         userPrompt: string,
         systemPrompt: string
     ): Promise<JSON> {
-        let attempts = 0
+        let attempts: number = 0
         let content: string | undefined
         let generationError: any
         while (attempts < MAX_RETRIES) {
             try {
                 const modelService = await this.getModelService(generatorModel)
-                const resolvedModelService = await modelService
-                content = await resolvedModelService.generateTestCases(
+                content = await modelService.generateTestCases(
                     generatorModel,
                     userPrompt,
                     systemPrompt
@@ -54,15 +56,15 @@ class TestCasesGenerationService {
                         content.includes('{') &&
                         content.includes('}')
                     ) {
-                        const startIndex = content.indexOf('{')
-                        const endIndex = content.lastIndexOf('}')
+                        const startIndex: number = content.indexOf('{')
+                        const endIndex: number = content.lastIndexOf('}')
                         content = content.slice(startIndex, endIndex + 1)
                         content = `[${content}]`
                     }
 
                     if (content.includes('[') && content.includes(']')) {
-                        const startIndex = content.indexOf('[')
-                        const endIndex = content.lastIndexOf(']')
+                        const startIndex: number = content.indexOf('[')
+                        const endIndex: number = content.lastIndexOf(']')
                         content = content.slice(startIndex, endIndex + 1)
 
                         const jsonContent = JSON.parse(content)
