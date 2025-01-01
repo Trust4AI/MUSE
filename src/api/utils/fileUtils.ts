@@ -15,7 +15,7 @@ const writeOutputToFile = (json: JSON) => {
     fs.writeFileSync(`./output/${date}.json`, JSON.stringify(json, null, 4))
 }
 
-const writeJSONToFile = async (filePath: string, data: JSON) => {
+const writeJSONToFile = (filePath: string, data: JSON) => {
     const jsonData: string = JSON.stringify(data, null, 4)
     fs.writeFileSync(filePath, jsonData, 'utf8')
 }

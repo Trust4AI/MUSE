@@ -23,7 +23,8 @@ class ModelController {
 
     indexGeneratorModels(req: Request, res: Response): void {
         try {
-            const judgeModels = this.modelBaseService.indexGeneratorModels()
+            const judgeModels: string[] =
+                this.modelBaseService.indexGeneratorModels()
             res.json(judgeModels)
         } catch (error: any) {
             res.status(500).send({ error: error.message })
@@ -46,7 +47,8 @@ class ModelController {
     removeGeneratorModel(req: Request, res: Response): void {
         try {
             const { id } = req.params
-            const result = this.modelBaseService.removeGeneratorModel(id)
+            const result: boolean =
+                this.modelBaseService.removeGeneratorModel(id)
             const message: string = result
                 ? 'Successfully removed.'
                 : 'Could not remove model.'

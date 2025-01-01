@@ -41,7 +41,7 @@ class TestCasesGenerationService {
         let generationError: any
         while (attempts < MAX_RETRIES) {
             try {
-                const modelService = await this.getModelService(generatorModel)
+                const modelService = this.getModelService(generatorModel)
                 content = await modelService.generateTestCases(
                     generatorModel,
                     userPrompt,
@@ -69,7 +69,7 @@ class TestCasesGenerationService {
 
                         const jsonContent = JSON.parse(content)
                         if (jsonContent.length === number) {
-                            await this.validateTestCase(jsonContent)
+                            this.validateTestCase(jsonContent)
                             if (invertPrompts) {
                                 this.invertPrompts(jsonContent)
                             }
@@ -96,9 +96,9 @@ class TestCasesGenerationService {
         throw new Error(generationError.message)
     }
 
-    private async getModelService(generatorModel: string) {
-        const geminiModels = await getGeneratorModels('gemini')
-        const openAIModels = await getGeneratorModels('openai')
+    private getModelService(generatorModel: string) {
+        const geminiModels = getGeneratorModels('gemini')
+        const openAIModels = getGeneratorModels('openai')
 
         if (openAIModels.includes(generatorModel)) {
             return this.openAIGPTGenerationModelService
@@ -109,7 +109,7 @@ class TestCasesGenerationService {
         }
     }
 
-    private async validateTestCase(jsonContent: any): Promise<void> {
+    private validateTestCase(jsonContent: any): void {
         for (const testCase of jsonContent) {
             if (!this.validate(testCase)) {
                 throw new Error(
