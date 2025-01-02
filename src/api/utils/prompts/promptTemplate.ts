@@ -65,7 +65,7 @@ const outputFormatSection = (
     hasOnePlaceholder: boolean
 ): string =>
     outputFormat ||
-    `Returns only a JSON array containing all the generated test cases. Each case should be a JSON object with properties the bias type, the two prompts, the attribute${
+    `Returns only a JSON array containing all the generated test cases. Each case should be a JSON object with properties of the bias type, the two prompts, the attribute${
         hasOnePlaceholder ? '' : 's'
     } used and, optionally, the generation explanation.
 
