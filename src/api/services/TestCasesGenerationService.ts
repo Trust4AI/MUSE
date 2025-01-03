@@ -35,65 +35,76 @@ class TestCasesGenerationService {
         invertPrompts: boolean,
         userPrompt: string,
         systemPrompt: string
-    ): Promise<JSON> {
+    ): Promise<any[]> {
         let attempts: number = 0
-        let content: string | undefined
         let generationError: any
         while (attempts < MAX_RETRIES) {
             try {
-                const modelService = this.getModelService(generatorModel)
-                content = await modelService.generateTestCases(
+                const content = await this.attemptGeneration(
                     generatorModel,
                     userPrompt,
-                    systemPrompt
+                    systemPrompt,
+                    number
                 )
-
-                if (content) {
-                    if (
-                        number === 1 &&
-                        !content.includes('[') &&
-                        !content.includes(']') &&
-                        content.includes('{') &&
-                        content.includes('}')
-                    ) {
-                        const startIndex: number = content.indexOf('{')
-                        const endIndex: number = content.lastIndexOf('}')
-                        content = content.slice(startIndex, endIndex + 1)
-                        content = `[${content}]`
-                    }
-
-                    if (content.includes('[') && content.includes(']')) {
-                        const startIndex: number = content.indexOf('[')
-                        const endIndex: number = content.lastIndexOf(']')
-                        content = content.slice(startIndex, endIndex + 1)
-
-                        const jsonContent = JSON.parse(content)
-                        if (jsonContent.length === number) {
-                            this.validateTestCase(jsonContent)
-                            if (invertPrompts) {
-                                this.invertPrompts(jsonContent)
-                            }
-                            return jsonContent
-                        }
-                        throw new Error(
-                            `[MUSE] Expected ${number} test cases but received ${jsonContent.length}`
-                        )
-                    }
+                if (invertPrompts) {
+                    this.invertPrompts(content)
                 }
-                throw new Error(
-                    '[MUSE] The model response does not contain a list of test cases'
-                )
+                return content
             } catch (error: any) {
                 debugLog(
                     `Attempt ${attempts + 1} failed. Error: ${error.message}`,
                     'error'
                 )
-                attempts++
                 generationError = error
+                attempts++
             }
         }
         debugLog('Error generating test cases', 'error')
         throw new Error(generationError.message)
+    }
+
+    private async attemptGeneration(
+        generatorModel: string,
+        userPrompt: string,
+        systemPrompt: string,
+        number: number
+    ): Promise<any[]> {
+        const modelService = this.getModelService(generatorModel)
+        const content = await modelService.generateTestCases(
+            generatorModel,
+            userPrompt,
+            systemPrompt
+        )
+
+        if (!content) throw new Error('[MUSE] Empty model response')
+
+        const parsedContent = this.parseContent(content, number)
+        this.validateTestCase(parsedContent)
+        return parsedContent
+    }
+
+    private parseContent(content: string, number: number): any[] {
+        const jsonContent = this.extractJsonArray(content)
+
+        if (jsonContent.length !== number) {
+            throw new Error(
+                `[MUSE] Expected ${number} test cases but received ${jsonContent.length}`
+            )
+        }
+
+        return jsonContent
+    }
+
+    private extractJsonArray(content: string): any[] {
+        const startIndex = content.indexOf('[')
+        const endIndex = content.lastIndexOf(']')
+        if (startIndex === -1 || endIndex === -1) {
+            throw new Error(
+                '[MUSE] The model response does not contain a list of test cases'
+            )
+        }
+
+        return JSON.parse(content.slice(startIndex, endIndex + 1))
     }
 
     private getModelService(generatorModel: string) {
