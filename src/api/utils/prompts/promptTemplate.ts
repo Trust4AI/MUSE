@@ -52,14 +52,24 @@ const getBiasValues = (biasType: string, usesProperNouns: boolean): string => {
 const perturbationInstructionsSection = (
     biasAttributes: string,
     biasType: string,
-    usesProperNouns: boolean
-): string =>
-    biasAttributes ||
-    `Test cases must specifically relate to ${biasType} bias. The valid attributes you can use in the prompts are: ${getBiasValues(
-        biasType,
-        usesProperNouns
-    )}.`
+    usesProperNouns: boolean,
+    attribute: string,
+    attribute1: string,
+    attribute2: string
+): string => {
+    if (biasAttributes) {
+        return biasAttributes
+    }
 
+    const attributes = [attribute, attribute1, attribute2]
+        .filter((attr) => attr)
+        .join(', ')
+
+    const defaultAttributes =
+        attributes || getBiasValues(biasType, usesProperNouns)
+
+    return `Test cases must specifically relate to ${biasType} bias. The valid attributes you can use in the prompts are: ${defaultAttributes}.`
+}
 const outputFormatSection = (
     outputFormat: string,
     hasOnePlaceholder: boolean
@@ -107,17 +117,78 @@ const replacePlaceholders = (
     }
 }
 
+const processExampleWithAttributes = (
+    example: any,
+    attribute: string,
+    attribute1: string,
+    attribute2: string
+): any => {
+    const placeholderRegex = /<([A-Z]+)>/g
+    if (attribute) {
+        example.attribute = attribute
+        example.prompt_2 = example.prompt_2.replace(placeholderRegex, attribute)
+    } else if (attribute1 && attribute2) {
+        example.attribute_1 = attribute1
+        example.attribute_2 = attribute2
+        example.prompt_1 = example.prompt_1.replace(
+            placeholderRegex,
+            attribute1
+        )
+        example.prompt_2 = example.prompt_2.replace(
+            placeholderRegex,
+            attribute2
+        )
+    }
+    return example
+}
+
+const processExampleWithBias = (
+    example: any,
+    biasCategories: Record<string, string[]> | null,
+    biasValues: string[] | null,
+    usesProperNouns: boolean
+): any => {
+    const usedValues: string[] = []
+
+    ;['prompt_1', 'prompt_2'].forEach((promptKey, index) => {
+        if (example[promptKey]) {
+            const biasData = usesProperNouns
+                ? biasCategories![
+                      Object.keys(biasCategories!)[
+                          index % Object.keys(biasCategories!).length
+                      ]
+                  ]
+                : biasValues
+
+            const result = replacePlaceholders(
+                example[promptKey],
+                biasData || [],
+                usedValues
+            )
+            if (result) {
+                example[promptKey] = result.updatedPrompt
+                example[`attribute_${index + 1}`] = result.replacementValue
+                usedValues.push(result.replacementValue)
+            }
+        }
+    })
+
+    return example
+}
+
 const getExamples = (
     biasType: string,
     generationMethod: string,
-    usesProperNouns: boolean
+    usesProperNouns: boolean,
+    attribute: string,
+    attribute1: string,
+    attribute2: string
 ) => {
     const examples = generationMethods[generationMethod]['examples'].map(
         (example: any) => ({
             ...example,
         })
     )
-
     const biasCategories = usesProperNouns
         ? biasTypes['proper_nouns'][biasType]
         : null
@@ -132,64 +203,41 @@ const getExamples = (
         throw new Error(`Invalid bias type or missing values for "${biasType}"`)
     }
 
-    examples.forEach((example: any) => {
-        const usedValues: string[] = []
-
-        if (usesProperNouns) {
-            const categories = Object.keys(biasCategories)
-
-            ;['prompt_1', 'prompt_2'].forEach((promptKey, index) => {
-                if (example[promptKey]) {
-                    const category: string =
-                        categories[index % categories.length]
-                    const result = replacePlaceholders(
-                        example[promptKey],
-                        biasCategories[category]
-                    )
-                    if (result) {
-                        example[promptKey] = result.updatedPrompt
-                        example[`attribute_${index + 1}`] =
-                            result.replacementValue
-                    }
-                }
-            })
-        } else {
-            ;['prompt_1', 'prompt_2'].forEach((promptKey, index) => {
-                if (example[promptKey]) {
-                    if (biasValues) {
-                        const result = replacePlaceholders(
-                            example[promptKey],
-                            biasValues,
-                            usedValues
-                        )
-                        if (result) {
-                            example[promptKey] = result.updatedPrompt
-                            example[`attribute_${index + 1}`] =
-                                result.replacementValue
-                            usedValues.push(result.replacementValue)
-                        }
-                    }
-                }
-            })
-        }
-
-        const reorderedExample = { bias_type: biasType, ...example }
-        Object.keys(example).forEach((key) => delete example[key])
-        Object.assign(example, reorderedExample)
-    })
-
     return examples
+        .map((example: any) => {
+            if (attribute || (attribute1 && attribute2)) {
+                return processExampleWithAttributes(
+                    example,
+                    attribute,
+                    attribute1,
+                    attribute2
+                )
+            }
+            return processExampleWithBias(
+                example,
+                biasCategories,
+                biasValues,
+                usesProperNouns
+            )
+        })
+        .map((example: any) => ({ bias_type: biasType, ...example }))
 }
 
 const examplesSection = (
     biasType: string,
     generationMethod: string,
-    usesProperNouns: boolean
+    usesProperNouns: boolean,
+    attribute: string,
+    attribute1: string,
+    attribute2: string
 ): string => {
     const examples: any[] = getExamples(
         biasType,
         generationMethod,
-        usesProperNouns
+        usesProperNouns,
+        attribute,
+        attribute1,
+        attribute2
     )
 
     return `${examples
@@ -214,7 +262,10 @@ const formatSection = (title: string, content: string): string => {
 
 const getSystemPrompt = (
     biasType: string,
-    generationMethod: string
+    generationMethod: string,
+    attribute: string,
+    attribute1: string,
+    attribute2: string
 ): string => {
     const generationMethodInfo = generationMethods[generationMethod]
 
@@ -245,7 +296,10 @@ const getSystemPrompt = (
             perturbationInstructionsSection(
                 biasAttributes,
                 biasType,
-                usesProperNouns
+                usesProperNouns,
+                attribute,
+                attribute1,
+                attribute2
             )
         ),
         formatSection(
@@ -254,7 +308,14 @@ const getSystemPrompt = (
         ),
         formatSection(
             'Examples',
-            examplesSection(biasType, generationMethod, usesProperNouns)
+            examplesSection(
+                biasType,
+                generationMethod,
+                usesProperNouns,
+                attribute,
+                attribute1,
+                attribute2
+            )
         ),
         formatSection('Notes', additionalNotesSection(notes)),
     ]
@@ -266,6 +327,17 @@ const getSystemPrompt = (
 
 const getGenerationMethods = (): string[] => {
     return Object.keys(generationMethods)
+}
+
+const getPlaceholderNumber = (generationMethod: string): number => {
+    const examples = generationMethods[generationMethod].examples
+    if (examples) {
+        const hasOnePlaceholder: boolean = !/<[A-Z]+>/.test(
+            examples[0].prompt_1
+        )
+        return hasOnePlaceholder ? 1 : 2
+    }
+    return -1
 }
 
 const getBiasTypes = (generationMethod: string): string[] => {
@@ -280,4 +352,9 @@ const getBiasTypes = (generationMethod: string): string[] => {
         : Object.keys(biasTypes['demographic_atributes'])
 }
 
-export { getSystemPrompt, getGenerationMethods, getBiasTypes }
+export {
+    getSystemPrompt,
+    getGenerationMethods,
+    getPlaceholderNumber,
+    getBiasTypes,
+}

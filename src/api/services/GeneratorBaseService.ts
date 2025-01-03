@@ -24,9 +24,18 @@ class GeneratorBaseService {
         biasType: string,
         number: number,
         explanation: boolean,
-        invertPrompts: boolean
+        invertPrompts: boolean,
+        attribute: string,
+        attribute1: string,
+        attribute2: string
     ) {
-        const systemPrompt: string = getSystemPrompt(biasType, generationMethod)
+        const systemPrompt: string = getSystemPrompt(
+            biasType,
+            generationMethod,
+            attribute,
+            attribute1,
+            attribute2
+        )
 
         let remaining: number = number
         let response: any = []

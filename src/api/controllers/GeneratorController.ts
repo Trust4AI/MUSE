@@ -1,8 +1,9 @@
 import container from '../config/container'
 import { Request, Response } from 'express'
+import GeneratorBaseService from '../services/GeneratorBaseService'
 
 class GeneratorController {
-    generatorBaseService: any
+    generatorBaseService: GeneratorBaseService
     constructor() {
         this.generatorBaseService = container.resolve('generatorBaseService')
 
@@ -28,6 +29,9 @@ class GeneratorController {
                 number = 5,
                 explanation = false,
                 invert_prompts = false,
+                attribute,
+                attribute_1,
+                attribute_2,
             }: {
                 generator_model: string
                 generation_method: string
@@ -35,6 +39,9 @@ class GeneratorController {
                 number: number
                 explanation: boolean
                 invert_prompts: boolean
+                attribute: string
+                attribute_1: string
+                attribute_2: string
             } = req.body
 
             const generatedData = await this.generatorBaseService.generate(
@@ -43,7 +50,10 @@ class GeneratorController {
                 bias_type,
                 number,
                 explanation,
-                invert_prompts
+                invert_prompts,
+                attribute,
+                attribute_1,
+                attribute_2
             )
             res.send(generatedData)
         } catch (error: any) {

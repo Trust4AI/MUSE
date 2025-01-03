@@ -1,8 +1,9 @@
-import { check } from 'express-validator'
+import { check, body } from 'express-validator'
 import { getGeneratorModelsList } from '../../utils/modelUtils'
 import {
     getBiasTypes,
     getGenerationMethods,
+    getPlaceholderNumber,
 } from '../../utils/prompts/promptTemplate'
 
 const generate = [
@@ -62,6 +63,30 @@ const generate = [
             }
             return true
         }),
+    check('attribute')
+        .optional()
+        .isString()
+        .trim()
+        .isLength({ min: 1, max: 30 })
+        .withMessage(
+            'attribute is optional but if provided must be a string with length between 1 and 30'
+        ),
+    check('attribute_1')
+        .optional()
+        .isString()
+        .trim()
+        .isLength({ min: 1, max: 30 })
+        .withMessage(
+            'attribute_1 is optional but if provided must be a string with length between 1 and 30'
+        ),
+    check('attribute_2')
+        .optional()
+        .isString()
+        .trim()
+        .isLength({ min: 1, max: 30 })
+        .withMessage(
+            'attribute_2 is optional but if provided must be a string with length between 1 and 30'
+        ),
     check('number')
         .optional()
         .isInt({ min: 1, max: 50 })
@@ -82,6 +107,46 @@ const generate = [
         .withMessage(
             'invert_prompts is optional but must be a boolean if provided'
         ),
+    body().custom((value, { req }) => {
+        const {
+            generation_method,
+            attribute,
+            attribute_1,
+            attribute_2,
+        }: {
+            generation_method: string
+            attribute: string
+            attribute_1: string
+            attribute_2: string
+        } = req.body
+
+        if (
+            (attribute && attribute_1) ||
+            (attribute && attribute_2) ||
+            (attribute && attribute_1 && attribute_2)
+        ) {
+            throw new Error(
+                'You must provide either "attribute", both "attribute_1" and "attribute_2" or none of them, but not all three.'
+            )
+        }
+
+        const placeholderNumber: number =
+            getPlaceholderNumber(generation_method)
+
+        if (placeholderNumber !== -1) {
+            if (placeholderNumber === 1 && attribute_1 && attribute_2) {
+                throw new Error(
+                    'The generation_method only uses one attribute, so you must provide only "attribute" and not both "attribute_1" and "attribute_2".'
+                )
+            } else if (placeholderNumber === 2 && attribute) {
+                throw new Error(
+                    'The generation_method uses two attributes, so you must provide both "attribute_1" and "attribute_2" and not "attribute".'
+                )
+            }
+        }
+
+        return true
+    }),
 ]
 
 export { generate }
