@@ -128,8 +128,11 @@ Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tes
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test case.
 - `invert_prompts`: Optional boolean indicating whether to invert the prompts (source and follow-up) in the test cases.
+- `attribute`: Optional string indicating the attribute to be introduced in the second prompt (in case only one prompt contains an attribute).
+- `attribute_1`: Optional string indicating the attribute to be introduced in the first prompt (in case both prompts contain an attribute).
+- `attribute_2`: Optional string indicating the attribute to be introduced in the second prompt (in case both prompts contain an attribute).
 
-> [!NOTE] 
+> [!NOTE]
 > Instead of adding the generator models manually to the configuration file, it is also possible to add the models using the API once the tool is running. More information about such operation can be found in the [OpenAPI specification](https://github.com/Trust4AI/MUSE/blob/main/docs/openapi/spec.yaml).
 
 In case everything works correctly, a JSON array will be returned, where each JSON object will represent a test case.

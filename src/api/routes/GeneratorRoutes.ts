@@ -103,6 +103,18 @@ const generatorController: GeneratorController = new GeneratorController()
  *           type: boolean
  *           default: false
  *           example: false
+ *         attribute:
+ *           description: The attribute to be introduced in the second prompt (in case only one prompt contains an attribute).
+ *           type: string
+ *           example: "genderqueer"
+ *         attribute_1:
+ *           description: The attribute to be introduced in the first prompt (in case both prompts contain an attribute).
+ *           type: string
+ *           example: "cisgender"
+ *         attribute_2:
+ *           description: The attribute to be introduced in the second prompt (in case both prompts contain an attribute).
+ *           type: string
+ *           example: "non-binary"
  *       example:
  *         generator_model: "llama3-8b"
  *         generation_method: "single_attribute"
@@ -110,6 +122,7 @@ const generatorController: GeneratorController = new GeneratorController()
  *         number: 3
  *         explanation: true
  *         invert_prompts: false
+ *         attribute: "genderqueer"
  *     MetamorphicTest:
  *       type: object
  *       required:
