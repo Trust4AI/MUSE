@@ -1,7 +1,9 @@
 import OpenAI from 'openai'
 
+const openaiAPIKey: string = process.env.OPENAI_API_KEY ?? ''
+
 const openai: OpenAI = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || '',
+    apiKey: openaiAPIKey,
 })
 
 class OpenAIGPTGenerationModelService {
@@ -10,6 +12,10 @@ class OpenAIGPTGenerationModelService {
         userPrompt: string,
         systemPrompt: string
     ): Promise<string> {
+        if (!openaiAPIKey) {
+            throw new Error('[MUSE] OPENAI_API_KEY is not defined')
+        }
+
         const completion = await openai.chat.completions.create({
             messages: [
                 {

@@ -263,9 +263,9 @@ const formatSection = (title: string, content: string): string => {
 const getSystemPrompt = (
     biasType: string,
     generationMethod: string,
-    attribute: string,
-    attribute1: string,
-    attribute2: string
+    attribute: string = '',
+    attribute1: string = '',
+    attribute2: string = ''
 ): string => {
     const generationMethodInfo = generationMethods[generationMethod]
 

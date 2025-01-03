@@ -29,9 +29,9 @@ class GeneratorController {
                 number = 5,
                 explanation = false,
                 invert_prompts = false,
-                attribute,
-                attribute_1,
-                attribute_2,
+                attribute = '',
+                attribute_1 = '',
+                attribute_2 = '',
             }: {
                 generator_model: string
                 generation_method: string

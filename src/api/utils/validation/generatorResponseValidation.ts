@@ -7,7 +7,7 @@ export const generatorResponseValidation = {
                 'gender',
                 'sexual_orientation',
                 'religion',
-                'physical_apperance',
+                'physical_appearance',
                 'socioeconomic_status',
             ],
         },

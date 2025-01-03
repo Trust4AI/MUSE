@@ -110,9 +110,9 @@ const generate = [
     body().custom((value, { req }) => {
         const {
             generation_method,
-            attribute,
-            attribute_1,
-            attribute_2,
+            attribute = '',
+            attribute_1 = '',
+            attribute_2 = '',
         }: {
             generation_method: string
             attribute: string
@@ -126,22 +126,22 @@ const generate = [
             (attribute && attribute_1 && attribute_2)
         ) {
             throw new Error(
-                'You must provide either "attribute", both "attribute_1" and "attribute_2" or none of them, but not all three.'
+                'You must provide either "attribute", both "attribute_1" and "attribute_2" or none of them.'
             )
-        }
+        } else if (attribute || (attribute_1 && attribute_2)) {
+            const placeholderNumber: number =
+                getPlaceholderNumber(generation_method)
 
-        const placeholderNumber: number =
-            getPlaceholderNumber(generation_method)
-
-        if (placeholderNumber !== -1) {
-            if (placeholderNumber === 1 && attribute_1 && attribute_2) {
-                throw new Error(
-                    'The generation_method only uses one attribute, so you must provide only "attribute" and not both "attribute_1" and "attribute_2".'
-                )
-            } else if (placeholderNumber === 2 && attribute) {
-                throw new Error(
-                    'The generation_method uses two attributes, so you must provide both "attribute_1" and "attribute_2" and not "attribute".'
-                )
+            if (placeholderNumber !== -1) {
+                if (placeholderNumber === 1 && attribute_1 && attribute_2) {
+                    throw new Error(
+                        'The generation_method only uses one attribute, so you must provide only "attribute" and not both "attribute_1" and "attribute_2".'
+                    )
+                } else if (placeholderNumber === 2 && attribute) {
+                    throw new Error(
+                        'The generation_method uses two attributes, so you must provide both "attribute_1" and "attribute_2" and not "attribute".'
+                    )
+                }
             }
         }
 
