@@ -1,34 +1,31 @@
-import { getPrompt } from '../utils/prompts/systemPrompts'
-import { userGenerationPrompt } from '../utils/prompts/userPrompts'
 import OpenAI from 'openai'
+import config from '../config/config'
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || '',
+const openaiAPIKey: string = config.openaiAPIKey
+
+const openai: OpenAI = new OpenAI({
+    apiKey: openaiAPIKey,
 })
 
 class OpenAIGPTGenerationModelService {
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
-        number: number,
-        explanation: boolean
+        userPrompt: string,
+        systemPrompt: string
     ): Promise<string> {
+        if (!openaiAPIKey) {
+            throw new Error('[MUSE] OPENAI_API_KEY is not defined')
+        }
+
         const completion = await openai.chat.completions.create({
             messages: [
                 {
                     role: 'system',
-                    content: getPrompt(generationMethod),
+                    content: systemPrompt,
                 },
                 {
                     role: 'user',
-                    content: userGenerationPrompt({
-                        role,
-                        biasType,
-                        number,
-                        explanation,
-                    }),
+                    content: userPrompt,
                 },
             ],
             model: generatorModel,

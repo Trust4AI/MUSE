@@ -1,13 +1,14 @@
-import express from 'express'
+import express, { Router } from 'express'
 import ModelController from '../controllers/ModelController'
 import * as ModelInputValidation from '../controllers/validation/ModelInputValidation'
 import { handleValidation } from '../middlewares/ValidationMiddleware'
 import container from '../config/container'
 import { checkEntityExists } from '../middlewares/EntityMiddleware'
+import ModelBaseService from '../services/ModelBaseService'
 
-const router = express.Router()
-const modelController = new ModelController()
-const modelBaseService = container.resolve('modelBaseService')
+const router: Router = express.Router()
+const modelController: ModelController = new ModelController()
+const modelBaseService: ModelBaseService = container.resolve('modelBaseService')
 
 /**
  * @swagger
