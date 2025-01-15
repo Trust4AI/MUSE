@@ -3,15 +3,19 @@ import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
 import { getGeneratorModels } from '../utils/modelUtils'
 import { debugLog } from '../utils/logUtils'
+import OpenAIGPTGenerationModelService from './OpenAIGPTGenerationModelService'
+import GeminiGenerationModelService from './GeminiGenerationModelService'
+import OllamaGenerationModelService from './OllamaGenerationModelService'
+import config from '../config/config'
 
 const ajv = new Ajv()
 
-const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || '5', 10)
+const MAX_RETRIES: number = parseInt(config.maxRetries, 10)
 
 class TestCasesGenerationService {
-    openAIGPTGenerationModelService: any
-    geminiGenerationModelService: any
-    ollamaGenerationModelService: any
+    openAIGPTGenerationModelService: OpenAIGPTGenerationModelService
+    geminiGenerationModelService: GeminiGenerationModelService
+    ollamaGenerationModelService: OllamaGenerationModelService
     validate: ValidateFunction
     constructor() {
         this.openAIGPTGenerationModelService = container.resolve(
@@ -28,80 +32,85 @@ class TestCasesGenerationService {
 
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
+        userPrompt: string,
+        systemPrompt: string,
         number: number,
-        explanation: boolean,
         invertPrompts: boolean
-    ): Promise<JSON> {
-        let attempts = 0
-        let content: string | undefined
+    ): Promise<any[]> {
+        let attempts: number = 0
         let generationError: any
         while (attempts < MAX_RETRIES) {
             try {
-                const modelService = await this.getModelService(generatorModel)
-                const resolvedModelService = await modelService
-                content = await resolvedModelService.generateTestCases(
+                const content = await this.attemptGeneration(
                     generatorModel,
-                    generationMethod,
-                    role,
-                    biasType,
-                    number,
-                    explanation
+                    userPrompt,
+                    systemPrompt,
+                    number
                 )
-
-                if (content) {
-                    if (
-                        number === 1 &&
-                        !content.includes('[') &&
-                        !content.includes(']') &&
-                        content.includes('{') &&
-                        content.includes('}')
-                    ) {
-                        const startIndex = content.indexOf('{')
-                        const endIndex = content.lastIndexOf('}')
-                        content = content.slice(startIndex, endIndex + 1)
-                        content = `[${content}]`
-                    }
-
-                    if (content.includes('[') && content.includes(']')) {
-                        const startIndex = content.indexOf('[')
-                        const endIndex = content.lastIndexOf(']')
-                        content = content.slice(startIndex, endIndex + 1)
-
-                        const jsonContent = JSON.parse(content)
-                        if (jsonContent.length === number) {
-                            await this.validateTestCase(jsonContent)
-                            if (invertPrompts) {
-                                this.invertPrompts(jsonContent)
-                            }
-                            return jsonContent
-                        }
-                        throw new Error(
-                            `[MUSE] Expected ${number} test cases but received ${jsonContent.length}`
-                        )
-                    }
+                if (invertPrompts) {
+                    this.invertPrompts(content)
                 }
-                throw new Error(
-                    '[MUSE] The model response does not contain a list of test cases'
-                )
+                return content
             } catch (error: any) {
                 debugLog(
                     `Attempt ${attempts + 1} failed. Error: ${error.message}`,
                     'error'
                 )
-                attempts++
                 generationError = error
+                attempts++
             }
         }
         debugLog('Error generating test cases', 'error')
         throw new Error(generationError.message)
     }
 
-    private async getModelService(generatorModel: string) {
-        const geminiModels = await getGeneratorModels('gemini')
-        const openAIModels = await getGeneratorModels('openai')
+    private async attemptGeneration(
+        generatorModel: string,
+        userPrompt: string,
+        systemPrompt: string,
+        number: number
+    ): Promise<any[]> {
+        const modelService = this.getModelService(generatorModel)
+        const content = await modelService.generateTestCases(
+            generatorModel,
+            userPrompt,
+            systemPrompt
+        )
+
+        if (!content) throw new Error('[MUSE] Empty model response')
+
+        const parsedContent = this.parseContent(content, number)
+        this.validateTestCase(parsedContent)
+        return parsedContent
+    }
+
+    private parseContent(content: string, number: number): any[] {
+        const jsonContent = this.extractJsonArray(content)
+
+        if (jsonContent.length !== number) {
+            throw new Error(
+                `[MUSE] Expected ${number} test cases but received ${jsonContent.length}`
+            )
+        }
+
+        return jsonContent
+    }
+
+    private extractJsonArray(content: string): any[] {
+        const startIndex = content.indexOf('[')
+        const endIndex = content.lastIndexOf(']')
+        if (startIndex === -1 || endIndex === -1) {
+            throw new Error(
+                '[MUSE] The model response does not contain a list of test cases'
+            )
+        }
+
+        return JSON.parse(content.slice(startIndex, endIndex + 1))
+    }
+
+    private getModelService(generatorModel: string) {
+        const geminiModels: string[] = getGeneratorModels('gemini')
+        const openAIModels: string[] = getGeneratorModels('openai')
 
         if (openAIModels.includes(generatorModel)) {
             return this.openAIGPTGenerationModelService
@@ -112,7 +121,7 @@ class TestCasesGenerationService {
         }
     }
 
-    private async validateTestCase(jsonContent: any): Promise<void> {
+    private validateTestCase(jsonContent: any): void {
         for (const testCase of jsonContent) {
             if (!this.validate(testCase)) {
                 throw new Error(

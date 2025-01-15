@@ -1,32 +1,22 @@
-import fs from 'fs/promises'
+import { readJSONFile, writeJSONToFile } from './fileUtils'
 
 const MODELS_CONFIG_FILE = 'api/config/models.json'
 
-const readFile = async () => {
-    const data = await fs.readFile(MODELS_CONFIG_FILE, 'utf8')
-    return JSON.parse(data)
-}
-
-const writeFile = async (data: any) => {
-    const jsonData = JSON.stringify(data, null, 4)
-    await fs.writeFile(MODELS_CONFIG_FILE, jsonData, 'utf8')
-}
-
-const getGeneratorModels = async (category?: string) => {
-    const data = await readFile()
+const getGeneratorModels = (category?: string) => {
+    const data = readJSONFile(MODELS_CONFIG_FILE)
     if (category) {
         return data[category]
     }
     return data
 }
 
-const getGeneratorModelCategories = async () => {
-    const data = await readFile()
+const getGeneratorModelCategories = (): string[] => {
+    const data = readJSONFile(MODELS_CONFIG_FILE)
     return Object.keys(data)
 }
 
-const getGeneratorModelsList = async () => {
-    const data = await readFile()
+const getGeneratorModelsList = (): string[] => {
+    const data = readJSONFile(MODELS_CONFIG_FILE)
     const evaluatorModels: string[] = []
     for (const key in data) {
         evaluatorModels.push(...data[key])
@@ -34,23 +24,23 @@ const getGeneratorModelsList = async () => {
     return evaluatorModels
 }
 
-const addGeneratorModel = async (id: string, category?: string) => {
-    const data = await readFile()
+const addGeneratorModel = (id: string, category?: string): boolean => {
+    const data = readJSONFile(MODELS_CONFIG_FILE)
     if (category && !data[category].includes(id)) {
         data[category].push(id)
-        await writeFile(data)
+        writeJSONToFile(MODELS_CONFIG_FILE, data)
         return true
     }
     return false
 }
 
-const removeGeneratorModel = async (id: string) => {
-    const data = await readFile()
+const removeGeneratorModel = (id: string): boolean => {
+    const data = readJSONFile(MODELS_CONFIG_FILE)
     for (const category in data) {
         const index = data[category].indexOf(id)
         if (index > -1) {
             data[category].splice(index, 1)
-            await writeFile(data)
+            writeJSONToFile(MODELS_CONFIG_FILE, data)
             return true
         }
     }

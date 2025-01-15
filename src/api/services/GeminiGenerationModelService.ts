@@ -1,50 +1,48 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
-import { getPrompt } from '../utils/prompts/systemPrompts'
-import { userGenerationPrompt } from '../utils/prompts/userPrompts'
+import {
+    ChatSession,
+    GenerativeModel,
+    GoogleGenerativeAI,
+} from '@google/generative-ai'
+import config from '../config/config'
+import { GeminiGenerationConfig } from '../types'
 
-const geminiAPIKey = process.env.GEMINI_API_KEY || ''
+const geminiAPIKey: string = config.geminiAPIKey
 
-const genAI = new GoogleGenerativeAI(geminiAPIKey)
+const genAI: GoogleGenerativeAI = new GoogleGenerativeAI(geminiAPIKey)
 
 class GeminiGenerationModelService {
     async generateTestCases(
         generatorModel: string,
-        generationMethod: string,
-        role: string,
-        biasType: string,
-        number: number,
-        explanation: boolean
+        userPrompt: string,
+        systemPrompt: string
     ): Promise<string> {
-        const model = genAI.getGenerativeModel({
+        if (!geminiAPIKey) {
+            throw new Error('[MUSE] GEMINI_API_KEY is not defined')
+        }
+
+        const model: GenerativeModel = genAI.getGenerativeModel({
             model: generatorModel,
         })
 
-        const generationConfig = {
-            temperature: 1,
+        const generationConfig: GeminiGenerationConfig = {
+            temperature: 0.5,
             topP: 0.95,
             topK: 64,
             maxOutputTokens: 8192,
             response_mime_type: 'text/plain',
         }
 
-        const chatSession = model.startChat({
+        const chatSession: ChatSession = model.startChat({
             generationConfig,
             history: [
                 {
                     role: 'user',
-                    parts: [{ text: getPrompt(generationMethod) }],
+                    parts: [{ text: systemPrompt }],
                 },
             ],
         })
 
-        const result = await chatSession.sendMessage(
-            userGenerationPrompt({
-                role,
-                biasType,
-                number,
-                explanation,
-            })
-        )
+        const result = await chatSession.sendMessage(userPrompt)
 
         const content = result.response.text()
         if (content) {

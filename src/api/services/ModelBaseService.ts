@@ -10,17 +10,20 @@ class ModelBaseService {
         return { message: 'The model routes are working properly!' }
     }
 
-    async exists(id: string) {
-        const generatorModels = await getGeneratorModelsList()
+    exists(id: string): boolean {
+        const generatorModels: string[] = getGeneratorModelsList()
         return generatorModels.includes(id)
     }
 
-    async indexGeneratorModels() {
-        return await getGeneratorModels()
+    indexGeneratorModels(): string[] {
+        return getGeneratorModels()
     }
 
-    async addGeneratorModel(id: string, category: string) {
-        await addGeneratorModel(id, category)
+    addGeneratorModel(
+        id: string,
+        category: string
+    ): { id: string; category?: string } {
+        addGeneratorModel(id, category)
         const res: { id: string; category?: string } = { id }
         if (category) {
             res.category = category
@@ -28,8 +31,8 @@ class ModelBaseService {
         return res
     }
 
-    async removeGeneratorModel(id: string) {
-        const removed = await removeGeneratorModel(id)
+    removeGeneratorModel(id: string): boolean {
+        const removed = removeGeneratorModel(id)
         return removed
     }
 }
