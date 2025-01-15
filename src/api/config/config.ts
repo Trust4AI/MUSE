@@ -1,3 +1,5 @@
+import './loadEnv'
+
 const config = {
     port: process.env.PORT || '8000',
     maxRetries: process.env.MAX_RETRIES || '5',
