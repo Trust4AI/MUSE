@@ -6,10 +6,11 @@ import { debugLog } from '../utils/logUtils'
 import OpenAIGPTGenerationModelService from './OpenAIGPTGenerationModelService'
 import GeminiGenerationModelService from './GeminiGenerationModelService'
 import OllamaGenerationModelService from './OllamaGenerationModelService'
+import config from '../config/config'
 
 const ajv = new Ajv()
 
-const MAX_RETRIES: number = parseInt(process.env.MAX_RETRIES || '5', 10)
+const MAX_RETRIES: number = parseInt(config.maxRetries, 10)
 
 class TestCasesGenerationService {
     openAIGPTGenerationModelService: OpenAIGPTGenerationModelService
@@ -31,10 +32,10 @@ class TestCasesGenerationService {
 
     async generateTestCases(
         generatorModel: string,
-        number: number,
-        invertPrompts: boolean,
         userPrompt: string,
-        systemPrompt: string
+        systemPrompt: string,
+        number: number,
+        invertPrompts: boolean
     ): Promise<any[]> {
         let attempts: number = 0
         let generationError: any
@@ -108,8 +109,8 @@ class TestCasesGenerationService {
     }
 
     private getModelService(generatorModel: string) {
-        const geminiModels = getGeneratorModels('gemini')
-        const openAIModels = getGeneratorModels('openai')
+        const geminiModels: string[] = getGeneratorModels('gemini')
+        const openAIModels: string[] = getGeneratorModels('openai')
 
         if (openAIModels.includes(generatorModel)) {
             return this.openAIGPTGenerationModelService

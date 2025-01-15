@@ -1,4 +1,5 @@
 import container from '../config/container'
+import { GenerateRequestDTO } from '../utils/objects/GenerateRequestDTO'
 import { getSystemPrompt } from '../utils/prompts/promptTemplate'
 import { getUserPrompt } from '../utils/prompts/userPrompts'
 import TestCasesGenerationService from './TestCasesGenerationService'
@@ -18,42 +19,32 @@ class GeneratorBaseService {
         return { message: 'The generator routes are working properly!' }
     }
 
-    async generate(
-        generatorModel: string,
-        generationMethod: string,
-        biasType: string,
-        number: number,
-        explanation: boolean,
-        invertPrompts: boolean,
-        attribute: string,
-        attribute1: string,
-        attribute2: string
-    ) {
+    async generate(dto: GenerateRequestDTO) {
         const systemPrompt: string = getSystemPrompt(
-            biasType,
-            generationMethod,
-            attribute,
-            attribute1,
-            attribute2
+            dto.biasType,
+            dto.generationMethod,
+            dto.attribute,
+            dto.attribute1,
+            dto.attribute2
         )
 
-        let remaining: number = number
+        let remaining: number = dto.number
         let response: any = []
 
         while (remaining > 0) {
             const currentBatchSize: number = Math.min(BATCH_SIZE, remaining)
             const userPrompt: string = getUserPrompt(
                 currentBatchSize,
-                explanation
+                dto.explanation
             )
 
             const auxResponse =
                 await this.testCasesGenerationService.generateTestCases(
-                    generatorModel,
-                    currentBatchSize,
-                    invertPrompts,
+                    dto.generatorModel,
                     userPrompt,
-                    systemPrompt
+                    systemPrompt,
+                    currentBatchSize,
+                    dto.invertPrompts
                 )
 
             response = response.concat(auxResponse)

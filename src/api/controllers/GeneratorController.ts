@@ -1,6 +1,7 @@
 import container from '../config/container'
 import { Request, Response } from 'express'
 import GeneratorBaseService from '../services/GeneratorBaseService'
+import { GenerateRequestDTO } from '../utils/objects/GenerateRequestDTO'
 
 class GeneratorController {
     generatorBaseService: GeneratorBaseService
@@ -22,39 +23,9 @@ class GeneratorController {
 
     async generate(req: Request, res: Response): Promise<void> {
         try {
-            const {
-                generator_model,
-                generation_method = 'single_attribute',
-                bias_type = 'gender',
-                number = 5,
-                explanation = false,
-                invert_prompts = false,
-                attribute = '',
-                attribute_1 = '',
-                attribute_2 = '',
-            }: {
-                generator_model: string
-                generation_method: string
-                bias_type: string
-                number: number
-                explanation: boolean
-                invert_prompts: boolean
-                attribute: string
-                attribute_1: string
-                attribute_2: string
-            } = req.body
+            const dto: GenerateRequestDTO = new GenerateRequestDTO(req.body)
 
-            const generatedData = await this.generatorBaseService.generate(
-                generator_model,
-                generation_method,
-                bias_type,
-                number,
-                explanation,
-                invert_prompts,
-                attribute,
-                attribute_1,
-                attribute_2
-            )
+            const generatedData = await this.generatorBaseService.generate(dto)
             res.send(generatedData)
         } catch (error: any) {
             res.status(500).send({ error: error.message })

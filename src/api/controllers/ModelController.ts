@@ -1,8 +1,9 @@
 import container from '../config/container'
 import { Request, Response } from 'express'
+import ModelBaseService from '../services/ModelBaseService'
 
 class ModelController {
-    modelBaseService: any
+    modelBaseService: ModelBaseService
     constructor() {
         this.modelBaseService = container.resolve('modelBaseService')
 
