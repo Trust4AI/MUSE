@@ -8,6 +8,7 @@ export class GenerateRequestDTO {
     attribute: string
     attribute1: string
     attribute2: string
+    generatorTemperature: number
 
     constructor(data: any) {
         this.generatorModel = data.generator_model
@@ -19,5 +20,6 @@ export class GenerateRequestDTO {
         this.attribute = data.attribute || ''
         this.attribute1 = data.attribute_1 || ''
         this.attribute2 = data.attribute_2 || ''
+        this.generatorTemperature = data.generator_temperature || 1.0
     }
 }

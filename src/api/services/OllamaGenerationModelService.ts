@@ -6,7 +6,8 @@ class OllamaGenerationModelService {
     async generateTestCases(
         generatorModel: string,
         userPrompt: string,
-        systemPrompt: string
+        systemPrompt: string,
+        generatorTemperature: number
     ): Promise<string> {
         const genieBaseUrl: string = config.genieBaseUrl
 
@@ -16,6 +17,7 @@ class OllamaGenerationModelService {
             model_name: generatorModel,
             list_format_response: false,
             exclude_bias_references: false,
+            temperature: generatorTemperature,
         }
 
         try {
