@@ -107,6 +107,12 @@ const generate = [
         .withMessage(
             'invert_prompts is optional but must be a boolean if provided'
         ),
+    check('generator_temperature')
+        .optional()
+        .isFloat({ min: 0.0, max: 1.0 })
+        .withMessage(
+            'generator_temperature is optional but must be a float between 0.0 and 1.0 if provided'
+        ),
     body().custom((value, { req }) => {
         const {
             generation_method,

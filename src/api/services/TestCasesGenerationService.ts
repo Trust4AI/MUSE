@@ -35,7 +35,8 @@ class TestCasesGenerationService {
         userPrompt: string,
         systemPrompt: string,
         number: number,
-        invertPrompts: boolean
+        invertPrompts: boolean,
+        generatorTemperature: number
     ): Promise<any[]> {
         let attempts: number = 0
         let generationError: any
@@ -45,7 +46,8 @@ class TestCasesGenerationService {
                     generatorModel,
                     userPrompt,
                     systemPrompt,
-                    number
+                    number,
+                    generatorTemperature
                 )
                 if (invertPrompts) {
                     this.invertPrompts(content)
@@ -68,13 +70,15 @@ class TestCasesGenerationService {
         generatorModel: string,
         userPrompt: string,
         systemPrompt: string,
-        number: number
+        number: number,
+        generatorTemperature: number
     ): Promise<any[]> {
         const modelService = this.getModelService(generatorModel)
         const content = await modelService.generateTestCases(
             generatorModel,
             userPrompt,
-            systemPrompt
+            systemPrompt,
+            generatorTemperature
         )
 
         if (!content) throw new Error('[MUSE] Empty model response')

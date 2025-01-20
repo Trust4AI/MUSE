@@ -14,7 +14,8 @@ class GeminiGenerationModelService {
     async generateTestCases(
         generatorModel: string,
         userPrompt: string,
-        systemPrompt: string
+        systemPrompt: string,
+        generatorTemperature: number
     ): Promise<string> {
         if (!geminiAPIKey) {
             throw new Error('[MUSE] GEMINI_API_KEY is not defined')
@@ -25,7 +26,7 @@ class GeminiGenerationModelService {
         })
 
         const generationConfig: GeminiGenerationConfig = {
-            temperature: 0.5,
+            temperature: generatorTemperature,
             topP: 0.95,
             topK: 64,
             maxOutputTokens: 8192,

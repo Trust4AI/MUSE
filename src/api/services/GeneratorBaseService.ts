@@ -20,31 +20,44 @@ class GeneratorBaseService {
     }
 
     async generate(dto: GenerateRequestDTO) {
+        const {
+            generatorModel,
+            generationMethod,
+            biasType,
+            attribute,
+            attribute1,
+            attribute2,
+            number,
+            explanation,
+            invertPrompts,
+            generatorTemperature,
+        } = dto
         const systemPrompt: string = getSystemPrompt(
-            dto.biasType,
-            dto.generationMethod,
-            dto.attribute,
-            dto.attribute1,
-            dto.attribute2
+            biasType,
+            generationMethod,
+            attribute,
+            attribute1,
+            attribute2
         )
 
-        let remaining: number = dto.number
+        let remaining: number = number
         let response: any = []
 
         while (remaining > 0) {
             const currentBatchSize: number = Math.min(BATCH_SIZE, remaining)
             const userPrompt: string = getUserPrompt(
                 currentBatchSize,
-                dto.explanation
+                explanation
             )
 
             const auxResponse =
                 await this.testCasesGenerationService.generateTestCases(
-                    dto.generatorModel,
+                    generatorModel,
                     userPrompt,
                     systemPrompt,
                     currentBatchSize,
-                    dto.invertPrompts
+                    invertPrompts,
+                    generatorTemperature
                 )
 
             response = response.concat(auxResponse)
