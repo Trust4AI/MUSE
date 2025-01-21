@@ -128,6 +128,7 @@ Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tes
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test case.
 - `invert_prompts`: Optional boolean indicating whether to invert the prompts (source and follow-up) in the test cases.
+- `generator_temperature`: Optional float between 0 and 1 indicating the temperature to use in the generation process. The default value is 0.5.
 - `attribute`: Optional string indicating the attribute to be introduced in the second prompt (in case only one prompt contains an attribute).
 - `attribute_1`: Optional string indicating the attribute to be introduced in the first prompt (in case both prompts contain an attribute).
 - `attribute_2`: Optional string indicating the attribute to be introduced in the second prompt (in case both prompts contain an attribute).

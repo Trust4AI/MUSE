@@ -103,6 +103,13 @@ const generatorController: GeneratorController = new GeneratorController()
  *           type: boolean
  *           default: false
  *           example: false
+ *         generator_temperature:
+ *           description: The temperature to use for the generator model.
+ *           type: number
+ *           minimum: 0.0
+ *           maximum: 1.0
+ *           default: 1.0
+ *           example: 0.5
  *         attribute:
  *           description: The attribute to be introduced in the second prompt (in case only one prompt contains an attribute).
  *           type: string
@@ -122,6 +129,7 @@ const generatorController: GeneratorController = new GeneratorController()
  *         number: 3
  *         explanation: true
  *         invert_prompts: false
+ *         generator_temperature: 0.5
  *         attribute: "genderqueer"
  *     MetamorphicTest:
  *       type: object

@@ -327,6 +327,13 @@ components:
           type: boolean
           default: false
           example: false
+        generator_temperature:
+          description: The temperature to use for the generator model.
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1
+          example: 0.5
         attribute:
           description: The attribute to be introduced in the second prompt (in case only
             one prompt contains an attribute).
@@ -349,6 +356,7 @@ components:
         number: 3
         explanation: true
         invert_prompts: false
+        generator_temperature: 0.5
         attribute: genderqueer
     MetamorphicTest:
       type: object
