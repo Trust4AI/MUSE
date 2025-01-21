@@ -28,7 +28,7 @@ class GeminiGenerationModelService {
         const generationConfig: GeminiGenerationConfig = {
             temperature: generatorTemperature,
             topP: 0.95,
-            topK: 64,
+            topK: 40,
             maxOutputTokens: 8192,
             response_mime_type: 'text/plain',
         }
