@@ -1,5 +1,5 @@
 import config from '../config/config'
-import { HttpsProxyAgent } from 'https-proxy-agent'
+import { ProxyAgent } from 'undici'
 
 const geminiAPIKey: string = config.geminiAPIKey
 const proxyURL: string = config.proxyURL
@@ -42,7 +42,7 @@ class GeminiGenerationModelService {
         }
 
         const fetchContent: RequestInit & {
-            dispatcher?: HttpsProxyAgent<string>
+            dispatcher?: ProxyAgent
         } = {
             method: 'POST',
             headers,
@@ -50,7 +50,7 @@ class GeminiGenerationModelService {
         }
 
         if (proxyURL) {
-            const dispatcher = new HttpsProxyAgent(proxyURL)
+            const dispatcher = new ProxyAgent(proxyURL)
             fetchContent.dispatcher = dispatcher
         }
 

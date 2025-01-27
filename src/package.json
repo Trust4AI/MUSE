@@ -30,7 +30,8 @@
     "https-proxy-agent": "7.0.6",
     "openai": "4.28.0",
     "swagger-jsdoc": "6.2.8",
-    "swagger-ui-express": "5.0.0"
+    "swagger-ui-express": "5.0.0",
+    "undici": "6.21.1"
   },
   "devDependencies": {
     "@types/cors": "2.8.17",
