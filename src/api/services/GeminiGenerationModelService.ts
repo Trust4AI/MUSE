@@ -42,7 +42,7 @@ class GeminiGenerationModelService {
         }
 
         const fetchContent: RequestInit & {
-            agent?: HttpsProxyAgent<string>
+            dispatcher?: HttpsProxyAgent<string>
         } = {
             method: 'POST',
             headers,
@@ -50,8 +50,8 @@ class GeminiGenerationModelService {
         }
 
         if (proxyURL) {
-            const agent = new HttpsProxyAgent(proxyURL)
-            fetchContent.agent = agent
+            const dispatcher = new HttpsProxyAgent(proxyURL)
+            fetchContent.dispatcher = dispatcher
         }
 
         const content = await fetch(url, fetchContent).then((res) => res.json())
