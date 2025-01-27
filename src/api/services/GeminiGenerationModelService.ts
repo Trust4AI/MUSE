@@ -1,8 +1,8 @@
 import config from '../config/config'
-import { ProxyAgent } from 'undici'
+import { HttpsProxyAgent } from 'https-proxy-agent'
 
 const geminiAPIKey: string = config.geminiAPIKey
-const proxy: string = config.proxy
+const proxyURL: string = config.proxyURL
 
 class GeminiGenerationModelService {
     async generateTestCases(
@@ -41,15 +41,17 @@ class GeminiGenerationModelService {
             },
         }
 
-        const fetchContent: RequestInit & { dispatcher?: ProxyAgent } = {
+        const fetchContent: RequestInit & {
+            agent?: HttpsProxyAgent<string>
+        } = {
             method: 'POST',
             headers,
             body: JSON.stringify(data),
         }
 
-        if (proxy) {
-            const dispatcher = new ProxyAgent(proxy)
-            fetchContent.dispatcher = dispatcher
+        if (proxyURL) {
+            const agent = new HttpsProxyAgent(proxyURL)
+            fetchContent.agent = agent
         }
 
         const content = await fetch(url, fetchContent).then((res) => res.json())
