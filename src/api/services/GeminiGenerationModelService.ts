@@ -56,6 +56,9 @@ class GeminiGenerationModelService {
 
         const content = await fetch(url, fetchContent).then((res) => res.json())
 
+        if (content.error) {
+            throw new Error(`[MUSE] ${content.error.message}`)
+        }
         const response = content.candidates[0].content.parts[0].text
 
         if (response) {
