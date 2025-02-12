@@ -14,7 +14,7 @@ const modelBaseService: ModelBaseService = container.resolve('modelBaseService')
  * @swagger
  * components:
  *   schemas:
- *     Message:
+ *     ModelMessage:
  *       type: object
  *       required:
  *         - message
@@ -127,7 +127,7 @@ const modelBaseService: ModelBaseService = container.resolve('modelBaseService')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Message'
+ *               $ref: '#/components/schemas/ModelMessage'
  *       500:
  *         description: Server error.
  *         content:
@@ -198,7 +198,7 @@ router
 
 /**
  * @swagger
- * /models/judge/{id}:
+ * /models/{id}:
  *   delete:
  *     summary: Remove a generator model from MUSE configuration.
  *     tags: [Models]
