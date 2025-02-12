@@ -26,11 +26,11 @@ const swaggerOptions: Options = {
         },
         servers: [
             {
-                url: `http://localhost:${port}/api/v1/`,
+                url: `http://trust4ai.us.es:8083/api/v1/`,
             },
         ],
     },
-    apis: ['./api/routes/ModelRoutes.ts', './api/routes/GeneratorRoutes.ts'],
+    apis: ['./api/routes/GeneratorRoutes.ts'],
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions)

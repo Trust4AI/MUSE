@@ -198,7 +198,7 @@ router
 
 /**
  * @swagger
- * /models/judge/{id}:
+ * /models/{id}:
  *   delete:
  *     summary: Remove a generator model from MUSE configuration.
  *     tags: [Models]
