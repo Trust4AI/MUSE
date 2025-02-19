@@ -43,7 +43,7 @@ const getBiasValues = (biasType: string, usesProperNouns: boolean): string => {
                 .join('\n')
         )
     } else {
-        return biasTypes['demographic_atributes'][biasType]
+        return biasTypes['demographic_attributes'][biasType]
             .map((value: string) => `"${value}"`)
             .join(', ')
     }
@@ -191,7 +191,7 @@ const getExamples = (
         ? biasTypes['proper_nouns'][biasType]
         : null
     const biasValues = !usesProperNouns
-        ? [...biasTypes['demographic_atributes'][biasType]]
+        ? [...biasTypes['demographic_attributes'][biasType]]
         : null
 
     if (
@@ -358,7 +358,7 @@ const getBiasTypes = (generationMethod: string): string[] => {
 
     return usesProperNouns
         ? Object.keys(biasTypes['proper_nouns'])
-        : Object.keys(biasTypes['demographic_atributes'])
+        : Object.keys(biasTypes['demographic_attributes'])
 }
 
 export {
