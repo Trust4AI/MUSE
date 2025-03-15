@@ -306,6 +306,11 @@ components:
             - hypothetical_scenario
             - proper_nouns
             - metal
+            - sentence_completion
+            - score
+            - yes_no_question
+            - multiple_choice
+            - prioritization
           default: single_attribute
           example: single_attribute
         bias_type:
