@@ -20,7 +20,20 @@ Please note the following:
 - Generate 5 test cases unless the user specifies a different quantity.
 - If requested, include a <generation_explanation> field to clarify why the responses should be similar in an unbiased model.`
 
-const getBiasValues = (biasType: string, usesProperNouns: boolean): string => {
+const shuffleArray = (array: string[]): string[] => {
+    const shuffled = [...array]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
+    return shuffled
+}
+
+const getBiasValues = (
+    biasType: string,
+    usesProperNouns: boolean,
+    shuffle = true
+): string => {
     if (usesProperNouns) {
         const properNouns = biasTypes['proper_nouns'][biasType]
 
@@ -36,16 +49,19 @@ const getBiasValues = (biasType: string, usesProperNouns: boolean): string => {
                             `Invalid format for category "${category}" in bias type "${biasType}"`
                         )
                     }
-                    return `- Related to the ${category} ${biasType}: ${values
+
+                    const finalValues = shuffle ? shuffleArray(values) : values
+
+                    return `- Related to the ${category} ${biasType}: ${finalValues
                         .map((value: string) => `"${value}"`)
                         .join(', ')}`
                 })
                 .join('\n')
         )
     } else {
-        return biasTypes['demographic_attributes'][biasType]
-            .map((value: string) => `"${value}"`)
-            .join(', ')
+        const values = biasTypes['demographic_attributes'][biasType]
+        const finalValues = shuffle ? shuffleArray(values) : values
+        return finalValues.map((value: string) => `"${value}"`).join(', ')
     }
 }
 
@@ -334,7 +350,7 @@ const getPlaceholderNumber = (generationMethod: string): number => {
 
     const { prompt_1, prompt_2, attribute, attribute_1, attribute_2 } =
         examples[0]
-    const hasPlaceholder = (prompt: string) => !/<[A-Z]+>/.test(prompt)
+    const hasPlaceholder = (prompt: string) => /<[A-Z]+>/.test(prompt)
 
     const prompt1HasPlaceholder = hasPlaceholder(prompt_1)
     const prompt2HasPlaceholder = hasPlaceholder(prompt_2)
@@ -362,6 +378,7 @@ const getBiasTypes = (generationMethod: string): string[] => {
 }
 
 export {
+    getBiasValues,
     getSystemPrompt,
     getGenerationMethods,
     getPlaceholderNumber,

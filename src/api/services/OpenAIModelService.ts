@@ -7,12 +7,12 @@ const openai: OpenAI = new OpenAI({
     apiKey: openaiAPIKey,
 })
 
-class OpenAIGPTGenerationModelService {
-    async generateTestCases(
-        generatorModel: string,
+class OpenAIModelService {
+    async sendRequest(
+        model: string,
         userPrompt: string,
         systemPrompt: string,
-        generatorTemperature: number
+        temperature: number
     ): Promise<string> {
         if (!openaiAPIKey) {
             throw new Error('[MUSE] OPENAI_API_KEY is not defined')
@@ -29,8 +29,8 @@ class OpenAIGPTGenerationModelService {
                     content: userPrompt,
                 },
             ],
-            model: generatorModel,
-            temperature: generatorTemperature,
+            model: model,
+            temperature: temperature,
         })
         const content = completion.choices[0].message.content
         if (content) {
@@ -41,4 +41,4 @@ class OpenAIGPTGenerationModelService {
     }
 }
 
-export default OpenAIGPTGenerationModelService
+export default OpenAIModelService

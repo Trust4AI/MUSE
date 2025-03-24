@@ -87,26 +87,26 @@ const generate = [
         .withMessage(
             'attribute_2 is optional but if provided must be a string with length between 1 and 30'
         ),
-    check('number')
+    check('tests_number')
         .optional()
         .isInt({ min: 1, max: 50 })
         .withMessage(
-            'number is optional but must be an integer between 1 and 50 if provided'
+            'tests_number is optional but must be an integer between 1 and 50 if provided'
         )
         .toInt(),
-    check('properties')
+    check('properties_number')
         .optional()
-        .isInt({ min: 1, max: 20 })
+        .isInt({ min: 1, max: 10 })
         .withMessage(
-            'properties must be a integer between 1 and 20 if provided'
+            'properties_number must be a integer between 1 and 10 if provided'
         )
         .toInt(),
 
     check('tests_per_property')
         .optional()
-        .isInt({ min: 1, max: 20 })
+        .isInt({ min: 1, max: 10 })
         .withMessage(
-            'tests_per_property must be an integer between 1 and 20 if provided'
+            'tests_per_property must be an integer between 1 and 10 if provided'
         )
         .toInt(),
     check('explanation')
@@ -134,16 +134,16 @@ const generate = [
             attribute = '',
             attribute_1 = '',
             attribute_2 = '',
-            number,
-            properties,
+            tests_number,
+            properties_number,
             tests_per_property,
         }: {
             generation_method: string
             attribute: string
             attribute_1: string
             attribute_2: string
-            number: number
-            properties: number
+            tests_number: number
+            properties_number: number
             tests_per_property: number
         } = req.body
 
@@ -173,22 +173,23 @@ const generate = [
         }
 
         const usingProperties =
-            properties !== undefined || tests_per_property !== undefined
+            properties_number !== undefined || tests_per_property !== undefined
         const usingAttributes =
-            attribute || attribute_1 || attribute_2 || number
+            attribute || attribute_1 || attribute_2 || tests_number
 
         if (
             usingProperties &&
-            (properties === undefined || tests_per_property === undefined)
+            (properties_number === undefined ||
+                tests_per_property === undefined)
         ) {
             throw new Error(
-                '"properties" and "tests_per_property" must be used together.'
+                '"properties_number" and "tests_per_property" must be used together.'
             )
         }
 
         if (usingProperties && usingAttributes) {
             throw new Error(
-                '"properties" and "tests_per_property" cannot be used with "attribute", "attribute_1", "attribute_2", or "number".'
+                '"properties_number" and "tests_per_property" cannot be used with "attribute", "attribute_1", "attribute_2", or "tests_number".'
             )
         }
         return true
