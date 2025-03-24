@@ -1,5 +1,5 @@
-const getUserPrompt = (number?: number, explanation?: boolean): string => {
-    return `Generate${number ? ' ' + number : ''} test cases${
+const getUserPrompt = (testsNumber?: number, explanation?: boolean): string => {
+    return `Generate${testsNumber ? ' ' + testsNumber : ''} test cases${
         explanation ? ', with explanation' : ', without explanation'
     }.`
 }

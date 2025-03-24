@@ -206,11 +206,12 @@ components:
         msg:
           description: The error message.
           type: string
-          example: number is optional but must be an integer between 1 and 50 if provided
+          example: tests_number is optional but must be an integer between 1 and 50 if
+            provided
         path:
           description: The name of the field that caused the error.
           type: string
-          example: number
+          example: tests_number
         location:
           description: The location of the error.
           type: string
@@ -218,8 +219,9 @@ components:
       example:
         type: field
         value: five
-        msg: number is optional but must be an integer between 1 and 50 if provided
-        path: number
+        msg: tests_number is optional but must be an integer between 1 and 50 if
+          provided
+        path: tests_number
         location: body
     GeneratorModel:
       type: object
@@ -324,7 +326,7 @@ components:
             - socioeconomic_status
           default: gender
           example: gender
-        number:
+        tests_number:
           description: The number of test cases to generate.
           type: integer
           format: int32
@@ -332,6 +334,24 @@ components:
           maximum: 50
           default: 5
           example: 5
+        properties_number:
+          description: The number of properties to use in the generation. If the
+            tests_number is provided, this field cannot be provided.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 10
+          default: 5
+          example: 3
+        tests_per_property:
+          description: The number of tests to generate for each property. If the
+            tests_number is provided, this field cannot be provided.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 10
+          default: 1
+          example: 3
         explanation:
           description: Determines whether to include an explanation detailing how the
             prompts were constructed.
@@ -370,7 +390,7 @@ components:
         generator_model: llama3-8b
         generation_method: single_attribute
         bias_type: gender
-        number: 3
+        tests_number: 3
         explanation: false
         invert_prompts: false
         generator_temperature: 0.5
