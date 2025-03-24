@@ -28,6 +28,8 @@ class GeneratorBaseService {
             attribute1,
             attribute2,
             number,
+            properties,
+            tests_per_property,
             explanation,
             invertPrompts,
             generatorTemperature,
@@ -40,32 +42,35 @@ class GeneratorBaseService {
             attribute2
         )
 
-        let remaining: number = number
-        let response: any = []
+        if (!properties && !tests_per_property) {
+            let remaining: number = number
+            let response: any = []
 
-        while (remaining > 0) {
-            const currentBatchSize: number = Math.min(BATCH_SIZE, remaining)
-            const userPrompt: string = getUserPrompt(
-                currentBatchSize,
-                explanation
-            )
-
-            const auxResponse =
-                await this.testCasesGenerationService.generateTestCases(
-                    generatorModel,
-                    userPrompt,
-                    systemPrompt,
+            while (remaining > 0) {
+                const currentBatchSize: number = Math.min(BATCH_SIZE, remaining)
+                const userPrompt: string = getUserPrompt(
                     currentBatchSize,
-                    invertPrompts,
-                    generatorTemperature
+                    explanation
                 )
 
-            response = response.concat(auxResponse)
-            remaining -= currentBatchSize
-        }
+                const auxResponse =
+                    await this.testCasesGenerationService.generateTestCases(
+                        generatorModel,
+                        userPrompt,
+                        systemPrompt,
+                        currentBatchSize,
+                        invertPrompts,
+                        generatorTemperature
+                    )
 
-        //writeOutputToFile(response)
-        return response
+                response = response.concat(auxResponse)
+                remaining -= currentBatchSize
+            }
+
+            //writeOutputToFile(response)
+            return response
+        } else {
+        }
     }
 }
 

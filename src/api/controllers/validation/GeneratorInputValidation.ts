@@ -94,6 +94,21 @@ const generate = [
             'number is optional but must be an integer between 1 and 50 if provided'
         )
         .toInt(),
+    check('properties')
+        .optional()
+        .isInt({ min: 1, max: 20 })
+        .withMessage(
+            'properties must be a integer between 1 and 20 if provided'
+        )
+        .toInt(),
+
+    check('tests_per_property')
+        .optional()
+        .isInt({ min: 1, max: 20 })
+        .withMessage(
+            'tests_per_property must be an integer between 1 and 20 if provided'
+        )
+        .toInt(),
     check('explanation')
         .optional()
         .isBoolean()
@@ -119,11 +134,17 @@ const generate = [
             attribute = '',
             attribute_1 = '',
             attribute_2 = '',
+            number,
+            properties,
+            tests_per_property,
         }: {
             generation_method: string
             attribute: string
             attribute_1: string
             attribute_2: string
+            number: number
+            properties: number
+            tests_per_property: number
         } = req.body
 
         if (
@@ -151,6 +172,25 @@ const generate = [
             }
         }
 
+        const usingProperties =
+            properties !== undefined || tests_per_property !== undefined
+        const usingAttributes =
+            attribute || attribute_1 || attribute_2 || number
+
+        if (
+            usingProperties &&
+            (properties === undefined || tests_per_property === undefined)
+        ) {
+            throw new Error(
+                '"properties" and "tests_per_property" must be used together.'
+            )
+        }
+
+        if (usingProperties && usingAttributes) {
+            throw new Error(
+                '"properties" and "tests_per_property" cannot be used with "attribute", "attribute_1", "attribute_2", or "number".'
+            )
+        }
         return true
     }),
 ]
