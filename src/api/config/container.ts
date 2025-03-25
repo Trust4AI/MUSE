@@ -1,10 +1,10 @@
 import { createContainer, asClass, AwilixContainer } from 'awilix'
 
 import GeneratorBaseService from '../services/GeneratorBaseService'
-import OllamaGenerationModelService from '../services/OllamaGenerationModelService'
-import OpenAIGPTGenerationModelService from '../services/OpenAIGPTGenerationModelService'
+import OllamaModelService from '../services/OllamaModelService'
+import OpenAIModelService from '../services/OpenAIModelService'
 import TestCasesGenerationService from '../services/TestCasesGenerationService'
-import GeminiGenerationModelService from '../services/GeminiGenerationModelService'
+import GeminiModelService from '../services/GeminiModelService'
 import ModelBaseService from '../services/ModelBaseService'
 
 function initContainer(): AwilixContainer {
@@ -16,15 +16,9 @@ function initContainer(): AwilixContainer {
         testCasesGenerationService: asClass(
             TestCasesGenerationService
         ).singleton(),
-        openAIGPTGenerationModelService: asClass(
-            OpenAIGPTGenerationModelService
-        ).singleton(),
-        geminiGenerationModelService: asClass(
-            GeminiGenerationModelService
-        ).singleton(),
-        ollamaGenerationModelService: asClass(
-            OllamaGenerationModelService
-        ).singleton(),
+        openAIModelService: asClass(OpenAIModelService).singleton(),
+        geminiModelService: asClass(GeminiModelService).singleton(),
+        ollamaModelService: asClass(OllamaModelService).singleton(),
     })
     return container
 }

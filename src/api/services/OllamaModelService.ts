@@ -2,22 +2,22 @@ import config from '../config/config'
 import { sendRequestToGenie } from '../utils/httpUtils'
 import { debugLog } from '../utils/logUtils'
 
-class OllamaGenerationModelService {
-    async generateTestCases(
-        generatorModel: string,
+class OllamaModelService {
+    async sendRequest(
+        model: string,
         userPrompt: string,
         systemPrompt: string,
-        generatorTemperature: number
+        temperature: number
     ): Promise<string> {
         const genieBaseUrl: string = config.genieBaseUrl
 
         const requestBody = {
             user_prompt: userPrompt,
             system_prompt: systemPrompt,
-            model_name: generatorModel,
+            model_name: model,
             list_format_response: false,
             exclude_bias_references: false,
-            temperature: generatorTemperature,
+            temperature: temperature,
         }
 
         try {
@@ -36,4 +36,4 @@ class OllamaGenerationModelService {
     }
 }
 
-export default OllamaGenerationModelService
+export default OllamaModelService

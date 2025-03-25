@@ -10,30 +10,30 @@ const geminiAPIKey: string = config.geminiAPIKey
 
 const genAI: GoogleGenerativeAI = new GoogleGenerativeAI(geminiAPIKey)
 
-class GeminiGenerationModelService {
-    async generateTestCases(
-        generatorModel: string,
+class GeminiModelService {
+    async sendRequest(
+        model: string,
         userPrompt: string,
         systemPrompt: string,
-        generatorTemperature: number
+        temperature: number
     ): Promise<string> {
         if (!geminiAPIKey) {
             throw new Error('[MUSE] GEMINI_API_KEY is not defined')
         }
 
-        const model: GenerativeModel = genAI.getGenerativeModel({
-            model: generatorModel,
+        const geminiModel: GenerativeModel = genAI.getGenerativeModel({
+            model: model,
         })
 
         const generationConfig: GeminiGenerationConfig = {
-            temperature: generatorTemperature,
+            temperature: temperature,
             topP: 0.95,
             topK: 40,
             maxOutputTokens: 8192,
             response_mime_type: 'text/plain',
         }
 
-        const chatSession: ChatSession = model.startChat({
+        const chatSession: ChatSession = geminiModel.startChat({
             generationConfig,
             history: [
                 {
@@ -54,4 +54,4 @@ class GeminiGenerationModelService {
     }
 }
 
-export default GeminiGenerationModelService
+export default GeminiModelService
