@@ -122,6 +122,12 @@ const generate = [
         .withMessage(
             'invert_prompts is optional but must be a boolean if provided'
         ),
+    check('generation_feedback')
+        .optional()
+        .isBoolean()
+        .withMessage(
+            'retroalimentation is optional but must be a boolean if provided'
+        ),
     check('generator_temperature')
         .optional()
         .isFloat({ min: 0.0, max: 1.0 })

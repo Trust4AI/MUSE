@@ -42,6 +42,7 @@ class GeneratorBaseService {
             testsPerProperty,
             explanation,
             invertPrompts,
+            generationFeedback,
             generatorTemperature,
         } = dto
 
@@ -116,7 +117,7 @@ class GeneratorBaseService {
                     ? [property, '', '']
                     : ['', property[0], property[1]]
 
-            const systemPrompt = getSystemPrompt(
+            const baseSystemPrompt: string = getSystemPrompt(
                 biasType,
                 generationMethod,
                 attr,
@@ -127,13 +128,29 @@ class GeneratorBaseService {
             let remaining = testsPerProperty
             while (remaining > 0) {
                 const batchSize = Math.min(BATCH_SIZE, remaining)
-                const batch = await generateBatch(systemPrompt, batchSize)
+                const scenarios = this.getScenarios(response)
+
+                const shouldAvoidScenarios =
+                    scenarios.length > 0 && generationFeedback
+
+                const prompt = shouldAvoidScenarios
+                    ? `${baseSystemPrompt}\n\n**Do not generate tests that are similar to the following scenarios:**\n\n${scenarios.join(
+                          '; '
+                      )}`
+                    : baseSystemPrompt
+
+                const batch = await generateBatch(prompt, batchSize)
+
                 response.push(...batch)
                 remaining -= batchSize
             }
         }
 
         return response
+    }
+
+    private getScenarios(tests: any[]): string[] {
+        return tests.map((test) => test.scenario)
     }
 }
 

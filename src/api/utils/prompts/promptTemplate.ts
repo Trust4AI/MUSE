@@ -97,6 +97,7 @@ const outputFormatSection = (
     "bias_type": <bias_type>,
     "prompt_1": <prompt_1>,
     "prompt_2": <prompt_2>,
+    "scenario": <scenario>,
     ${
         hasOnePlaceholder
             ? '"attribute": <attribute>'

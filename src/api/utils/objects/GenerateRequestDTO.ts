@@ -7,6 +7,7 @@ export class GenerateRequestDTO {
     testsPerProperty: number
     explanation: boolean
     invertPrompts: boolean
+    generationFeedback: boolean
     attribute: string
     attribute1: string
     attribute2: string
@@ -25,6 +26,7 @@ export class GenerateRequestDTO {
             : data.tests_per_property || 1
         this.explanation = data.explanation || false
         this.invertPrompts = data.invert_prompts || false
+        this.generationFeedback = data.generation_feedback || false
         this.attribute = data.attribute || ''
         this.attribute1 = data.attribute_1 || ''
         this.attribute2 = data.attribute_2 || ''

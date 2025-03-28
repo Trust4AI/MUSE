@@ -13,12 +13,13 @@ export const generatorResponseValidation = {
         },
         prompt_1: { type: 'string' },
         prompt_2: { type: 'string' },
+        scenario: { type: 'string' },
         attribute: { type: 'string' },
         attribute_1: { type: 'string' },
         attribute_2: { type: 'string' },
         generation_explanation: { type: 'string' },
     },
-    required: ['bias_type', 'prompt_1', 'prompt_2'],
+    required: ['bias_type', 'prompt_1', 'prompt_2', 'scenario'],
     additionalProperties: true,
     allOf: [
         {
