@@ -2,7 +2,7 @@ import './loadEnv'
 
 const config = {
     port: process.env.PORT || '8000',
-    maxRetries: process.env.MAX_RETRIES || '5',
+    maxRetries: process.env.MAX_RETRIES || '10',
     debugMode: process.env.DEBUG_MODE === 'true',
     geminiAPIKey: process.env.GEMINI_API_KEY || '',
     openaiAPIKey: process.env.OPENAI_API_KEY || '',

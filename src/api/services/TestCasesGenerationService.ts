@@ -12,6 +12,7 @@ import config from '../config/config'
 const ajv = new Ajv()
 
 const MAX_RETRIES: number = parseInt(config.maxRetries, 10)
+const RETRY_DELAY: number = 10000 // milliseconds
 
 class TestCasesGenerationService {
     openAIModelService: OpenAIGPTModelService
@@ -55,6 +56,7 @@ class TestCasesGenerationService {
                 )
                 generationError = error
                 attempts++
+                await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
             }
         }
         debugLog('Error generating test cases', 'error')
@@ -101,6 +103,7 @@ class TestCasesGenerationService {
                 )
                 lastError = error
                 attempts++
+                await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
             }
         }
         debugLog('Error selecting properties', 'error')
