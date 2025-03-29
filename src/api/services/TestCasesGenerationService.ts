@@ -56,7 +56,11 @@ class TestCasesGenerationService {
                 )
                 generationError = error
                 attempts++
-                await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
+                if (error.status === 429) {
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, RETRY_DELAY)
+                    )
+                }
             }
         }
         debugLog('Error generating test cases', 'error')
@@ -103,7 +107,11 @@ class TestCasesGenerationService {
                 )
                 lastError = error
                 attempts++
-                await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
+                if (error.status === 429) {
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, RETRY_DELAY)
+                    )
+                }
             }
         }
         debugLog('Error selecting properties', 'error')
