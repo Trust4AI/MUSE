@@ -8,6 +8,7 @@ export class GenerateRequestDTO {
     explanation: boolean
     invertPrompts: boolean
     generationFeedback: boolean
+    scenarios: string[]
     attribute: string
     attribute1: string
     attribute2: string
@@ -27,6 +28,7 @@ export class GenerateRequestDTO {
         this.explanation = data.explanation || false
         this.invertPrompts = data.invert_prompts || false
         this.generationFeedback = data.generation_feedback || false
+        this.scenarios = data.scenarios || []
         this.attribute = data.attribute || ''
         this.attribute1 = data.attribute_1 || ''
         this.attribute2 = data.attribute_2 || ''

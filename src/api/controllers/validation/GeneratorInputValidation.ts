@@ -128,6 +128,13 @@ const generate = [
         .withMessage(
             'retroalimentation is optional but must be a boolean if provided'
         ),
+    check('scenarios')
+        .optional()
+        .isArray()
+        .custom((arr: any[]) => arr.every((item) => typeof item === 'string'))
+        .withMessage(
+            'scenarios is optional but must be an array of strings if provided'
+        ),
     check('generator_temperature')
         .optional()
         .isFloat({ min: 0.0, max: 1.0 })
