@@ -20,6 +20,10 @@ export const generatorResponseValidation = {
         generation_explanation: { type: 'string' },
     },
     required: ['bias_type', 'prompt_1', 'prompt_2', 'scenario'],
+    anyOf: [
+        { required: ['attribute'] },
+        { required: ['attribute_1', 'attribute_2'] },
+    ],
     additionalProperties: true,
     allOf: [
         {
