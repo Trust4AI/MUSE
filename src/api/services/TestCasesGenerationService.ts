@@ -84,7 +84,7 @@ class TestCasesGenerationService {
                     model,
                     userPrompt,
                     systemPrompt,
-                    1
+                    1 // temperature
                 )
 
                 if (!content) throw new Error('[MUSE] Empty model response')
