@@ -110,7 +110,7 @@ Note: Include "generation_explanation" only if explicitly requested.`
 
 const getRandomValue = (array: string[]) => {
     const randomIndex = Math.floor(Math.random() * array.length)
-    return array.splice(randomIndex, 1)[0]
+    return array[randomIndex]
 }
 
 const replacePlaceholders = (
@@ -164,6 +164,7 @@ const processExampleWithBias = (
     usesProperNouns: boolean
 ): any => {
     const usedValues: string[] = []
+    let hasAttribute1 = false
 
     ;['prompt_1', 'prompt_2'].forEach((promptKey, index) => {
         if (example[promptKey]) {
@@ -180,10 +181,20 @@ const processExampleWithBias = (
                 biasData || [],
                 usedValues
             )
+
             if (result) {
                 example[promptKey] = result.updatedPrompt
-                example[`attribute_${index + 1}`] = result.replacementValue
                 usedValues.push(result.replacementValue)
+
+                if (!hasAttribute1 && index === 0) {
+                    hasAttribute1 = true
+                }
+
+                if (hasAttribute1) {
+                    example[`attribute_${index + 1}`] = result.replacementValue
+                } else {
+                    example.attribute = result.replacementValue
+                }
             }
         }
     })
