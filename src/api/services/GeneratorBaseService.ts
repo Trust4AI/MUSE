@@ -143,7 +143,10 @@ class GeneratorBaseService {
                 const batch = await generateBatch(prompt, batchSize)
 
                 response.push(...batch)
-                insertedScenarios = [...this.getScenarios(batch)]
+                insertedScenarios = [
+                    ...insertedScenarios,
+                    ...this.getScenarios(batch),
+                ]
                 remaining -= batchSize
             }
         }
