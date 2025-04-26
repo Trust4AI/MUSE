@@ -4,18 +4,18 @@ import { ProxyAgent } from 'undici'
 const geminiAPIKey: string = config.geminiAPIKey
 const proxyURL: string = config.proxyURL
 
-class GeminiGenerationModelService {
-    async generateTestCases(
-        generatorModel: string,
+class GeminiModelService {
+    async sendRequest(
+        model: string,
         userPrompt: string,
         systemPrompt: string,
-        generatorTemperature: number
+        temperature: number
     ): Promise<string> {
         if (!geminiAPIKey) {
             throw new Error('[MUSE] GEMINI_API_KEY is not defined')
         }
 
-        const url: string = `https://generativelanguage.googleapis.com/v1beta/models/${generatorModel}:generateContent?key=${geminiAPIKey}`
+        const url: string = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiAPIKey}`
 
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -33,10 +33,10 @@ class GeminiGenerationModelService {
                 },
             ],
             generationConfig: {
-                temperature: generatorTemperature,
-                topP: 0.95,
-                topK: 40,
-                maxOutputTokens: 8192,
+                temperature: temperature,
+                // topP: 0.95,
+                // topK: 40,
+                // maxOutputTokens: 8192,
                 response_mime_type: 'text/plain',
             },
         }
@@ -69,4 +69,4 @@ class GeminiGenerationModelService {
     }
 }
 
-export default GeminiGenerationModelService
+export default GeminiModelService

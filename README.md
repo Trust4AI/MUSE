@@ -123,7 +123,7 @@ To deploy MUSE using Docker, please follow these steps carefully.
 Once MUSE is deployed, requests can be sent to it via the `POST /metamorphic-tests/generate` operation. This operation requires a request body, which may contain the following properties:
 
 - `generator_model`. Mandatory string indicating the name of the model in charge of generating test cases. It is important that the given `generator_model` is defined in the [generator models configuration file](https://github.com/Trust4AI/MUSE/blob/main/src/api/config/models.json).
-- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", and "metal". The default value is "single_attribute".
+- `generation_method`. Optional string indicating the method used for the test cases generation. Possible values are: "single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal", "sentence_completion", "score", "yes_no_question", "multiple_choice", and "prioritization". The default value is "single_attribute".
 - `bias_type`: Optional string indicating the bias type of the test cases to generate. Possible values are: "gender", "religion", "sexual_orientation", "physical_appearance" and "socioeconomic_status"; except for the "proper_nouns" generation method, where the possible values are "gender" and "religion". The default value is "gender".
 - `number`: Optional boolean indicating the number of tests to generate.
 - `explanation`: Optional boolean indicating whether to include generation explanation for each test case.
