@@ -19,12 +19,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/models/check",
+									"raw": "http://trust4ai.us.es:8083/api/v1/models/check",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -41,12 +41,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models/check",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models/check",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -103,12 +103,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/models",
+									"raw": "http://trust4ai.us.es:8083/api/v1/models",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -124,12 +124,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -191,12 +191,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/models",
+									"raw": "http://trust4ai.us.es:8083/api/v1/models",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -221,12 +221,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -289,12 +289,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -357,12 +357,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -424,12 +424,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/models/:id",
+									"raw": "http://trust4ai.us.es:8083/api/v1/models/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -453,12 +453,12 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models/:id",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models/:id",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -520,12 +520,12 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8000/api/v1/models/:id",
+											"raw": "http://trust4ai.us.es:8083/api/v1/models/:id",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -601,12 +601,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphic-tests/check",
+									"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/check",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -623,12 +623,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/check",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/check",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -691,12 +691,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+									"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"trust4ai.us.es"
 									],
-									"port": "8000",
+									"port": "8083",
 									"path": [
 										"api",
 										"v1",
@@ -727,12 +727,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -801,12 +801,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -875,12 +875,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -944,12 +944,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1013,12 +1013,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1082,12 +1082,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1151,12 +1151,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1220,12 +1220,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1289,12 +1289,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1358,12 +1358,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1427,12 +1427,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1496,12 +1496,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1565,12 +1565,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1634,12 +1634,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1703,12 +1703,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1772,12 +1772,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1841,12 +1841,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1910,12 +1910,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -1979,12 +1979,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2048,12 +2048,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2117,12 +2117,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2186,12 +2186,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2255,12 +2255,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2324,12 +2324,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2393,12 +2393,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
@@ -2462,12 +2462,12 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8000/api/v1/metamorphic-tests/generate",
+											"raw": "http://trust4ai.us.es:8083/api/v1/metamorphic-tests/generate",
 											"protocol": "http",
 											"host": [
-												"localhost"
+												"trust4ai.us.es"
 											],
-											"port": "8000",
+											"port": "8083",
 											"path": [
 												"api",
 												"v1",
