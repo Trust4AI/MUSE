@@ -12,7 +12,7 @@ const generate = [
         .trim()
         .custom((value: string): boolean => {
             const generatorModels: string[] = getGeneratorModelsList()
-            if (value && !generatorModels.includes(value)) {
+            if (value === '' || (value && !generatorModels.includes(value))) {
                 throw new Error(
                     `generator_model must be a string, if provided, with one of the following values: [${generatorModels.join(
                         ', '
