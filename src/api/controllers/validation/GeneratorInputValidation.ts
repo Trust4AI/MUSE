@@ -10,9 +10,15 @@ const generate = [
     check('generator_model')
         .isString()
         .trim()
+        .isLength({ min: 1 })
+        .withMessage(
+            `generator_model is required and must be a string with at least 1 character, and one of the following values: [${getGeneratorModelsList().join(
+                ', '
+            )}]`
+        )
         .custom((value: string): boolean => {
             const generatorModels: string[] = getGeneratorModelsList()
-            if (value === '' || !generatorModels.includes(value)) {
+            if (value && !generatorModels.includes(value)) {
                 throw new Error(
                     `generator_model must be a string, if provided, with one of the following values: [${generatorModels.join(
                         ', '
@@ -25,9 +31,15 @@ const generate = [
         .optional()
         .isString()
         .trim()
+        .isLength({ min: 1 })
+        .withMessage(
+            `generation_method is optional but if provided must be a string with at least 1 character, and one of the following values: [${getGenerationMethods().join(
+                ', '
+            )}]`
+        )
         .custom((value: string): boolean => {
             const generationMethods: string[] = getGenerationMethods()
-            if (value === '' || !generationMethods.includes(value)) {
+            if (value && !generationMethods.includes(value)) {
                 throw new Error(
                     `generation_method is optional but must be a string with one of the following values if provided: [${generationMethods.join(
                         ', '
