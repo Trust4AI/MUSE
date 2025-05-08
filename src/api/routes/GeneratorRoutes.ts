@@ -78,7 +78,7 @@ const generatorController: GeneratorController = new GeneratorController()
  *         generation_method:
  *           type: string
  *           description: The method to use for generating test cases.
- *           enum: ["single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal", "sentence_completion", "score", "yes_no_question", "multiple_choice", "prioritization"]
+ *           enum: ["single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal", "sentence_completion", "score", "yes_no_question", "multiple_choice", "prioritisation"]
  *           default: "single_attribute"
  *           example: "single_attribute"
  *         bias_type:

@@ -314,7 +314,7 @@ components:
             - score
             - yes_no_question
             - multiple_choice
-            - prioritization
+            - prioritisation
           default: single_attribute
           example: single_attribute
         bias_type:
