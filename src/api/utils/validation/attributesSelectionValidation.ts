@@ -1,4 +1,4 @@
-export const propertiesSelectionValidation = (
+export const attributesSelectionValidation = (
     length: number,
     itemsAreTupleOfStrings = false
 ) => {

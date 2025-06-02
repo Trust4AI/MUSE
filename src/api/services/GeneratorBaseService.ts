@@ -6,11 +6,11 @@ import {
     getSystemPrompt,
 } from '../utils/prompts/promptTemplate'
 import {
-    getPairPropertiesPrompt,
+    getPairAttributesPrompt,
     getProperNounPrompt,
-    getPropertiesPrompt,
+    getAttributesPrompt,
     getUserPrompt as getSelectionUserPrompt,
-} from '../utils/prompts/propertiesSelection'
+} from '../utils/prompts/attributesSelection'
 import { getUserPrompt as getGenerationUserPrompt } from '../utils/prompts/userPrompts'
 import TestCasesGenerationService from './TestCasesGenerationService'
 //import { writeOutputToFile } from '../utils/fileUtils'
@@ -38,8 +38,8 @@ class GeneratorBaseService {
             attribute1,
             attribute2,
             testsNumber,
-            propertiesNumber,
-            testsPerProperty,
+            attributesNumber,
+            testsPerAttribute,
             explanation,
             invertPrompts,
             generationFeedback,
@@ -62,7 +62,7 @@ class GeneratorBaseService {
             )
         }
 
-        if (!propertiesNumber && !testsPerProperty) {
+        if (!attributesNumber && !testsPerAttribute) {
             const systemPrompt = getSystemPrompt(
                 biasType,
                 generationMethod,
@@ -90,34 +90,34 @@ class GeneratorBaseService {
         const selectionSystemPrompt = isNounBased
             ? getProperNounPrompt()
             : attributesQuantity === 1
-            ? getPropertiesPrompt()
-            : getPairPropertiesPrompt()
+            ? getAttributesPrompt()
+            : getPairAttributesPrompt()
 
-        const propertiesList = getBiasValues(biasType, isNounBased, true)
+        const attributesList = getBiasValues(biasType, isNounBased, true)
 
         const selectionUserPrompt = getSelectionUserPrompt(
-            propertiesNumber,
-            propertiesList,
+            attributesNumber,
+            attributesList,
             attributesQuantity === 2
         )
 
-        const selectedProperties =
-            await this.testCasesGenerationService.selectProperties(
+        const selectedAttributes =
+            await this.testCasesGenerationService.selectAttributes(
                 generatorModel,
                 selectionUserPrompt,
                 selectionSystemPrompt,
-                propertiesNumber,
+                attributesNumber,
                 attributesQuantity === 2
             )
 
         const response = []
         let insertedScenarios: string[] = scenarios
 
-        for (const property of selectedProperties) {
+        for (const attribute of selectedAttributes) {
             const [attr, attr1, attr2] =
-                typeof property === 'string'
-                    ? [property, '', '']
-                    : ['', property[0], property[1]]
+                typeof attribute === 'string'
+                    ? [attribute, '', '']
+                    : ['', attribute[0], attribute[1]]
 
             const baseSystemPrompt: string = getSystemPrompt(
                 biasType,
@@ -127,7 +127,7 @@ class GeneratorBaseService {
                 attr2
             )
 
-            let remaining = testsPerProperty
+            let remaining = testsPerAttribute
             while (remaining > 0) {
                 const batchSize = Math.min(BATCH_SIZE, remaining)
 
