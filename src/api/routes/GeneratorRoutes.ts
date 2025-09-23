@@ -73,7 +73,7 @@ const generatorController: GeneratorController = new GeneratorController()
  *         generator_model:
  *           type: string
  *           description: The model to use for generating test cases.
- *           enum: ["gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.5-flash-preview-04-17"]
+ *           enum: ["gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.5-flash"]
  *           example: "gemini-1.5-flash"
  *         generation_method:
  *           type: string
