@@ -78,7 +78,7 @@ const generatorController: GeneratorController = new GeneratorController()
  *         generation_method:
  *           type: string
  *           description: The method to use for generating test cases.
- *           enum: ["single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal", "sentence_completion", "score", "yes_no_question", "multiple_choice", "prioritization"]
+ *           enum: ["single_attribute", "dual_attributes", "ranked_list", "hypothetical_scenario", "proper_nouns", "metal", "sentence_completion", "score", "yes_no_question", "multiple_choice", "prioritisation"]
  *           default: "single_attribute"
  *           example: "single_attribute"
  *         bias_type:
@@ -95,18 +95,18 @@ const generatorController: GeneratorController = new GeneratorController()
  *           maximum: 50
  *           default: 5
  *           example: 5
- *         properties_number:
+ *         attributes_number:
  *           type: integer
  *           format: int32
- *           description: The number of properties to use in generation. Cannot be provided if tests_number is specified.
+ *           description: The number of attributes to use in generation. Cannot be provided if tests_number is specified.
  *           minimum: 1
  *           maximum: 10
  *           default: 5
  *           example: 3
- *         tests_per_property:
+ *         tests_per_attribute:
  *           type: integer
  *           format: int32
- *           description: The number of tests to generate per property. Cannot be provided if tests_number is specified.
+ *           description: The number of tests to generate per attribute. Cannot be provided if tests_number is specified.
  *           minimum: 1
  *           maximum: 10
  *           default: 1

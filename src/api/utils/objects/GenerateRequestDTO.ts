@@ -3,8 +3,8 @@ export class GenerateRequestDTO {
     generationMethod: string
     biasType: string
     testsNumber: number
-    propertiesNumber: number
-    testsPerProperty: number
+    attributesNumber: number
+    testsPerAttribute: number
     explanation: boolean
     invertPrompts: boolean
     generationFeedback: boolean
@@ -19,12 +19,12 @@ export class GenerateRequestDTO {
         this.generationMethod = data.generation_method || 'single_attribute'
         this.biasType = data.bias_type || 'gender'
         this.testsNumber = data.tests_number || 5
-        this.propertiesNumber = data.tests_number
+        this.attributesNumber = data.tests_number
             ? undefined
-            : data.properties_number || 5
-        this.testsPerProperty = data.tests_number
+            : data.attributes_number || 5
+        this.testsPerAttribute = data.tests_number
             ? undefined
-            : data.tests_per_property || 1
+            : data.tests_per_attribute || 1
         this.explanation = data.explanation || false
         this.invertPrompts = data.invert_prompts || false
         this.generationFeedback = data.generation_feedback || false

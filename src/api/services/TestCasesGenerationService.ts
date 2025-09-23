@@ -1,7 +1,7 @@
 import { Ajv, ValidateFunction } from 'ajv'
 import container from '../config/container'
 import { generatorResponseValidation } from '../utils/validation/generatorResponseValidation'
-import { propertiesSelectionValidation } from '../utils/validation/propertiesSelectionValidation'
+import { attributesSelectionValidation } from '../utils/validation/attributesSelectionValidation'
 import { getGeneratorModels } from '../utils/modelUtils'
 import { debugLog } from '../utils/logUtils'
 import OpenAIGPTModelService from './OpenAIModelService'
@@ -67,11 +67,11 @@ class TestCasesGenerationService {
         throw new Error(generationError.message)
     }
 
-    async selectProperties(
+    async selectAttributes(
         model: string,
         userPrompt: string,
         systemPrompt: string,
-        propertiesNumber: number,
+        attributesNumber: number,
         isPairSelection: boolean
     ): Promise<any[]> {
         const modelService = this.getModelService(model)
@@ -93,16 +93,16 @@ class TestCasesGenerationService {
 
                 this.validateSelection(
                     jsonContent,
-                    propertiesNumber,
+                    attributesNumber,
                     isPairSelection
                 )
 
                 return jsonContent
             } catch (error: any) {
                 debugLog(
-                    `selectProperties attempt ${attempts + 1} failed. Error: ${
-                        error.message
-                    }`,
+                    `Attributes selection attempt ${
+                        attempts + 1
+                    } failed. Error: ${error.message}`,
                     'error'
                 )
                 lastError = error
@@ -114,7 +114,7 @@ class TestCasesGenerationService {
                 }
             }
         }
-        debugLog('Error selecting properties', 'error')
+        debugLog('Error selecting attributes', 'error')
         throw new Error(lastError.message)
     }
 
@@ -192,7 +192,7 @@ class TestCasesGenerationService {
         expectedLength: number,
         itemsAreTupleOfStrings: boolean
     ): void {
-        const schema = propertiesSelectionValidation(
+        const schema = attributesSelectionValidation(
             expectedLength,
             itemsAreTupleOfStrings
         )
@@ -201,7 +201,7 @@ class TestCasesGenerationService {
         const isValid = validate(jsonContent)
         if (!isValid) {
             throw new Error(
-                `[MUSE] Invalid properties selection: ${JSON.stringify(
+                `[MUSE] Invalid attributes selection: ${JSON.stringify(
                     validate.errors
                 )}`
             )

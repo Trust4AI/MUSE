@@ -106,19 +106,19 @@ const generate = [
             'tests_number is optional but must be an integer between 1 and 50 if provided'
         )
         .toInt(),
-    check('properties_number')
+    check('attributes_number')
         .optional()
         .isInt({ min: 1, max: 10 })
         .withMessage(
-            'properties_number must be a integer between 1 and 10 if provided'
+            'attributes_number must be a integer between 1 and 10 if provided'
         )
         .toInt(),
 
-    check('tests_per_property')
+    check('tests_per_attribute')
         .optional()
         .isInt({ min: 1, max: 10 })
         .withMessage(
-            'tests_per_property must be an integer between 1 and 10 if provided'
+            'tests_per_attribute must be an integer between 1 and 10 if provided'
         )
         .toInt(),
     check('explanation')
@@ -160,16 +160,16 @@ const generate = [
             attribute_1 = '',
             attribute_2 = '',
             tests_number,
-            properties_number,
-            tests_per_property,
+            attributes_number,
+            tests_per_attribute,
         }: {
             generation_method: string
             attribute: string
             attribute_1: string
             attribute_2: string
             tests_number: number
-            properties_number: number
-            tests_per_property: number
+            attributes_number: number
+            tests_per_attribute: number
         } = req.body
 
         if (
@@ -197,24 +197,24 @@ const generate = [
             }
         }
 
-        const usingProperties =
-            properties_number !== undefined || tests_per_property !== undefined
-        const usingAttributes =
+        const randomAttributes: boolean =
+            attributes_number !== undefined || tests_per_attribute !== undefined
+        const provideAttributes =
             attribute || attribute_1 || attribute_2 || tests_number
 
         if (
-            usingProperties &&
-            (properties_number === undefined ||
-                tests_per_property === undefined)
+            randomAttributes &&
+            (attributes_number === undefined ||
+                tests_per_attribute === undefined)
         ) {
             throw new Error(
-                '"properties_number" and "tests_per_property" must be used together.'
+                '"attributes_number" and "tests_per_attribute" must be used together.'
             )
         }
 
-        if (usingProperties && usingAttributes) {
+        if (randomAttributes && provideAttributes) {
             throw new Error(
-                '"properties_number" and "tests_per_property" cannot be used with "attribute", "attribute_1", "attribute_2", or "tests_number".'
+                '"attributes_number" and "tests_per_attribute" cannot be used with "attribute", "attribute_1", "attribute_2", or "tests_number".'
             )
         }
         return true
